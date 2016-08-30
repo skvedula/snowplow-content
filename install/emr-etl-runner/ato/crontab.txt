@@ -1,3 +1,0 @@
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/ec2-user/bin:/tmp/cronic
-MAILTO=ndirtagmgmt@nordstrom.com
-0 2,14 * * * /home/ec2-user/snowplow/snowplow-runner-and-loader.sh > /tmp/crontab.deployed.out
