@@ -1,0 +1,80 @@
+aws:
+  access_key_id: iam
+  secret_access_key: iam
+  s3:
+    region: us-west-2
+    buckets:
+      assets: s3://snowplow-hosted-assets
+      jsonpath_assets: s3://cxar-ato-bigdata/snowplow-dev/jsonpaths
+      log: s3n://cxar-ato-bigdata/snowplow-dev/etl/logs
+      raw:
+        in: ["s3n://cxar-ato-bigdata/snowplow-dev/raw/"]
+        processing: s3://cxar-ato-bigdata/snowplow-dev/etl/processing
+        archive: s3://cxar-ato-bigdata/snowplow-dev/archive/raw
+      enriched:
+        good: s3://cxar-ato-bigdata/snowplow-dev/enriched/good
+        bad: s3://cxar-ato-bigdata/snowplow-dev/enriched/bad
+        errors: 
+        archive: s3://cxar-ato-bigdata/snowplow-dev/enriched/archive
+      shredded:
+        good: s3://cxar-ato-bigdata/snowplow-dev/shredded/good
+        bad: s3://cxar-ato-bigdata/snowplow-dev/shredded/bad
+        errors: 
+        archive: s3://cxar-ato-bigdata/snowplow-dev/shredded/archive
+  emr:
+    ami_version: 4.5.0
+    region: us-west-2
+    jobflow_role: arn:aws:iam::832038866117:instance-profile/46111/CXAR/ATO/cxar-ato-sp-emr-role-CXARATOEMRInstanceProfile-1E0ZF4LXDLJ2P
+    service_role: arn:aws:iam::832038866117:role/46111/CXAR/ATO/cxar-ato-sp-emr-role-CXARATOEMRServiceRole-1HGND8ETEWK6
+    placement:
+    ec2_subnet_id: subnet-a6374fc3
+    ec2_key_name: 46111-CXAR-ATO-sp-dev-batchprocessor
+    bootstrap: []
+    software:
+      hbase:
+      lingual:
+    jobflow:
+      master_instance_type: m1.large
+      core_instance_count: 1
+      core_instance_type: m3.xlarge
+      task_instance_count: 0
+      task_instance_type: c4.2xlarge
+      task_instance_bid:
+      master_security_group: ['sg-a91935cd']
+      slave_security_group: ['sg-d52bd5b1']
+    bootstrap_failure_tries: 3
+    additional_info:
+collectors:
+  format: thrift
+enrich:
+  job_name: 46111-CXAR-ATO-sp-dev-enrich
+  versions:
+    hadoop_enrich: 1.6.0
+    hadoop_shred: 0.8.0
+    hadoop_elasticsearch: 0.1.0
+  continue_on_unexpected_error: false
+  output_compression: NONE
+storage:
+  download:
+    folder:
+  targets:
+    - name: "46111-CXAR-ATO-sp-dev-redshift"
+      type: redshift
+      host: cxar-ato-clickstream.c9gybgr1jgvx.us-west-2.redshift.amazonaws.com
+      database: snowplowdev
+      port: 5439
+      ssl_mode: disable
+      table: atomic.events
+      username: <%= ENV['REDSHIFT_STORAGELOADER_USER'] %>
+      password: <%= ENV['REDSHIFT_STORAGELOADER_PW'] %>
+      es_nodes_wan_only:
+      maxerror: 1
+      comprows: 200000
+monitoring:
+  tags: { Owner: 'ndrcttps@nordstrom.com', CostCenter: '46111' } # Name-value pairs describing this job
+  logging:
+    level: DEBUG # You can optionally switch to INFO for production
+  snowplow:
+    method: get
+    app_id: 'sp.batch' # e.g. snowplow
+    collector: 'snowplow-dev.aws.nordstromdata.com' # e.g. d3rkrsqld9gmqf.cloudfront.net

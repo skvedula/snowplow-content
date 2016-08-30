@@ -1,0 +1,50 @@
+{
+	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+	"description": "Schema for adding item to bag attributes",
+	"self": {
+		"vendor": "com.nordstrom",
+		"name": "add_item_attrs",
+		"format": "jsonschema",
+		"version": "0-0-4"
+	},
+	"type": "object",
+	"properties": {
+		"document_url": {
+			"type": "string"
+		},
+		"style_number": {
+			"type": ["string", "null"]
+		},
+		"style_id": {
+			"type": ["number", "null"]
+		},
+		"size": {
+			"type": ["string", "null"]
+		},
+		"width": {
+			"type": ["string", "null"]
+		},
+		"color": {
+			"type": ["string", "null"]
+		},
+		"percentage_off": {
+			"type": ["string", "null"]
+		},
+		"sale_type": {
+			"type": ["string", "null"]
+		},
+		"authenticated_state": {
+			"type": ["string", "null"]
+		},
+		"bopus": {
+			"type": ["string", "null"]
+		},
+		"store_number": {
+			"type": ["string", "null"]
+		},
+		"mmp": {
+			"type": ["string", "null"]
+		}
+	},
+	"additionalProperties": false
+}

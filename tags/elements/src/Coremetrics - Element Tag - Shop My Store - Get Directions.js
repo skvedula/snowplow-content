@@ -1,0 +1,1 @@
+window.clickstream.fire('element', ['cm','sp'], 'SHOP MY STORE - GET DIRECTIONS:[[Shop My Store ID]]', 'PRODUCT PAGE');

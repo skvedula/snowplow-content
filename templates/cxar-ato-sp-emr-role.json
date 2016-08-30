@@ -1,0 +1,273 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "EMR Service and EMR for EC2 IAM roles",
+  "Resources": {
+    "CXARATOEMRServiceRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "elasticmapreduce.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Path": "/46111/CXAR/ATO/"
+      }
+    },
+    "CXARATOEMRServiceRolePolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "ec2:*Image*",
+                "ec2:*NetworkInterface*",
+                "ec2:CreateSecurityGroup",
+                "ec2:*Tags",
+                "ec2:Describe*"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "ec2:AuthorizeSecurityGroup*",
+                "ec2:RevokeSecurityGroup*",
+                "ec2:DeleteSecurityGroup"
+              ],
+              "Condition": {
+                "ForAllValues:StringLike": {
+                  "ec2:Region": "us-west-2"
+                }
+              },
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "ec2:RunInstances",
+                "ec2:StartInstances"
+              ],
+              "Condition": {
+                "ForAllValues:StringLike": {
+                  "ec2:Subnet": [
+                    "arn:aws:ec2:us-west-2:832038866117:subnet/subnet-4966232c",
+                    "arn:aws:ec2:us-west-2:832038866117:subnet/subnet-a6374fc3",
+                    "arn:aws:ec2:us-west-2:832038866117:subnet/subnet-aaac37dd",
+                    "arn:aws:ec2:us-west-2:832038866117:subnet/subnet-afb615ca",
+                    "arn:aws:ec2:us-west-2:832038866117:subnet/subnet-e4ec7293",
+                    "arn:aws:ec2:us-west-2:832038866117:subnet/subnet-ecba7b9b"
+                  ]
+                }
+              },
+              "Resource": "arn:aws:ec2:us-west-2:832038866117:network-interface/*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "ec2:RunInstances"
+              ],
+              "Resource": [
+                "arn:aws:ec2:us-west-2:832038866117:instance/*",
+                "arn:aws:ec2:us-west-2:832038866117:volume/*",
+                "arn:aws:ec2:us-west-2:832038866117:subnet/*",
+                "arn:aws:ec2:us-west-2:832038866117:key-pair/*",
+                "arn:aws:ec2:us-west-2:832038866117:security-group/*",
+                "arn:aws:ec2:us-west-2::image/ami-*",
+                "arn:aws:ec2:us-west-2:832038866117:placement-group/*",
+                "arn:aws:ec2:us-west-2::snapshot/*"
+              ]
+            },
+            {
+              "Effect": "Deny",
+              "Action": [
+                "ec2:StopInstances",
+                "ec2:TerminateInstances",
+                "ec2:RebootInstances"
+              ],
+              "Condition": {
+                "ForAllValues:StringNotEquals": {
+                  "ec2:ResourceTag/CostCenter": "46111"
+                }
+              },
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "iam:GetRole",
+                "iam:GetRolePolicy",
+                "iam:ListInstanceProfiles",
+                "iam:PassRole"
+              ],
+              "Resource": [
+                "arn:aws:iam::832038866117:role/46111/CXAR/ATO/*",
+                "arn:aws:iam::832038866117:instance-profile/46111/CXAR/ATO/*"
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:GetBucket*",
+                "s3:GetObject*",
+                "s3:ListBucket*"
+              ],
+              "Resource": [
+                "arn:aws:s3:::cxar-ato-team",
+                "arn:aws:s3:::cxar-ato-team/*"
+              ]
+            }
+          ]
+        },
+        "PolicyName": "CXARATOEMRServiceRolePolicy",
+        "Roles": [
+          {
+            "Ref": "CXARATOEMRServiceRole"
+          }
+        ]
+      }
+    },
+    "CXARATOEMREC2Role": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "ec2.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Path": "/46111/CXAR/ATO/"
+      }
+    },
+    "CXARATOEMREC2RolePolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "cloudwatch:*",
+                "dynamodb:Describe*",
+                "dynamodb:List*",
+                "ec2:Describe*",
+                "elasticmapreduce:Describe*",
+                "elasticmapreduce:ListBootstrapActions",
+                "elasticmapreduce:ListClusters",
+                "elasticmapreduce:ListInstanceGroups",
+                "elasticmapreduce:ListInstances",
+                "elasticmapreduce:ListSteps",
+                "rds:Describe*",
+                "sns:ConfirmSubscription",
+                "sns:Get*",
+                "sns:List*",
+                "sns:Subscribe",
+                "sns:Unsubscribe"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:*"
+              ],
+              "Resource": "arn:aws:dynamodb:us-west-2:832038866117:table/46111-CXAR-ATO-*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "kinesis:CreateStream",
+                "kinesis:DeleteStream",
+                "kinesis:DescribeStream",
+                "kinesis:GetRecords",
+                "kinesis:GetShardIterator",
+                "kinesis:MergeShards",
+                "kinesis:PutRecord",
+                "kinesis:SplitShard"
+              ],
+              "Resource": "arn:aws:kinesis:us-west-2:832038866117:stream/46111-CXAR-ATO-*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:DeleteBucketPolicy",
+                "s3:ListBucket*",
+                "s3:GetBucket*",
+                "s3:GetLifecycleConfiguration",
+                "s3:PutBucketCORS",
+                "s3:PutBucketLogging",
+                "s3:PutBucketNotification",
+                "s3:PutBucketPolicy",
+                "s3:PutBucketTagging",
+                "s3:PutBucketVersioning",
+                "s3:PutLifecycleConfiguration",
+                "s3:DeleteObject*",
+                "s3:GetObject*",
+                "s3:PutObject",
+                "s3:RestoreObject",
+                "s3:*MultipartUpload*"
+              ],
+              "Resource": [
+                "arn:aws:s3:::cxar-ato-team",
+                "arn:aws:s3:::cxar-ato-team/*",
+                "arn:aws:s3:::snowplow-hosted-assets",
+                "arn:aws:s3:::snowplow-hosted-assets/*",
+                "arn:aws:s3:::elasticmapreduce",
+                "arn:aws:s3:::elasticmapreduce/*"
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "sns:*Permission",
+                "sns:Create*",
+                "sns:Delete*",
+                "sns:Publish",
+                "sns:Set*",
+                "sns:ReceiveMessage"
+              ],
+              "Resource": "arn:aws:sns:us-west-2:832038866117:46111-CXAR-ATO-*"
+            }
+          ]
+        },
+        "PolicyName": "CXARATOEMREC2RolePolicy",
+        "Roles": [
+          {
+            "Ref": "CXARATOEMREC2Role"
+          }
+        ]
+      }
+    },
+    "CXARATOEMRInstanceProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Path": "/46111/CXAR/ATO/",
+        "Roles": [
+          {
+            "Ref": "CXARATOEMREC2Role"
+          }
+        ]
+      }
+    }
+  }
+}

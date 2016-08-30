@@ -1,0 +1,165 @@
+{
+	"AWSTemplateFormatVersion" : "2010-09-09",
+
+	"Description" : "BigData ATO Clickstream Analytics back end with EC2, Kinesis, Dynamo, S3, EMR, RS",
+
+	"Mappings": {
+		"CommonMap": {
+			"Settings": {
+				"CostCenter": "46111",
+				"NameOfNewAmi": "CXAR-ATO",
+				"SubnetId": "subnet-afb615ca",
+				"VpcId": "vpc-dc9c4bb9",
+				"OwnerEmail": "ndrcttps@nordstrom.com"
+			}
+		}
+	},
+
+	"Parameters" : {
+		"dbpw" : {
+			"Type": "String",
+			"MinLength": "12",
+			"MaxLength": "20",
+			"NoEcho": "true"
+		}
+	},
+
+	"Resources" : {
+
+		"cxarAtoSnowplowMasterDev" : {
+			"Type" : "AWS::EC2::Instance",
+			"Description" : "Internal Private",
+			"Properties" : {
+				"ImageId" : "ami-63b25203",
+				"InstanceType" : "t2.micro",
+				"SecurityGroupIds" : [ "sg-268bd342" ],
+				"SubnetId" : { "Fn::FindInMap": ["CommonMap", "Settings", "SubnetId"] },
+				"Tags": [{
+					"Key": "Name",
+					"Value": { "Fn::FindInMap": ["CommonMap", "Settings", "NameOfNewAmi"] }
+				}, {
+					"Key": "Owner",
+					"Value": { "Fn::FindInMap": ["CommonMap", "Settings", "OwnerEmail"] }
+				}, {
+					"Key": "CostCenter",
+					"Value": { "Fn::FindInMap": ["CommonMap", "Settings", "CostCenter"] }
+				}]
+			}
+		},
+
+		"cxarAtoClickstreamDev" : {
+			"Type": "AWS::Redshift::Cluster",
+			"Description" : "Internal Private",
+			"Properties": {
+				"AllowVersionUpgrade" : true,
+				"AutomatedSnapshotRetentionPeriod" : 30,
+				"AvailabilityZone" : "us-west-2b",
+				"ClusterSubnetGroupName" : "vpcbigdata01-internalgeneralsubnetredshiftsubnetgroupnestedstack-uvjf8sl4xeh4-internalgeneralsubnetredshiftsubnetgroup-1bi1j9r1shm9w",
+				"ClusterType" : "single-node",
+				"DBName" : "snowplow",
+				"MasterUsername" : "snowplowdata",
+				"MasterUserPassword" : { "Ref" : "dbpw" },
+				"NodeType" : "dc1.large",
+				"PubliclyAccessible" : false,
+				"VpcSecurityGroupIds": ["sg-268bd342"]
+			}
+		},
+
+		"atoSnowplowRaw" : {
+			"Type" : "AWS::S3::Bucket",
+			"Description" : "Internal Private",
+			"Properties" : {
+				"AccessControl" : "PublicRead",
+				"BucketName" : "ato-bigdata-snowplow-raw",
+				"Tags": [{
+					"Key": "Name",
+					"Value": { "Fn::FindInMap": ["CommonMap", "Settings", "NameOfNewAmi"] }
+				}, {
+					"Key": "Owner",
+					"Value": { "Fn::FindInMap": ["CommonMap", "Settings", "OwnerEmail"] }
+				}, {
+					"Key": "CostCenter",
+					"Value": { "Fn::FindInMap": ["CommonMap", "Settings", "CostCenter"] }
+				}]
+			}
+		},
+
+		"atoSnowplowCooked" : {
+			"Type" : "AWS::S3::Bucket",
+			"Description" : "Internal Private",
+			"Properties" : {
+				"AccessControl" : "PublicRead",
+				"BucketName" : "ato-bigdata-snowplow-cooked",
+				"Tags": [{
+					"Key": "Name",
+					"Value": { "Fn::FindInMap": ["CommonMap", "Settings", "NameOfNewAmi"] }
+				}, {
+					"Key": "Owner",
+					"Value": { "Fn::FindInMap": ["CommonMap", "Settings", "OwnerEmail"] }
+				}, {
+					"Key": "CostCenter",
+					"Value": { "Fn::FindInMap": ["CommonMap", "Settings", "CostCenter"] }
+				}]
+			}
+		},
+
+		"atoSnowplowSchemas" : {
+			"Type" : "AWS::S3::Bucket",
+			"Description" : "External Public",
+			"Properties" : {
+				"AccessControl" : "PublicRead",
+				"BucketName" : "ato-bigdata-snowplow-schemas",
+				"Tags": [{
+					"Key": "Name",
+					"Value": { "Fn::FindInMap": ["CommonMap", "Settings", "NameOfNewAmi"] }
+				}, {
+					"Key": "Owner",
+					"Value": { "Fn::FindInMap": ["CommonMap", "Settings", "OwnerEmail"] }
+				}, {
+					"Key": "CostCenter",
+					"Value": { "Fn::FindInMap": ["CommonMap", "Settings", "CostCenter"] }
+				}]
+			}
+		},
+
+		"atoSnowplowLambda" : {
+			"Type" : "AWS::S3::Bucket",
+			"Description" : "Internal Private",
+			"Properties" : {
+				"AccessControl" : "PublicRead",
+				"BucketName" : "ato-bigdata-snowplow-lambda",
+				"Tags": [{
+					"Key": "Name",
+					"Value": { "Fn::FindInMap": ["CommonMap", "Settings", "NameOfNewAmi"] }
+				}, {
+					"Key": "Owner",
+					"Value": { "Fn::FindInMap": ["CommonMap", "Settings", "OwnerEmail"] }
+				}, {
+					"Key": "CostCenter",
+					"Value": { "Fn::FindInMap": ["CommonMap", "Settings", "CostCenter"] }
+				}]
+			}
+		}
+
+	},
+
+	"Outputs" : {
+		"MasterDevInstanceId" : {
+			"Description" : "InstanceId of the newly created EC2 instance",
+			"Value" : { "Ref" : "cxarAtoSnowplowMasterDev" }
+		},
+		"MasterDevAZ" : {
+			"Description" : "Availability Zone of the newly created EC2 instance",
+			"Value" : { "Fn::GetAtt" : [ "cxarAtoSnowplowMasterDev", "AvailabilityZone" ] }
+		},
+		"MasterDevPublicDNS" : {
+			"Description" : "Public DNSName of the newly created EC2 instance",
+			"Value" : { "Fn::GetAtt" : [ "cxarAtoSnowplowMasterDev", "PublicDnsName" ] }
+		},
+		"MasterDevPublicIP" : {
+			"Description" : "Public IP address of the newly created EC2 instance",
+			"Value" : { "Fn::GetAtt" : [ "cxarAtoSnowplowMasterDev", "PublicIp" ] }
+		}
+	}
+}
+

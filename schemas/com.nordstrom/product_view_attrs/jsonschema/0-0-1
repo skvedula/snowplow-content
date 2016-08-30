@@ -1,0 +1,54 @@
+{
+	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+	"description": "Schema for custom page view attributes",
+	"self": {
+		"vendor": "com.nordstrom",
+		"name": "product_view_attrs",
+		"format": "jsonschema",
+		"version": "0-0-1"
+	},
+
+	"type": "object",
+
+	"properties": {
+
+		"product_id": {
+			"type": ["string", "null"]
+		},
+
+		"product_category": {
+			"type": ["string", "null"]
+		},
+
+		"style_number": {
+			"type": ["string", "null"]
+		},
+
+		"product_name": {
+			"type": ["string", "null"]
+		},
+
+		"on_sale": {
+			"type": ["string", "null"]
+		},
+
+		"brand_name": {
+			"type": ["string", "null"]
+		},
+
+		"fit_value": {
+			"type": ["string", "null"]
+		},
+
+		"rack": {
+			"type": ["string", "null"]
+		},
+
+		"available": {
+			"type": ["string", "null"]
+		}
+
+	},
+
+	"additionalProperties": false
+}

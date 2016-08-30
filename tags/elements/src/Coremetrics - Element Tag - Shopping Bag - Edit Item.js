@@ -1,0 +1,1 @@
+window.clickstream.fire('element', ['cm','sp'], 'Edit Item','Shopping Bag');

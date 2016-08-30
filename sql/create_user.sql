@@ -1,0 +1,1 @@
+create user name with password 'password' in group sp_user;

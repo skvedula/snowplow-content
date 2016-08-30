@@ -1,0 +1,11 @@
+GRANT USAGE ON SCHEMA atomic TO group sp_user;
+grant select on table atomic.events to group sp_user;
+grant select on table atomic.com_nordstrom_actions_product_0 to group sp_user;
+grant select on table atomic.com_nordstrom_add_item_attrs_0 to group sp_user;
+grant select on table atomic.com_nordstrom_errors_0 to group sp_user;
+grant select on table atomic.com_nordstrom_order_item_attrs_0 to group sp_user;
+grant select on table atomic.com_nordstrom_pageview_attrs_0 to group sp_user;
+grant select on table atomic.com_nordstrom_product_view_attrs_0 to group sp_user;
+grant select on table atomic.com_nordstrom_remove_item_attrs_0 to group sp_user;
+grant select on table atomic.com_nordstrom_search_results_actions_0 to group sp_user;
+GRANT ALL ON SCHEMA scratchpad TO group sp_user;

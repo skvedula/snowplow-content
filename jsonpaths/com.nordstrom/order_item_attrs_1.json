@@ -1,0 +1,37 @@
+{
+  "jsonpaths": [
+  
+    "$.schema.vendor"
+    , "$.schema.name"
+    , "$.schema.format"
+    , "$.schema.version"
+
+    , "$.hierarchy.rootId"
+    , "$.hierarchy.rootTstamp"
+    , "$.hierarchy.refRoot"
+    , "$.hierarchy.refTree"
+    , "$.hierarchy.refParent"
+
+    , "$.data.outfit_id"
+    , "$.data.gift_services"
+    , "$.data.saved_for_later"
+    , "$.data.store_pickup"
+    , "$.data.product_rating"
+    , "$.data.number_reviews"
+    , "$.data.recommendation_percent"
+    , "$.data.on_sale"
+    , "$.data.brand_name"
+    , "$.data.filter_used"
+    , "$.data.search_term"
+    , "$.data.sort_used"
+    , "$.data.base_copy_split"
+    , "$.data.true_fit"
+    , "$.data.same_day_delivery"
+    , "$.data.sku"
+    , "$.data.size"
+    , "$.data.width"
+    , "$.data.color"
+    , "$.data.is_recognized"
+    , "$.data.tag_id"
+    ]
+}

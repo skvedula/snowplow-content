@@ -1,0 +1,1 @@
+snowplow-storage-loader uses the same config file from emr-etl-runner

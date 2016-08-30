@@ -1,0 +1,129 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Nordstrom AWS CloudFormation Template to create application IAM Roles",
+  "Parameters": {},
+  "Resources": {  
+    "CXARATODataPipeline": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            { 
+              "Sid": "",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ec2.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Path": "/46111/CXAR/ATO/",
+        "Policies": [
+          {
+            "PolicyName": "CXARATODataPipeline",
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:DeleteObject",
+                    "s3:GetObject",
+                    "s3:ListBucket",
+                    "s3:PutObject",
+                    "s3:PutObjectAcl"
+                  ],
+                  "Resource": [
+                    "arn:aws:s3:::ato-clickstream-schemas",
+                    "arn:aws:s3:::ato-clickstream-schemas/*",
+                    "arn:aws:s3:::cxar-ato-team",
+                    "arn:aws:s3:::cxar-ato-team/*",
+                    "arn:aws:s3:::elasticmapreduce",
+                    "arn:aws:s3:::elasticmapreduce/*"
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "iam:GetInstanceProfile",
+                    "iam:GetRole",
+                    "iam:GetRolePolicy",
+                    "iam:ListInstanceProfiles",
+                    "iam:ListInstanceProfilesForRole",
+                    "iam:ListRolePolicies",
+                    "iam:PassRole"
+                  ],
+                  "Resource": [
+                    "arn:aws:iam::832038866117:role/46111/CXAR/ATO/*",
+                    "arn:aws:iam::832038866117:instance-profile/46111/CXAR/ATO/*"
+                  ]
+                },
+                {
+                  "Effect": "Deny",
+                  "Action": [
+                    "ec2:StopInstances",
+                    "ec2:TerminateInstances"
+                  ],
+                  "Condition": {
+                    "ForAllValues:StringNotEquals": {
+                      "ec2:ResourceTag/CostCenter": "46111"
+                    }
+                  },
+                  "Resource": "*"
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:PutItem",
+                    "dynamodb:UpdateItem",
+                    "dynamodb:GetItem",
+                    "dynamodb:DescribeTable",
+                    "dynamodb:CreateTable",
+                    "dynamodb:UpdateTable",
+                    "dynamodb:Scan"
+                    ],
+                    "Resource": [
+                      "arn:aws:dynamodb:us-west-2:832038866117:table/46111-CXAR-ATO-*"
+                    ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "kinesis:DescribeStream",
+                    "kinesis:GetRecords",
+                    "kinesis:GetShardIterator",
+                    "kinesis:ListStreams",
+                    "kinesis:PutRecord",
+                    "kinesis:PutRecords"
+                  ],
+                  "Resource": [
+                    "arn:aws:kinesis:us-west-2:832038866117:stream/46111-CXAR-ATO-*"
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "cloudwatch:*",
+                    "logs:*"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "CXARATODataPipelineInstanceRole": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Path": "/46111/CXAR/ATO/",
+        "Roles": [
+          {
+            "Ref": "CXARATODataPipeline"
+          }
+        ]
+      }
+    }
+  }
+}

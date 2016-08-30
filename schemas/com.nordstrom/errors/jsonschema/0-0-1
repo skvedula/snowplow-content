@@ -1,0 +1,23 @@
+{
+	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+	"description": "Schema for site errors",
+	"self": {
+		"vendor": "com.nordstrom",
+		"name": "errors",
+		"format": "jsonschema",
+		"version": "0-0-1"
+	},
+	"type": "object",
+	"properties": {
+		"error": {
+			"type": ["string"]
+		},
+		"tag_id": {
+			"type": ["string"]
+		},
+		"page_url": {
+			"type": ["string"]
+		}
+	},
+	"additionalProperties": false
+}

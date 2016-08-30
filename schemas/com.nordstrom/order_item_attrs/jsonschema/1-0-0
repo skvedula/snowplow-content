@@ -1,0 +1,101 @@
+{
+	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+	"description": "Schema for custom order item attributes",
+	"self": {
+		"vendor": "com.nordstrom",
+		"name": "order_item_attrs",
+		"format": "jsonschema",
+		"version": "1-0-0"
+	},
+
+	"type": "object",
+
+	"properties": {
+
+		"outfit_id": {
+			"type": ["string", "null"]
+		},
+
+		"gift_services": {
+			"type": ["string", "null"]
+		},
+
+		"saved_for_later": {
+			"type": ["string", "null"]
+		},
+
+		"store_pickup": {
+			"type": ["string", "null"]
+		},
+
+		"product_rating": {
+			"type": ["number", "null"]
+		},
+
+		"number_reviews": {
+			"type": ["integer", "null"]
+		},
+
+		"recommendation_percent": {
+			"type": ["number", "null"]
+		},
+
+		"on_sale": {
+			"type": ["string", "null"]
+		},
+
+		"brand_name": {
+			"type": ["string", "null"]
+		},
+
+		"filter_used": {
+			"type": ["string", "null"]
+		},
+
+		"search_term": {
+			"type": ["string", "null"]
+		},
+
+		"sort_used": {
+			"type": ["string", "null"]
+		},
+
+		"base_copy_split": {
+			"type": ["string", "null"]
+		},
+
+		"true_fit": {
+			"type": ["string", "null"]
+		},
+
+		"same_day_delivery": {
+			"type": ["string", "null"]
+		},
+
+		"sku": {
+			"type": ["string", "null"]
+		},
+
+		"size": {
+			"type": ["string", "null"]
+		},
+
+		"width": {
+			"type": ["string", "null"]
+		},
+
+		"color": {
+			"type": ["string", "null"]
+		},
+
+		"is_recognized": {
+			"type": ["string", "null"]
+		},
+		"tag_id": {
+			"type": ["string", "null"]
+		}
+
+	},
+
+	"additionalProperties": false
+}

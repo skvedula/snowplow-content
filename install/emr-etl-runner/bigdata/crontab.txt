@@ -1,0 +1,2 @@
+MAILTO=ndirtagmgmt@nordstrom.com
+0 2,14 * * * /home/ec2-user/snowplow/snowplow-runner-and-loader.sh > /tmp/crontab.deployed.out

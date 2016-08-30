@@ -1,0 +1,27 @@
+{
+  "jsonpaths": [
+  
+    "$.schema.vendor"
+    , "$.schema.name"
+    , "$.schema.format"
+    , "$.schema.version"
+
+    , "$.hierarchy.rootId"
+    , "$.hierarchy.rootTstamp"
+    , "$.hierarchy.refRoot"
+    , "$.hierarchy.refTree"
+    , "$.hierarchy.refParent"
+
+    , "$.data.page_url"
+    , "$.data.product_id"
+    , "$.data.product_category"
+    , "$.data.style_number"
+    , "$.data.product_name"
+    , "$.data.on_sale"
+    , "$.data.brand_name"
+    , "$.data.fit_value"
+    , "$.data.rack"
+    , "$.data.available"
+    , "$.data.tag_id"
+    ]
+}

@@ -1,0 +1,1 @@
+Compiled apps are stored in S3 under /snowplow-install and can be copied into thier respective folders

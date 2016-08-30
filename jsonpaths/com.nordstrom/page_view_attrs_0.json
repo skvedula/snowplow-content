@@ -1,0 +1,26 @@
+{
+  "jsonpaths": [
+  
+    "$.schema.vendor"
+    , "$.schema.name"
+    , "$.schema.format"
+    , "$.schema.version"
+
+    , "$.hierarchy.rootId"
+    , "$.hierarchy.rootTstamp"
+    , "$.hierarchy.refRoot"
+    , "$.hierarchy.refTree"
+    , "$.hierarchy.refParent"
+
+    , "$.data.page_url"
+    , "$.data.page_category"
+    , "$.data.page_template"
+    , "$.data.style_number"
+    , "$.data.is_recognized"
+    , "$.data.search_term"
+    , "$.data.search_results_count"
+    , "$.data.tag_id"
+    , "$.data.experiment.experimentId"
+    , "$.data.experiment.experimentData"
+    ]
+}

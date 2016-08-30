@@ -1,0 +1,175 @@
+
+{
+	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+	"description": "Schema for custom page view attributes",
+	"self": {
+		"vendor": "com.nordstrom.snowplow",
+		"name": "elements",
+		"format": "jsonschema",
+		"version": "0-0-1"
+	},
+
+	"type": "object",
+
+	"properties": {
+
+		"action": {
+			"type": ["string"]
+		}
+
+		, "category": {
+			"type": ["string"]
+		}
+
+		, "value": {
+			"type": ["float", "integer", "string", "null"]
+		}
+
+		, "label": {
+			"type": ["string", "null"]
+		}
+
+		, "page_category": {
+			"type": ["string", "null"]
+		}
+
+		, "wish_list": {
+			"type": ["string", "null"]
+		}
+
+		, "video_name": {
+			"type": ["string", "null"]
+		}
+
+		, "video_product_name": {
+			"type": ["string", "null"]
+		}
+
+		, "fit_style_name": {
+			"type": ["string", "null"]
+		}
+
+		, "sku": {
+			"type": ["string", "null"]
+		}
+
+		, "number_of_recs": {
+			"type": ["integer", "null"]
+		}
+
+		, "rec_strategy": {
+			"type": ["string", "null"]
+		}
+
+		, "filter_category": {
+			"type": ["string", "null"]
+		}
+
+		, "filter_value": {
+			"type": ["string", "null"]
+		}
+
+		, "video_state": {
+			"type": ["string", "null"]
+		}
+
+		, "video_timestamp": {
+			"type": ["string", "null"]
+		}
+
+		, "video_length": {
+			"type": ["string", "null"]
+		}
+
+		, "style_number": {
+			"type": ["string", "null"]
+		}
+
+		, "star_rating": {
+			"type": ["string", "null"]
+		}
+
+		, "reviews_size_select": {
+			"type": ["string", "null"]
+		}
+
+		, "reviews_age_select": {
+			"type": ["string", "null"]
+		}
+
+		, "reviews_sort_by": {
+			"type": ["string", "null"]
+		}
+
+		, "results_page": {
+			"type": ["integer", "null"]
+		}
+
+		, "brand_name": {
+			"type": ["string", "null"]
+		}
+
+		, "number_of_images": {
+			"type": ["integer", "null"]
+		}
+
+		, "number_of_videos": {
+			"type": ["integer", "null"]
+		}
+
+		, "note_value": {
+			"type": ["float", "null"]
+		}
+
+		, "note_expire_date": {
+			"type": ["date", "null"]
+		}
+
+		, "applied_notes_total": {
+			"type": ["float", "null"]
+		}
+
+		, "available_notes_total": {
+			"type": ["string", "null"]
+		}
+
+		, "gift_card_total": {
+			"type": ["float", "null"]
+		}
+
+		, "gift_card_value": {
+			"type": ["float", "null"]
+		}
+
+		, "page_id": {
+			"type": ["string", "null"]
+		}
+
+		, "search_term": {
+			"type": ["string", "null"]
+		}
+
+		, "number_of_reviews": {
+			"type": ["integer", "null"]
+		}
+
+		, "rms_sku": {
+			"type": ["string", "null"]
+		}
+
+		, "web_style_id": {
+			"type": ["string", "null"]
+		}
+
+		, "outfit_id": {
+			"type": ["string", "null"]
+		}
+
+		, "store_number": {
+			"type": ["string", "null"]
+		}
+
+	},
+
+	"additionalProperties": false
+}

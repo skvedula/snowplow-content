@@ -1,0 +1,30 @@
+{
+	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+	"description": "Schema for custom page view attributes",
+	"self": {
+		"vendor": "com.nordstrom",
+		"name": "page_view_attrs",
+		"format": "jsonschema",
+		"version": "0-0-2"
+	},
+
+	"type": "object",
+
+	"properties": {
+
+		"page_category": {
+			"type": "string"
+		},
+
+		"page_template": {
+			"type": "string"
+		},
+
+		"is_recognized": {
+			"type": "string"
+		}
+
+	},
+
+	"additionalProperties": false
+}

@@ -1,0 +1,1 @@
+create group sp_user;

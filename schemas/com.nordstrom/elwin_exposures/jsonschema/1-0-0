@@ -1,0 +1,36 @@
+{
+	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+	"description": "Schema for logging Elwin A/B/n/MVT test exposures",
+	"self": {
+		"vendor": "com.nordstrom",
+		"name": "elwin_exposures",
+		"format": "jsonschema",
+		"version": "1-0-0"
+	},
+
+	"type": "object",
+
+	"properties": {
+
+		"team_id": {
+			"type": ["string"]
+		}
+
+		, "experiment_name": {
+			"type": ["string"]
+		}
+
+		, "parameter_name": {
+			"type": ["string"]
+		}
+
+		, "parameter_value": {
+			"type": ["string"]
+		}
+
+		, "elwin_id": {
+			"type": ["string"]
+		}
+	},
+	"additionalProperties": false
+}

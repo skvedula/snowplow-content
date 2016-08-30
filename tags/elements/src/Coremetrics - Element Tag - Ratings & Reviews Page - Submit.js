@@ -1,0 +1,1 @@
+window.clickstream.fire('element', ['cm','sp'], 'NON-INLINE REVIEWS - SUBMIT','CUSTOMER REVIEWS');

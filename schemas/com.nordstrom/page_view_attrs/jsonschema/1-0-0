@@ -1,0 +1,59 @@
+{
+	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+	"description": "Schema for custom page view attributes",
+	"self": {
+		"vendor": "com.nordstrom",
+		"name": "page_view_attrs",
+		"format": "jsonschema",
+		"version": "1-0-0"
+	},
+
+	"type": "object",
+
+	"properties": {
+
+		"page_url": {
+			"type": ["string", "null"]
+		}
+
+		, "page_category": {
+			"type": ["string", "null"]
+		}
+
+		, "page_template": {
+			"type": ["string", "null"]
+		}
+
+		, "style_number": {
+			"type": ["string", "null"]
+		}
+
+		, "is_recognized": {
+			"type": ["string", "null"]
+		}
+
+		, "search_term": {
+			"type": ["string", "null"]
+		}
+
+		, "search_results_count": {
+			"type": ["number", "null"]
+		}
+
+		, "tag_id": {
+			"type": ["string", "null"]
+		}
+		, "experiment"	: {
+				"type":	["object", "null"],
+				"properties": {
+					"experimentId": {
+						"type": ["string", "null"]
+					}
+				, 	"experimentData": {
+						"type": ["object", "null"]
+					}
+				}
+		}
+	},
+	"additionalProperties": false
+}
