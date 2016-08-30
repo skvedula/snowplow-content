@@ -388,7 +388,7 @@ CREATE TABLE atomic.com_nordstrom_page_view_attrs_1 (
 	style_number			varchar(10)		encode lzo,
 	is_recognized			varchar(1)		encode lzo,
 	search_term				varchar(255)	encode lzo,
-	search_results_count	smallint		encode delta,
+	search_results_count	integer			encode delta,
 	tag_id					varchar(10)		encode lzo,
 	experiment_id			varchar(255)	encode lzo,
 	experiment_data			varchar(1000)	encode lzo,
