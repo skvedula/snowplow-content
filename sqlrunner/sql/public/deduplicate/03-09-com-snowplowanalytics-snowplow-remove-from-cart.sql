@@ -39,7 +39,7 @@ DROP TABLE IF EXISTS duplicates.tmp_com_snowplowanalytics_snowplow_remove_from_c
 CREATE TABLE duplicates.tmp_com_snowplowanalytics_snowplow_remove_from_cart_id -- todo: replace placeholder name
   DISTKEY (root_id)
   SORTKEY (root_id)
-AS (SELECT root_id FROM (SELECT root_id, COUNT(*) AS count FROM public.com_snowplowanalytics_snowplow_remove_from_cart_1 GROUP BY 1) WHERE count > 1); -- todo: replace placeholder name
+AS (SELECT root_id FROM (SELECT root_id, COUNT(*) AS count FROM public.com_snowplowanalytics_snowplow_remove_from_cart GROUP BY 1) WHERE count > 1); -- todo: replace placeholder name
 
 -- (b) create a new table with these events and deduplicate as much as possible using GROUP BY
 
@@ -68,7 +68,7 @@ AS (
        quantity,
        currency
 
-  FROM public.com_snowplowanalytics_snowplow_remove_from_cart_1 -- todo: replace placeholder name
+  FROM public.com_snowplowanalytics_snowplow_remove_from_cart -- todo: replace placeholder name
   WHERE root_id IN (SELECT root_id FROM duplicates.tmp_com_snowplowanalytics_snowplow_remove_from_cart_id) -- todo: replace placeholder name
   GROUP BY 1,2,3,4,5,7,8,9, 10,11,12,13,14,15
 
@@ -78,8 +78,8 @@ AS (
 
 BEGIN;
 
-  DELETE FROM public.com_snowplowanalytics_snowplow_remove_from_cart_1 WHERE root_id IN (SELECT root_id FROM duplicates.tmp_com_snowplowanalytics_snowplow_remove_from_cart_id); -- todo: replace placeholder name
-  INSERT INTO public.com_snowplowanalytics_snowplow_remove_from_cart_1 (SELECT * FROM duplicates.tmp_com_snowplowanalytics_snowplow_remove_from_cart); -- todo: replace placeholder name
+  DELETE FROM public.com_snowplowanalytics_snowplow_remove_from_cart WHERE root_id IN (SELECT root_id FROM duplicates.tmp_com_snowplowanalytics_snowplow_remove_from_cart_id); -- todo: replace placeholder name
+  INSERT INTO public.com_snowplowanalytics_snowplow_remove_from_cart (SELECT * FROM duplicates.tmp_com_snowplowanalytics_snowplow_remove_from_cart); -- todo: replace placeholder name
 
 COMMIT;
 
@@ -88,12 +88,12 @@ COMMIT;
 CREATE TABLE duplicates.tmp_com_snowplowanalytics_snowplow_remove_from_cart_id_remaining -- todo: replace placeholder name
   DISTKEY (root_id)
   SORTKEY (root_id)
-AS (SELECT root_id FROM (SELECT root_id, COUNT(*) AS count FROM public.com_snowplowanalytics_snowplow_remove_from_cart_1 GROUP BY 1) WHERE count > 1); -- todo: replace placeholder name
+AS (SELECT root_id FROM (SELECT root_id, COUNT(*) AS count FROM public.com_snowplowanalytics_snowplow_remove_from_cart GROUP BY 1) WHERE count > 1); -- todo: replace placeholder name
 
 BEGIN;
 
-  INSERT INTO duplicates.com_snowplowanalytics_snowplow_remove_from_cart_1 (SELECT * FROM public.com_snowplowanalytics_snowplow_remove_from_cart_1 WHERE root_id IN (SELECT root_id FROM duplicates.tmp_com_snowplowanalytics_snowplow_remove_from_cart_id_remaining)); -- todo: replace placeholder name
-  DELETE FROM public.com_snowplowanalytics_snowplow_remove_from_cart_1 WHERE root_id IN (SELECT root_id FROM duplicates.tmp_com_snowplowanalytics_snowplow_remove_from_cart_id_remaining); -- todo: replace placeholder name
+  INSERT INTO duplicates.com_snowplowanalytics_snowplow_remove_from_cart (SELECT * FROM public.com_snowplowanalytics_snowplow_remove_from_cart WHERE root_id IN (SELECT root_id FROM duplicates.tmp_com_snowplowanalytics_snowplow_remove_from_cart_id_remaining)); -- todo: replace placeholder name
+  DELETE FROM public.com_snowplowanalytics_snowplow_remove_from_cart WHERE root_id IN (SELECT root_id FROM duplicates.tmp_com_snowplowanalytics_snowplow_remove_from_cart_id_remaining); -- todo: replace placeholder name
 
 COMMIT;
 
