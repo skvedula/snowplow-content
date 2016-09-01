@@ -46,6 +46,7 @@ BEGIN;
    SELECT app_id,
        platform,
        etl_tstamp,
+       etl_tstamp_local,
        collector_tstamp,
        dvce_created_tstamp,
        event,
