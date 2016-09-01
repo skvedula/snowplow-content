@@ -20,7 +20,7 @@
     , "$.data.search_term"
     , "$.data.tag_id"
     , "$.data.experiment.experimentId"
-    , "$.data.search_results_count"
     , "$.data.experiment.experimentData"
+    , "$.data.search_results_count"
     ]
 }
