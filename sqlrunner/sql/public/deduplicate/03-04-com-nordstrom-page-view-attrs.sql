@@ -39,7 +39,7 @@ DROP TABLE IF EXISTS duplicates.tmp_com_nordstrom_page_view_attrs_id_remaining; 
 CREATE TABLE duplicates.tmp_com_nordstrom_page_view_attrs_id -- todo: replace placeholder name
   DISTKEY (root_id)
   SORTKEY (root_id)
-AS (SELECT root_id FROM (SELECT root_id, COUNT(*) AS count FROM public.com_nordstrom_page_view_attrs_0 GROUP BY 1) WHERE count > 1); -- todo: replace placeholder name
+AS (SELECT root_id FROM (SELECT root_id, COUNT(*) AS count FROM public.com_nordstrom_page_view_attrs GROUP BY 1) WHERE count > 1); -- todo: replace placeholder name
 
 -- (b) create a new table with these events and deduplicate as much as possible using GROUP BY
 
@@ -67,12 +67,12 @@ AS (
        style_number,
        is_recognized,
        search_term,
-       search_results_count,
        tag_id,
        experiment_id,
+       search_results_count,
        experiment_data
 
-  FROM public.com_nordstrom_page_view_attrs_0 -- todo: replace placeholder name
+  FROM public.com_nordstrom_page_view_attrs -- todo: replace placeholder name
   WHERE root_id IN (SELECT root_id FROM duplicates.tmp_com_nordstrom_page_view_attrs_id) -- todo: replace placeholder name
   GROUP BY 1,2,3,4,5,7,8,9, 10,11,12,13,14,15,16,17,18,19
 
@@ -82,8 +82,8 @@ AS (
 
 BEGIN;
 
-  DELETE FROM public.com_nordstrom_page_view_attrs_0 WHERE root_id IN (SELECT root_id FROM duplicates.tmp_com_nordstrom_page_view_attrs_id); -- todo: replace placeholder name
-  INSERT INTO public.com_nordstrom_page_view_attrs_0 (SELECT * FROM duplicates.tmp_com_nordstrom_page_view_attrs); -- todo: replace placeholder name
+  DELETE FROM public.com_nordstrom_page_view_attrs WHERE root_id IN (SELECT root_id FROM duplicates.tmp_com_nordstrom_page_view_attrs_id); -- todo: replace placeholder name
+  INSERT INTO public.com_nordstrom_page_view_attrs (SELECT * FROM duplicates.tmp_com_nordstrom_page_view_attrs); -- todo: replace placeholder name
 
 COMMIT;
 
@@ -92,12 +92,12 @@ COMMIT;
 CREATE TABLE duplicates.tmp_com_nordstrom_page_view_attrs_id_remaining -- todo: replace placeholder name
   DISTKEY (root_id)
   SORTKEY (root_id)
-AS (SELECT root_id FROM (SELECT root_id, COUNT(*) AS count FROM public.com_nordstrom_page_view_attrs_0 GROUP BY 1) WHERE count > 1); -- todo: replace placeholder name
+AS (SELECT root_id FROM (SELECT root_id, COUNT(*) AS count FROM public.com_nordstrom_page_view_attrs GROUP BY 1) WHERE count > 1); -- todo: replace placeholder name
 
 BEGIN;
 
-  INSERT INTO duplicates.com_nordstrom_page_view_attrs_0 (SELECT * FROM public.com_nordstrom_page_view_attrs_0 WHERE root_id IN (SELECT root_id FROM duplicates.tmp_com_nordstrom_page_view_attrs_id_remaining)); -- todo: replace placeholder name
-  DELETE FROM public.com_nordstrom_page_view_attrs_0 WHERE root_id IN (SELECT root_id FROM duplicates.tmp_com_nordstrom_page_view_attrs_id_remaining); -- todo: replace placeholder name
+  INSERT INTO duplicates.com_nordstrom_page_view_attrs (SELECT * FROM public.com_nordstrom_page_view_attrs WHERE root_id IN (SELECT root_id FROM duplicates.tmp_com_nordstrom_page_view_attrs_id_remaining)); -- todo: replace placeholder name
+  DELETE FROM public.com_nordstrom_page_view_attrs WHERE root_id IN (SELECT root_id FROM duplicates.tmp_com_nordstrom_page_view_attrs_id_remaining); -- todo: replace placeholder name
 
 COMMIT;
 
