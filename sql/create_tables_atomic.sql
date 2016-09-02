@@ -276,9 +276,9 @@ SORTKEY (root_tstamp);
 ALTER TABLE atomic.com_nordstrom_add_item_attrs_1 owner to storageloader;
 
 
---atomic.com_nordstrom_element_attrs_0
+--atomic.com_nordstrom_element_attrs_1
 
-CREATE TABLE atomic.com_nordstrom_element_attrs_0 (
+CREATE TABLE atomic.com_nordstrom_element_attrs_1 (
 	-- Schema of this type
 	schema_vendor   		varchar(128)  	encode runlength not null,
 	schema_name     		varchar(128)  	encode runlength not null,
