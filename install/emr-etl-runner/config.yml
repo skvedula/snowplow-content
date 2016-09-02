@@ -35,8 +35,8 @@ aws:
       lingual:
     jobflow:
       master_instance_type: m1.large
-      core_instance_count: 1
-      core_instance_type: m3.xlarge
+      core_instance_count: 2
+      core_instance_type: m3.2xlarge
       task_instance_count: 0
       task_instance_type: c4.2xlarge
       task_instance_bid:
@@ -47,7 +47,7 @@ aws:
 collectors:
   format: thrift
 enrich:
-  job_name: 46111-CXAR-ATO-sp-dev-enrich
+  job_name: a0007-cxar-ato-clickstream-jwn-dev
   versions:
     hadoop_enrich: 1.6.0
     hadoop_shred: 0.8.0
@@ -58,9 +58,9 @@ storage:
   download:
     folder:
   targets:
-    - name: "46111-CXAR-ATO-sp-dev-redshift"
+    - name: "a0007-cxar-ato-clickstream-jwn-dev"
       type: redshift
-      host: cxar-ato-clickstream.c9gybgr1jgvx.us-west-2.redshift.amazonaws.com
+      host: a0007-cxar-ato-clickstream-jwn.c9gybgr1jgvx.us-west-2.redshift.amazonaws.com
       database: snowplowdev
       port: 5439
       ssl_mode: disable
@@ -71,10 +71,10 @@ storage:
       maxerror: 1
       comprows: 200000
 monitoring:
-  tags: { Owner: 'ndrcttps@nordstrom.com', CostCenter: '46111' } # Name-value pairs describing this job
+  tags: { Owner: 'a0007', CostCenter: '46111' } # Name-value pairs describing this job
   logging:
     level: DEBUG # You can optionally switch to INFO for production
   snowplow:
     method: get
     app_id: 'sp.batch' # e.g. snowplow
-    collector: 'snowplow-dev.aws.nordstromdata.com' # e.g. d3rkrsqld9gmqf.cloudfront.net
+    collector: 't.nordstromdata.com' # e.g. d3rkrsqld9gmqf.cloudfront.net
