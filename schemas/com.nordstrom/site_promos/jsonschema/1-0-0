@@ -1,0 +1,28 @@
+{
+	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+	"description": "Schema for marketing site promo url attributes",
+	"self": {
+		"vendor": "com.nordstrom",
+		"name": "site_promos",
+		"format": "jsonschema",
+		"version": "1-0-0"
+	},
+
+	"type": "object",
+
+	"properties": {
+
+		"promotion_type": {
+			"type": ["string"]
+		}
+
+		, "promotion": {
+			"type": ["string", "null"]
+		}
+
+		, "link": {
+			"type": ["string", "null"]
+		}
+	},
+	"additionalProperties": false
+}
