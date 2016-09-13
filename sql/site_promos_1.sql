@@ -1,4 +1,4 @@
-CREATE TABLE atomic.com_nordstrom_real_estate_attrs_1 (
+CREATE TABLE atomic.com_nordstrom_site_promos_1 (
 	-- Schema of this type
 	schema_vendor		varchar(128)  encode runlength not null,
 	schema_name			varchar(128)  encode runlength not null,
@@ -11,8 +11,8 @@ CREATE TABLE atomic.com_nordstrom_real_estate_attrs_1 (
 	ref_tree			varchar(1500) encode runlength not null,
 	ref_parent			varchar(255)  encode runlength not null,
 	-- Properties of this type
-	version				varchar(255)  encode text32k not null,
-	page_area			varchar(255)  encode text32k,
+	promotion_type		varchar(255)  encode text32k not null,
+	promotion			varchar(255)  encode text32k,
 	link				varchar(255)  encode text32k,
 	FOREIGN KEY(root_id) REFERENCES atomic.events(event_id)
 )
