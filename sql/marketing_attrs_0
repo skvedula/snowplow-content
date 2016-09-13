@@ -1,0 +1,32 @@
+CREATE TABLE atomic.com_nordstrom_marketing_attrs_0 (
+    --Schema of this type 
+    schema_vendor varchar(128) NOT NULL,
+    schema_name varchar(128) NOT NULL,
+    schema_format varchar(128) NOT NULL,
+    schema_version varchar(128) NOT NULL,
+    --Parentage of this type 
+    root_id char(36) NOT NULL,
+    root_tstamp timestamp NOT NULL,
+    ref_root varchar(255) NOT NULL,
+    ref_tree varchar(1500) NOT NULL,
+    ref_parent varchar(255) NOT NULL,
+    --Properties of this type 
+    mkt_source varchar(255),
+    mkt_medium varchar(255),
+    mkt_campaign varchar(255),
+    mkt_term varchar(255),
+    mkt_content varchar(255),
+    mkt_cm_camp_name varchar(255),
+    mkt_cm_camp_uid varchar(255),
+    mkt_rkg_id varchar(255),
+    mkt_linkshare_siteid varchar(255),
+    mkt_cm_em varchar(255), 
+    FOREIGN KEY(root_id) REFERENCES atomic.events(event_id)
+)
+DISTSTYLE KEY
+--Optimized join to atomic.events
+DISTKEY(root_id)
+SORTKEY(root_tstamp);
+
+ALTER TABLE atomic.com_nordstrom_marketing_attrs_0 owner to storageloader;
+

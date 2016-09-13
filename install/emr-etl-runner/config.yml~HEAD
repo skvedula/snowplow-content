@@ -5,22 +5,22 @@ aws:
     region: us-west-2
     buckets:
       assets: s3://snowplow-hosted-assets
-      jsonpath_assets: s3://cxar-ato-bigdata/snowplow-dev/jsonpaths
-      log: s3n://cxar-ato-bigdata/snowplow-dev/etl/logs
+      jsonpath_assets: s3://cxar-ato-bigdata/snowplow-prod/jsonpaths
+      log: s3n://cxar-ato-bigdata/snowplow-prod/etl/logs
       raw:
-        in: ["s3n://cxar-ato-bigdata/snowplow-dev/raw/"]
-        processing: s3://cxar-ato-bigdata/snowplow-dev/etl/processing
-        archive: s3://cxar-ato-bigdata/snowplow-dev/archive/raw
+        in: ["s3n://cxar-ato-bigdata/snowplow-prod/raw/"]
+        processing: s3://cxar-ato-bigdata/snowplow-prod/etl/processing
+        archive: s3://cxar-ato-bigdata/snowplow-prod/archive/raw
       enriched:
-        good: s3://cxar-ato-bigdata/snowplow-dev/enriched/good
-        bad: s3://cxar-ato-bigdata/snowplow-dev/enriched/bad
+        good: s3://cxar-ato-bigdata/snowplow-prod/enriched/good
+        bad: s3://cxar-ato-bigdata/snowplow-prod/enriched/bad
         errors: 
-        archive: s3://cxar-ato-bigdata/snowplow-dev/enriched/archive
+        archive: s3://cxar-ato-bigdata/snowplow-prod/enriched/archive
       shredded:
-        good: s3://cxar-ato-bigdata/snowplow-dev/shredded/good
-        bad: s3://cxar-ato-bigdata/snowplow-dev/shredded/bad
+        good: s3://cxar-ato-bigdata/snowplow-prod/shredded/good
+        bad: s3://cxar-ato-bigdata/snowplow-prod/shredded/bad
         errors: 
-        archive: s3://cxar-ato-bigdata/snowplow-dev/shredded/archive
+        archive: s3://cxar-ato-bigdata/snowplow-prod/shredded/archive
   emr:
     ami_version: 4.5.0
     region: us-west-2
@@ -34,9 +34,9 @@ aws:
       hbase:
       lingual:
     jobflow:
-      master_instance_type: m1.large
-      core_instance_count: 1
-      core_instance_type: m3.xlarge
+      master_instance_type: m4.large
+      core_instance_count: 6
+      core_instance_type: m3.2xlarge
       task_instance_count: 0
       task_instance_type: c4.2xlarge
       task_instance_bid:
@@ -47,7 +47,7 @@ aws:
 collectors:
   format: thrift
 enrich:
-  job_name: 46111-CXAR-ATO-sp-dev-enrich
+  job_name: a0007-cxar-ato-clickstream-jwn-prod
   versions:
     hadoop_enrich: 1.6.0
     hadoop_shred: 0.8.0
@@ -58,10 +58,10 @@ storage:
   download:
     folder:
   targets:
-    - name: "46111-CXAR-ATO-sp-dev-redshift"
+    - name: "a0007-cxar-ato-clickstream-jwn-prod"
       type: redshift
-      host: cxar-ato-clickstream.c9gybgr1jgvx.us-west-2.redshift.amazonaws.com
-      database: snowplowdev
+      host: a0007-cxar-ato-clickstream-jwn.c9gybgr1jgvx.us-west-2.redshift.amazonaws.com
+      database: snowplowprod
       port: 5439
       ssl_mode: disable
       table: atomic.events
@@ -71,10 +71,10 @@ storage:
       maxerror: 1
       comprows: 200000
 monitoring:
-  tags: { Owner: 'ndrcttps@nordstrom.com', CostCenter: '46111' } # Name-value pairs describing this job
+  tags: { Owner: 'a0007', CostCenter: '46111' } # Name-value pairs describing this job
   logging:
-    level: DEBUG # You can optionally switch to INFO for production
+    level: INFO # You can optionally switch to INFO for production
   snowplow:
     method: get
     app_id: 'sp.batch' # e.g. snowplow
-    collector: 'snowplow-dev.aws.nordstromdata.com' # e.g. d3rkrsqld9gmqf.cloudfront.net
+    collector: 'p.nordstromdata.com' # e.g. d3rkrsqld9gmqf.cloudfront.net
