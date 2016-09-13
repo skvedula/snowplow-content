@@ -11,9 +11,9 @@ CREATE TABLE atomic.com_nordstrom_real_estate_1 (
 	ref_tree			varchar(1500) encode runlength not null,
 	ref_parent			varchar(255)  encode runlength not null,
 	-- Properties of this type
-	version				varchar(255)  encode text32k not null,
-	page_area			varchar(255)  encode text32k,
-	link				varchar(255)  encode text32k,
+	version				varchar(255)  encode lzo not null,
+	page_area			varchar(255)  encode lzo,
+	link				varchar(255)  encode lzo,
 	FOREIGN KEY(root_id) REFERENCES atomic.events(event_id)
 )
 DISTSTYLE KEY
