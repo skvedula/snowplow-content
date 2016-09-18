@@ -1,0 +1,26 @@
+{
+  "jsonpaths": [
+  
+    "$.schema.vendor"
+    , "$.schema.name"
+    , "$.schema.format"
+    , "$.schema.version"
+
+    , "$.hierarchy.rootId"
+    , "$.hierarchy.rootTstamp"
+    , "$.hierarchy.refRoot"
+    , "$.hierarchy.refTree"
+    , "$.hierarchy.refParent"
+
+    , "$.data.mkt_source"
+    , "$.data.mkt_medium"
+    , "$.data.mkt_campaign"
+    , "$.data.mkt_term"
+    , "$.data.mkt_content"
+    , "$.data.mkt_cm_camp_name"
+    , "$.data.mkt_cm_camp_uid"
+    , "$.data.mkt_rkg_id"
+    , "$.data.mkt_linkshare_siteid"
+    , "$.data.mkt_cm_em"
+    ]
+}
