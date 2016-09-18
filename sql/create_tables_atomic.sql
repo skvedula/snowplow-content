@@ -589,6 +589,31 @@ DISTKEY (root_id)
 SORTKEY (root_tstamp);
 
 
+--atomic.com_snowplowanalytics_snowplow_screen_view_1
+
+CREATE TABLE atomic.com_snowplowanalytics_snowplow_screen_view_1 (
+	-- Schema of this type
+	schema_vendor  varchar(128)  encode runlength not null,
+	schema_name    varchar(128)  encode runlength not null,
+	schema_format  varchar(128)  encode runlength not null,
+	schema_version varchar(128)  encode runlength not null,
+	-- Parentage of this type
+	root_id        char(36)      encode raw not null,
+	root_tstamp    timestamp     encode raw not null,
+	ref_root       varchar(255)  encode runlength not null,
+	ref_tree       varchar(1500) encode runlength not null,
+	ref_parent     varchar(255)  encode runlength not null,
+	-- Properties of this type
+	name           varchar(255)  encode text32k,
+	id             varchar(255)  encode text32k,
+	FOREIGN KEY(root_id) REFERENCES atomic.events(event_id)
+)
+DISTSTYLE KEY
+-- Optimized join to atomic.events
+DISTKEY (root_id)
+SORTKEY (root_tstamp);
+
+
 --atomic.com_snowplowanalytics_snowplow_site_search_1
 
 CREATE TABLE atomic.com_snowplowanalytics_snowplow_site_search_1 (
