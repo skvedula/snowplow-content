@@ -9,7 +9,6 @@ INSERT INTO public.events (
     SELECT app_id,
        platform,
        etl_tstamp,
-       convert_timezone('US/Pacific', etl_tstamp) as etl_tstamp_local,
        convert_timezone('US/Pacific', collector_tstamp),
        convert_timezone('US/Pacific', dvce_created_tstamp),
        event,
@@ -134,7 +133,8 @@ INSERT INTO public.events (
        event_format,
        event_version,
        event_fingerprint,
-       convert_timezone('US/Pacific', true_tstamp)
+       convert_timezone('US/Pacific', true_tstamp),
+       convert_timezone('US/Pacific', etl_tstamp) as etl_tstamp_local
 	FROM atomic.events
        WHERE etl_tstamp IN (SELECT max(etl_tstamp) FROM atomic.events)
        AND page_urlscheme <> 'file'
