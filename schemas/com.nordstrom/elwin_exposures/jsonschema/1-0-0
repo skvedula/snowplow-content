@@ -32,5 +32,6 @@
 			"type": ["string"]
 		}
 	},
+	"required": ["team_id", "experiment_name", "parameter_name", "parameter_value", "elwin_id"],
 	"additionalProperties": false
 }
