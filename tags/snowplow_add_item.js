@@ -148,8 +148,8 @@
                 mmp = 'N';
 
                 if (price) {
-                    if (window.sp_pv) fire_add_item();
-                    else document.addEventListener('sp_pv', fire_add_item, false);
+                    if (window.spPV) fire_add_item();
+                    else document.addEventListener('spPV', fire_add_item, false);
                 } else get_errors('price null');
             } catch (e) {
                 get_errors(e);
