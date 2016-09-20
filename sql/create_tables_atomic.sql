@@ -615,6 +615,30 @@ SORTKEY (root_tstamp);
 ALTER TABLE atomic.com_snowplowanalytics_snowplow_add_to_cart_1 owner to storageloader;
 
 
+--atomic.com_snowplowanalytics_snowplow_client_session_1
+
+CREATE TABLE IF NOT EXISTS atomic.com_snowplowanalytics_snowplow_client_session_1 (
+    "schema_vendor"       VARCHAR(128)  ENCODE RUNLENGTH NOT NULL,
+    "schema_name"         VARCHAR(128)  ENCODE RUNLENGTH NOT NULL,
+    "schema_format"       VARCHAR(128)  ENCODE RUNLENGTH NOT NULL,
+    "schema_version"      VARCHAR(128)  ENCODE RUNLENGTH NOT NULL,
+    "root_id"             CHAR(36)      ENCODE RAW       NOT NULL,
+    "root_tstamp"         TIMESTAMP     ENCODE RAW       NOT NULL,
+    "ref_root"            VARCHAR(255)  ENCODE RUNLENGTH NOT NULL,
+    "ref_tree"            VARCHAR(1500) ENCODE RUNLENGTH NOT NULL,
+    "ref_parent"          VARCHAR(255)  ENCODE RUNLENGTH NOT NULL,
+    "session_id"          CHAR(36)      encode lzo       NOT NULL,
+    "session_index"       INT           encode delta32k  NOT NULL,
+    "storage_mechanism"   VARCHAR(13)   encode lzo       NOT NULL,
+    "user_id"             VARCHAR(36)   encode lzo       NOT NULL,
+    "previous_session_id" CHAR(36)      encode lzo,
+FOREIGN KEY (root_id) REFERENCES atomic.events(event_id)
+)
+DISTSTYLE KEY
+DISTKEY (root_id)
+SORTKEY (root_tstamp);
+
+
 --atomic.com_snowplowanalytics_snowplow_link_click_1
 
 CREATE TABLE atomic.com_snowplowanalytics_snowplow_link_click_1 (
@@ -707,6 +731,31 @@ DISTKEY (root_id)
 SORTKEY (root_tstamp);
 
 ALTER TABLE atomic.com_snowplowanalytics_snowplow_remove_from_cart_1 owner to storageloader;
+
+
+--atomic.com_snowplowanalytics_snowplow_screen_view_1
+
+CREATE TABLE atomic.com_snowplowanalytics_snowplow_screen_view_1 (
+	-- Schema of this type
+	schema_vendor  varchar(128)  encode runlength not null,
+	schema_name    varchar(128)  encode runlength not null,
+	schema_format  varchar(128)  encode runlength not null,
+	schema_version varchar(128)  encode runlength not null,
+	-- Parentage of this type
+	root_id        char(36)      encode raw not null,
+	root_tstamp    timestamp     encode raw not null,
+	ref_root       varchar(255)  encode runlength not null,
+	ref_tree       varchar(1500) encode runlength not null,
+	ref_parent     varchar(255)  encode runlength not null,
+	-- Properties of this type
+	name           varchar(255)  encode text32k,
+	id             varchar(255)  encode text32k,
+	FOREIGN KEY(root_id) REFERENCES atomic.events(event_id)
+)
+DISTSTYLE KEY
+-- Optimized join to atomic.events
+DISTKEY (root_id)
+SORTKEY (root_tstamp);
 
 
 --atomic.com_snowplowanalytics_snowplow_site_search_1
