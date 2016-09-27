@@ -349,11 +349,11 @@ CREATE TABLE atomic.com_nordstrom_elwin_exposures_1 (
 	ref_tree        varchar(1500) encode runlength not null,
 	ref_parent      varchar(255)  encode runlength not null,
 	-- Properties of this type
-	team_id				varchar(255)	encode lzo not null,
-	experiment_name		varchar(255)	encode lzo not null,
-	parameter_name		varchar(255)	encode lzo not null,
-	parameter_value		varchar(255)	encode lzo not null,
-	elwin_id			varchar(255)	encode lzo not null,
+	team_id				varchar(255)	encode lzo,
+	experiment_name		varchar(255)	encode lzo,
+	parameter_name		varchar(255)	encode lzo,
+	parameter_value		varchar(255)	encode lzo,
+	elwin_id			varchar(255)	encode lzo,
 	FOREIGN KEY(root_id) REFERENCES atomic.events(event_id)
 )
 DISTSTYLE KEY
