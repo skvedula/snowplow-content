@@ -19,6 +19,8 @@
     :queries:
       - :name: copy-com-nordstrom-add-item-attrs
         :file: ./atomic/copy-events/copy-com-nordstrom-add-item-attrs.sql
+      - :name: copy-com-nordstrom-elwin-exposures
+        :file: ./atomic/copy-events/copy-com-nordstrom-elwin-exposures.sql
       - :name: copy-com-nordstrom-order-item-attrs
         :file: ./atomic/copy-events/copy-com-nordstrom-order-item-attrs.sql
       - :name: copy-com-nordstrom-page-view-attrs
