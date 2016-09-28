@@ -19,6 +19,8 @@
     :queries:
       - :name: com-nordstrom-add-item-attrs
         :file: ./public/deduplicate/com-nordstrom-add-item-attrs.sql
+      - :name: com-nordstrom-elwin-exposures
+        :file: ./public/deduplicate/com-nordstrom-elwin-exposures.sql
       - :name: com-nordstrom-order-item-attrs
         :file: ./public/deduplicate/com-nordstrom-order-item-attrs.sql
       - :name: com-nordstrom-page-view-attrs
