@@ -1,0 +1,28 @@
+{
+	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+	"description": "Schema for marketing real estate url attributes",
+	"self": {
+		"vendor": "com.nordstrom",
+		"name": "real_estate",
+		"format": "jsonschema",
+		"version": "1-0-0"
+	},
+
+	"type": "object",
+
+	"properties": {
+
+		"version": {
+			"type": ["string"]
+		}
+
+		, "page_area": {
+			"type": ["string", "null"]
+		}
+
+		, "link": {
+			"type": ["string", "null"]
+		}
+	},
+	"additionalProperties": false
+}
