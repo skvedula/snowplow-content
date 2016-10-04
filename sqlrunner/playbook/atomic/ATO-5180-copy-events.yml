@@ -1,0 +1,49 @@
+:targets:
+  - :name:     snowplow-  # Insert your own name to identify the database
+    :type:     redshift
+    :host:     a0007-cxar-ato-clickstream-jwn.c9gybgr1jgvx.us-west-2.redshift.amazonaws.com  # Insert Redshfit host
+    :database:   # Insert database name
+    :port:     5439  # Insert database port
+    :username:  # Insert username with relevant credentials to run the below queries
+    :password:  # Insert user password
+:steps:
+  - :name: 01-get-last-etls
+    :queries:
+      - :name: get-last-etls
+        :file: ./atomic/copy-events/ATO-5180/get-last-etl.sql
+  - :name: 02-get-event-ids-from-last-etls
+    :queries:
+      - :name: get-event-ids-from-last-etls
+        :file: ./atomic/copy-events/ATO-5180/log-event-ids.sql
+  - :name: 03-copy-events
+    :queries:
+      - :name: copy-events
+        :file: ./atomic/copy-events/ATO-5180/ATO-5180-copy-events.sql
+  - :name: 04-copy-nordstrom-child-tables
+    :queries:
+      - :name: copy-com-nordstrom-add-item-attrs
+        :file: ./atomic/copy-events/ATO-5180/ATO-5180-copy-com-nordstrom-add-item-attrs.sql
+      - :name: copy-com-nordstrom-order-item-attrs
+        :file: ./atomic/copy-events/ATO-5180/ATO-5180-copy-com-nordstrom-order-item-attrs.sql
+      - :name: copy-com-nordstrom-page-view-attrs
+        :file: ./atomic/copy-events/ATO-5180/ATO-5180-copy-com-nordstrom-page-view-attrs.sql
+      - :name: copy-com-nordstrom-product-view-attrs
+        :file: ./atomic/copy-events/ATO-5180/ATO-5180-copy-com-nordstrom-product-view-attrs.sql
+      - :name: copy-com-nordstrom-remove-item-attrs
+        :file: ./atomic/copy-events/ATO-5180/ATO-5180-copy-com-nordstrom-remove-item-attrs.sql
+  - :name: 05-copy-snowplow-child-tables
+    :queries:
+      - :name: copy-com-snowplowanalytics-snowplow-add-to-cart
+        :file: ./atomic/copy-events/ATO-5180/ATO-5180-copy-com-snowplowanalytics-snowplow-add-to-cart.sql
+      - :name: copy-com-snowplowanalytics-snowplow-link-click
+        :file: ./atomic/copy-events/ATO-5180/ATO-5180-copy-com-snowplowanalytics-snowplow-link-click.sql
+      - :name: copy-com-snowplowanalytics-snowplow-remove-from-cart
+        :file: ./atomic/copy-events/ATO-5180/ATO-5180-copy-com-snowplowanalytics-snowplow-remove-from-cart.sql
+      - :name: copy-com-snowplowanalytics-snowplow-site-search
+        :file: ./atomic/copy-events/ATO-5180/ATO-5180-copy-com-snowplowanalytics-snowplow-site-search.sql
+      - :name: copy-com-snowplowanalytics-snowplow-timing
+        :file: ./atomic/copy-events/ATO-5180/ATO-5180-copy-com-snowplowanalytics-snowplow-timing.sql
+  - :name: 06-update-etl-manifest
+    :queries:
+      - :name: update-etl-manifest
+        :file: ./atomic/copy-events/ATO-5180/log-etl-manifest.sql
