@@ -5,22 +5,22 @@ aws:
     region: us-west-2
     buckets:
       assets: s3://snowplow-hosted-assets
-      jsonpath_assets: s3://cxar-ato-bigdata/snowplow-dev/jsonpaths
-      log: s3n://cxar-ato-bigdata/snowplow-dev/etl/logs
+      jsonpath_assets: s3://cxar-ato-bigdata/snowplow-<%= ENV['SNOWPLOW-ENV'] %>/jsonpaths
+      log: s3n://cxar-ato-bigdata/snowplow-<%= ENV['SNOWPLOW-ENV'] %>/etl/logs
       raw:
-        in: ["s3n://cxar-ato-bigdata/snowplow-dev/raw/"]
-        processing: s3://cxar-ato-bigdata/snowplow-dev/etl/processing
-        archive: s3://cxar-ato-bigdata/snowplow-dev/archive/raw
+        in: ["s3n://cxar-ato-bigdata/snowplow-<%= ENV['SNOWPLOW-ENV'] %>/raw/"]
+        processing: s3://cxar-ato-bigdata/snowplow-<%= ENV['SNOWPLOW-ENV'] %>/etl/processing
+        archive: s3://cxar-ato-bigdata/snowplow-<%= ENV['SNOWPLOW-ENV'] %>/archive/raw
       enriched:
-        good: s3://cxar-ato-bigdata/snowplow-dev/enriched/good
-        bad: s3://cxar-ato-bigdata/snowplow-dev/enriched/bad
+        good: s3://cxar-ato-bigdata/snowplow-<%= ENV['SNOWPLOW-ENV'] %>/enriched/good
+        bad: s3://cxar-ato-bigdata/snowplow-<%= ENV['SNOWPLOW-ENV'] %>/enriched/bad
         errors: 
-        archive: s3://cxar-ato-bigdata/snowplow-dev/enriched/archive
+        archive: s3://cxar-ato-bigdata/snowplow-<%= ENV['SNOWPLOW-ENV'] %>/enriched/archive
       shredded:
-        good: s3://cxar-ato-bigdata/snowplow-dev/shredded/good
-        bad: s3://cxar-ato-bigdata/snowplow-dev/shredded/bad
+        good: s3://cxar-ato-bigdata/snowplow-<%= ENV['SNOWPLOW-ENV'] %>/shredded/good
+        bad: s3://cxar-ato-bigdata/snowplow-<%= ENV['SNOWPLOW-ENV'] %>/shredded/bad
         errors: 
-        archive: s3://cxar-ato-bigdata/snowplow-dev/shredded/archive
+        archive: s3://cxar-ato-bigdata/snowplow-<%= ENV['SNOWPLOW-ENV'] %>/shredded/archive
   emr:
     ami_version: 4.5.0
     region: us-west-2
@@ -34,9 +34,9 @@ aws:
       hbase:
       lingual:
     jobflow:
-      master_instance_type: m1.large
-      core_instance_count: 2
-      core_instance_type: m3.2xlarge
+      master_instance_type: <%= ENV['SNOWPLOW-EMR-MASTER-TYPE'] %>
+      core_instance_count: <%= ENV['SNOWPLOW-EMR-CORE-NUM'] %>
+      core_instance_type: <%= ENV['SNOWPLOW-EMR-CORE-TYPE'] %>
       task_instance_count: 0
       task_instance_type: c4.2xlarge
       task_instance_bid:
@@ -47,7 +47,7 @@ aws:
 collectors:
   format: thrift
 enrich:
-  job_name: a0007-cxar-ato-clickstream-jwn-dev
+  job_name: a0007-cxar-ato-clickstream-jwn-<%= ENV['SNOWPLOW-ENV'] %>
   versions:
     hadoop_enrich: 1.6.0
     hadoop_shred: 0.8.0
@@ -58,10 +58,10 @@ storage:
   download:
     folder:
   targets:
-    - name: "a0007-cxar-ato-clickstream-jwn-dev"
+    - name: "a0007-cxar-ato-clickstream-jwn-<%= ENV['SNOWPLOW-ENV'] %>"
       type: redshift
       host: a0007-cxar-ato-clickstream-jwn.c9gybgr1jgvx.us-west-2.redshift.amazonaws.com
-      database: snowplowdev
+      database: snowplow<%= ENV['SNOWPLOW-ENV'] %>
       port: 5439
       ssl_mode: disable
       table: atomic.events
@@ -77,4 +77,4 @@ monitoring:
   snowplow:
     method: get
     app_id: 'sp.batch' # e.g. snowplow
-    collector: 't.nordstromdata.com' # e.g. d3rkrsqld9gmqf.cloudfront.net
+    collector: '<%= ENV['SNOWPLOW-COLLECTOR'] %>' # e.g. d3rkrsqld9gmqf.cloudfront.net
