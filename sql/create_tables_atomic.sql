@@ -233,10 +233,8 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
 
-ALTER TABLE atomic.com_google_analytics_cookies_1 owner to storageloader;
 
-
---atomic.com_nordstrom_add_item_attrs_1
+--atomic.com_nordstrom_add_item_attrs_0
 
 CREATE TABLE atomic.com_nordstrom_add_item_attrs_1 (
 	-- Schema of this type
@@ -273,69 +271,8 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
 
-ALTER TABLE atomic.com_nordstrom_add_item_attrs_1 owner to storageloader;
-
-
---atomic.com_nordstrom_element_attrs_1
-
-CREATE TABLE atomic.com_nordstrom_element_attrs_1 (
-	-- Schema of this type
-	schema_vendor   		varchar(128)  	encode runlength not null,
-	schema_name     		varchar(128)  	encode runlength not null,
-	schema_format   		varchar(128)  	encode runlength not null,
-	schema_version  		varchar(128)  	encode runlength not null,
-	-- Parentage of this type
-	root_id         		char(36)      	encode raw not null,
-	root_tstamp     		timestamp     	encode raw not null,
-	ref_root        		varchar(255)  	encode runlength not null,
-	ref_tree        		varchar(1500) 	encode runlength not null,
-	ref_parent      		varchar(255)  	encode runlength not null,
-	-- Properties of this type
-	wish_list 		   		varchar(1)  	encode text32k,
-	video_name 		   		varchar(255)	encode lzo,
-	video_product_name		varchar(255)	encode lzo,
-	sku 					varchar(255)	encode lzo,
-	number_of_recs 			smallint,
-	rec_strategy			varchar(255)	encode text32k,
-	filter_category			varchar(255)	encode text32k,
-	filter_value			varchar(255)	encode text32k,
-	video_state 			varchar(10)		encode text32k,
-	video_timestamp			varchar(5)		encode lzo,
-	video_length			varchar(5)		encode lzo,
-	style_number			varchar(255)	encode lzo,
-	star_rating				numeric(4),
-	reviews_size_select		varchar(255)	encode text32k,
-	reviews_age_select		varchar(255)	encode text32k,
-	reviews_sort_by			varchar(255)	encode text32k,
-	results_page			smallint,
-	brand_name				varchar(255)	encode lzo,
-	number_of_images		smallint,
-	number_of_videos		smallint,
-	note_value				numeric(15,2),
-	note_expire_date		date,
-	applied_notes_total		numeric(15,2),
-	available_notes_total	numeric(15,2),
-	gift_card_total			numeric(15,2),
-	gift_card_value			numeric(15,2),
-	page_id					varchar(255)	encode lzo,
-	search_term				varchar(255)	encode lzo,
-	number_of_reviews		smallint,
-	rms_sku					varchar(255)	encode lzo,
-	web_style_id			varchar(255)	encode lzo,
-	outfit_id				varchar(255)	encode lzo,
-	store_number			smallint,
-	FOREIGN KEY(root_id) REFERENCES atomic.events(event_id)
-)
-DISTSTYLE KEY
--- Optimized join to atomic.events
-DISTKEY (root_id)
-SORTKEY (root_tstamp);
-
-ALTER TABLE atomic.com_nordstrom_element_attrs_1 owner to storageloader;
-
 
 --atomic.com_nordstrom_elwin_1
-
 CREATE TABLE atomic.com_nordstrom_elwin_exposures_1 (
 	-- Schema of this type
 	schema_vendor   varchar(128)  encode runlength not null,
@@ -349,11 +286,11 @@ CREATE TABLE atomic.com_nordstrom_elwin_exposures_1 (
 	ref_tree        varchar(1500) encode runlength not null,
 	ref_parent      varchar(255)  encode runlength not null,
 	-- Properties of this type
-	team_id				varchar(255)	encode lzo,
-	experiment_name		varchar(255)	encode lzo,
-	parameter_name		varchar(255)	encode lzo,
-	parameter_value		varchar(255)	encode lzo,
-	elwin_id			varchar(255)	encode lzo,
+	team_id				varchar(255)	encode lzo not null,
+	experiment_name		varchar(255)	encode lzo not null,
+	parameter_name		varchar(255)	encode lzo not null,
+	parameter_value		varchar(255)	encode lzo not null,
+	elwin_id			varchar(255)	encode lzo not null,
 	FOREIGN KEY(root_id) REFERENCES atomic.events(event_id)
 )
 DISTSTYLE KEY
@@ -361,10 +298,8 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
 
-ALTER TABLE atomic.com_nordstrom_elwin_exposures_1 owner to storageloader;
 
-
---atomic.com_nordstrom_errors_1
+--atomic.com_nordstrom_errors_0
 
 CREATE TABLE atomic.com_nordstrom_errors_1 (
 	-- Schema of this type
@@ -389,45 +324,8 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
 
-ALTER TABLE atomic.com_nordstrom_errors_1 owner to storageloader;
 
-
---atomic.com_nordstrom_marketing_attrs_1
-
-CREATE TABLE atomic.com_nordstrom_marketing_attrs_1 (
-	-- Schema of this type
-	schema_vendor		varchar(128)  encode runlength not null,
-	schema_name			varchar(128)  encode runlength not null,
-	schema_format		varchar(128)  encode runlength not null,
-	schema_version		varchar(128)  encode runlength not null,
-	-- Parentage of this type
-	root_id				char(36)      encode raw not null,
-	root_tstamp			timestamp     encode raw not null,
-	ref_root			varchar(255)  encode runlength not null,
-	ref_tree			varchar(1500) encode runlength not null,
-	ref_parent			varchar(255)  encode runlength not null,
-    --Properties of this type 
-    mkt_source varchar(255)  encode lzo,
-    mkt_medium varchar(255)  encode lzo,
-    mkt_campaign varchar(255)  encode lzo,
-    mkt_term varchar(255)  encode lzo,
-    mkt_content varchar(255)  encode lzo,
-    mkt_cm_camp_name varchar(255)  encode lzo,
-    mkt_cm_camp_uid varchar(255)  encode lzo,
-    mkt_rkg_id varchar(255)  encode lzo,
-    mkt_linkshare_siteid varchar(255)  encode lzo,
-    mkt_cm_em varchar(255)  encode lzo, 
-    FOREIGN KEY(root_id) REFERENCES atomic.events(event_id)
-)
-DISTSTYLE KEY
---Optimized join to atomic.events
-DISTKEY(root_id)
-SORTKEY(root_tstamp);
-
-ALTER TABLE atomic.com_nordstrom_marketing_attrs_1 owner to storageloader;
-
-
---atomic.com_nordstrom_order_item_attrs_1
+--atomic.com_nordstrom_order_item_attrs_0
 
 CREATE TABLE atomic.com_nordstrom_order_item_attrs_1 (
 	-- Schema of this type
@@ -470,10 +368,8 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
 
-ALTER TABLE atomic.com_nordstrom_order_item_attrs_1 owner to storageloader;
 
-
---atomic.com_nordstrom_pageview_attrs_1
+--atomic.com_nordstrom_pageview_attrs_0
 
 CREATE TABLE atomic.com_nordstrom_page_view_attrs_1 (
 	-- Schema of this type
@@ -505,10 +401,8 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
 
-ALTER TABLE atomic.com_nordstrom_page_view_attrs_1 owner to storageloader;
 
-
---atomic.com_nordstrom_product_view_attrs_1
+--atomic.com_nordstrom_product_view_attrs_0
 
 CREATE TABLE atomic.com_nordstrom_product_view_attrs_1 (
 	-- Schema of this type
@@ -541,10 +435,8 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
 
-ALTER TABLE atomic.com_nordstrom_product_view_attrs_1 owner to storageloader;
 
-
---atomic.com_nordstrom_remove_item_attrs_1
+--atomic.com_nordstrom_remove_item_attrs_0
 
 CREATE TABLE atomic.com_nordstrom_remove_item_attrs_1 (
 	-- Schema of this type
@@ -580,8 +472,6 @@ DISTSTYLE KEY
 -- Optimized join to atomic.events
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
-
-ALTER TABLE atomic.com_nordstrom_remove_item_attrs_1 owner to storageloader;
 
 
 --atomic.com_snowplowanalytics_snowplow_add_to_cart_1
@@ -641,8 +531,6 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
 
-ALTER TABLE atomic.com_snowplowanalytics_snowplow_link_click_1 owner to storageloader;
-
 
 --atomic.com_snowplowanalytics_snowplow_mobile_context_1
 
@@ -674,8 +562,6 @@ DISTSTYLE KEY
 -- Optimized join to atomic.events
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
-
-ALTER TABLE atomic.com_snowplowanalytics_snowplow_mobile_context_1 owner to storageloader;
 
 
 --atomic.com_snowplowanalytics_snowplow_remove_from_cart_1
@@ -735,8 +621,6 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
 
-ALTER TABLE atomic.com_snowplowanalytics_snowplow_site_search_1 owner to storageloader;
-
 
 --atomic.com_snowplowanalytics_snowplow_timing_1
 
@@ -763,8 +647,6 @@ DISTSTYLE KEY
 -- Optimized join to atomic.events
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
-
-ALTER TABLE atomic.com_snowplowanalytics_snowplow_timing_1 owner to storageloader;
 
 
 --atomic.com_snowplowanalytics_snowplow_ua_parser_context_1
@@ -801,8 +683,6 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
 
-ALTER TABLE atomic.com_snowplowanalytics_snowplow_ua_parser_1 owner to storageloader;
-
 
 --atomic.com_snowplowanalytics_snowplow_web_page_1
 
@@ -826,8 +706,6 @@ DISTSTYLE KEY
 -- Optimized join to atomic.events
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
-
-ALTER TABLE atomic.com_snowplowanalytics_snowplow_web_page_1 owner to storageloader;
 
 
 --atomic.org_w3_performance_timing_1
@@ -875,4 +753,22 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
 
-ALTER TABLE atomic.org_w3_performance_timing_1 owner to storageloader;
+
+--table for ETL manifest
+
+CREATE TABLE derived.etl_tstamps (etl_tstamp timestamp encode lzo)
+SORTKEY (tstamp);
+
+INSERT INTO derived.etl_tstamps (SELECT DISTINCT etl_tstamp FROM atomic.events);
+
+
+--temp table for most recent unloaded ETL timestamps
+
+CREATE TABLE scratchpad.etl_tstamps (LIKE derived.etl_tstamps);
+
+
+--table for event_ids of most recent unloaded ETL timestamps
+
+CREATE TABLE scratchpad.event_id (event_id varchar(36) encode lzo)
+DISTSTYLE KEY
+DISTKEY (event_id);

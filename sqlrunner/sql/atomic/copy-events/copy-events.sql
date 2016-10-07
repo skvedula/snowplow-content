@@ -136,7 +136,7 @@ INSERT INTO public.events (
        convert_timezone('US/Pacific', true_tstamp),
        convert_timezone('US/Pacific', etl_tstamp) as etl_tstamp_local
 	FROM atomic.events
-       WHERE etl_tstamp IN (SELECT max(etl_tstamp) FROM atomic.events)
+       WHERE etl_tstamp IN (SELECT etl_tstamp FROM scratchpad.etl_tstamps ORDER BY 1)
        AND page_urlscheme <> 'file'
        AND (br_name <> 'Robot/Spider' or br_name is null)
 

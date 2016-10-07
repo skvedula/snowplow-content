@@ -1,7 +1,7 @@
--- copy-com-nordstrom-elwin_exposures.sql
--- Version: 0.1
+-- nordstrom-elwin_exposures.sql
+-- Version: 1.0
 --
--- Requires atomic.events 0.7.0
+-- Requires atomic.events 0.8.0
 
 -- (a) get all events that are in atomic but not yet in public
 
@@ -22,6 +22,6 @@ INSERT INTO public.com_nordstrom_elwin_exposures (
        parameter_value,
        elwin_id
 FROM atomic.com_nordstrom_elwin_exposures_1
-      WHERE root_id IN (SELECT event_id FROM atomic.tmp_root_ids)
+      WHERE root_id IN (SELECT event_id FROM scratchpad.event_id)
 
 );
