@@ -41,3 +41,7 @@
         :file: ./public/deduplicate/com-snowplowanalytics-snowplow-site-search.sql
       - :name: com-snowplowanalytics-snowplow-timing
         :file: ./public/deduplicate/com-snowplowanalytics-snowplow-timing.sql
+  - :name: 04-vacuum-public
+    :queries:
+      - :name: vacuum-public
+        :file: ./public/deduplicate/vacuum.sql
