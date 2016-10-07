@@ -1,18 +1,9 @@
--- 01-06-copy-com-nordstrom-page-view-attrs.sql
--- Version: 0.1
+-- nordstrom-page-view-attrs.sql
+-- Version: 1.0
 --
--- Requires atomic.events 0.7.0
+-- Requires atomic.events 0.8.0
 
--- (a) get all events that are in atomic.events but not yet in public.events and stage for time zone conversion
-
--- DROP TABLE IF EXISTS atomic.tmp_com_nordstrom_page_view_attrs_0;
-
--- CREATE TABLE atomic.tmp_com_nordstrom_page_view_attrs_0
---   DISTKEY (root_id)
---   SORTKEY (root_id) 
--- AS (SELECT * FROM atomic.com_nordstrom_page_view_attrs_0 WHERE root_id IN (SELECT event_id FROM atomic.tmp_root_ids));
-
--- (b) perform time zone conversion on insert into public.events
+-- (a) get all events that are in atomic.events but not yet in public.events and perform time zone conversion
 
 INSERT INTO public.com_nordstrom_page_view_attrs (
 
@@ -31,12 +22,12 @@ INSERT INTO public.com_nordstrom_page_view_attrs (
        style_number,
        is_recognized,
        search_term,
+       search_results_count,
        tag_id,
        experiment_id,
-       search_results_count,
        experiment_data
 FROM atomic.com_nordstrom_page_view_attrs_0
-      WHERE root_id IN (SELECT event_id FROM atomic.tmp_root_ids)
+      WHERE root_id IN (SELECT event_id FROM scratchpad.event_id)
 
 );
 
@@ -57,15 +48,11 @@ INSERT INTO public.com_nordstrom_page_view_attrs (
        style_number,
        is_recognized,
        search_term,
+       search_results_count,
        tag_id,
        experiment_id,
-       search_results_count,
        experiment_data
 FROM atomic.com_nordstrom_page_view_attrs_1
-      WHERE root_id IN (SELECT event_id FROM atomic.tmp_root_ids)
+      WHERE root_id IN (SELECT event_id FROM scratchpad.event_id)
 
 );
-
--- DROP TABLE IF EXISTS atomic.tmp_com_nordstrom_page_view_attrs_0;
-
---       convert_timezone('US/Pacific', root_tstamp)
