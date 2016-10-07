@@ -1,7 +1,7 @@
-DELETE FROM public.sessions
+DELETE FROM qa.sessions
 WHERE date >= DATEADD(week, -1, CURRENT_DATE);
 
-INSERT INTO public.sessions (
+INSERT INTO qa.sessions (
   WITH step_1 AS (
 
       SELECT 

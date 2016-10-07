@@ -1,0 +1,57 @@
+{
+	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+	"description": "Schema for custom marketing url attributes",
+	"self": {
+		"vendor": "com.nordstrom",
+		"name": "marketing_attrs",
+		"format": "jsonschema",
+		"version": "0-0-1"
+	},
+
+	"type": "object",
+
+	"properties": {
+
+		"mkt_source": {
+			"type": ["string", "null"]
+		}
+
+		, "mkt_medium": {
+			"type": ["string", "null"]
+		}
+
+		, "mkt_campaign": {
+			"type": ["string", "null"]
+		}
+
+		, "mkt_term": {
+			"type": ["string", "null"]
+		}
+
+		, "mkt_content": {
+			"type": ["string", "null"]
+		}
+
+		, "mkt_cm_camp_name": {
+			"type": ["string", "null"]
+		}
+
+		, "mkt_cm_camp_uid": {
+			"type": ["string", "null"]
+		}
+
+		, "mkt_rkg_id": {
+			"type": ["string", "null"]
+		}
+
+		, "mkt_linkshare_siteid": {
+			"type": ["string", "null"]
+		}
+
+		, "mkt_cm_em": {
+			"type": ["string", "null"]
+		}
+
+	},
+	"additionalProperties": false
+}

@@ -171,7 +171,8 @@ BEGIN;
        event_format,
        event_version,
        event_fingerprint,
-       true_tstamp
+       true_tstamp,
+       etl_tstamp_local
    FROM duplicates.tmp_orders WHERE event_number = 1
 
 );
