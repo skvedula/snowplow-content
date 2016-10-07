@@ -198,9 +198,9 @@ CREATE TABLE atomic.events (
 )
 DISTSTYLE KEY
 DISTKEY (event_id)
-SORTKEY (collector_tstamp);
+SORTKEY (derived_tstamp);
 
-COMMENT ON TABLE "atomic"."events" IS '0.8.0'
+COMMENT ON TABLE "atomic"."events" IS '0.8.0';
 
 ALTER TABLE atomic.events owner to storageloader;
 
@@ -638,6 +638,8 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
 
+ALTER TABLE atomic.com_snowplowanalytics_snowplow_client_session_1 owner to storageloader;
+
 
 --atomic.com_snowplowanalytics_snowplow_link_click_1
 
@@ -756,6 +758,8 @@ DISTSTYLE KEY
 -- Optimized join to atomic.events
 DISTKEY (root_id)
 SORTKEY (root_tstamp);
+
+ALTER TABLE atomic.com_snowplowanalytics_snowplow_screen_view_1 owner to storageloader;
 
 
 --atomic.com_snowplowanalytics_snowplow_site_search_1
