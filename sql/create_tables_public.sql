@@ -206,38 +206,6 @@ COMMENT ON TABLE "public"."events" IS '0.8.0';
 ALTER TABLE public.events owner to storageloader;
 
 
---public.com_google_analytics_cookies
-
-CREATE TABLE public.com_google_analytics_cookies (
-	-- Schema of this type
-	schema_vendor   varchar(128)  encode runlength not null,
-	schema_name     varchar(128)  encode runlength not null,
-	schema_format   varchar(128)  encode runlength not null,
-	schema_version  varchar(128)  encode runlength not null,
-	-- Parentage of this type
-	root_id         char(36)      encode raw not null,
-	root_tstamp     timestamp     encode raw not null,
-	derived_tstamp  timestamp     encode raw not null,
-	ref_root        varchar(255)  encode runlength not null,
-	ref_tree        varchar(1500) encode runlength not null,
-	ref_parent      varchar(255)  encode runlength not null,
-	-- Properties of this type
-	__utma          varchar(255)  encode text32k,
-	__utmb          varchar(255)  encode text32k,
-	__utmc          varchar(255)  encode text32k,
-	__utmv          varchar(255)  encode text32k,
-	__utmz          varchar(255)  encode text32k,
-	_ga             varchar(255)  encode text32k,
-	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
-)
-DISTSTYLE KEY
--- Optimized join to public.events
-DISTKEY (root_id)
-SORTKEY (derived_tstamp);
-
-ALTER TABLE public.com_google_analytics_cookies owner to storageloader;
-
-
 --public.com_nordstrom_add_item_attrs
 
 CREATE TABLE public.com_nordstrom_add_item_attrs (
@@ -874,7 +842,7 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE public.com_snowplowanalytics_snowplow_ua_parser owner to storageloader;
+ALTER TABLE public.com_snowplowanalytics_snowplow_ua_parser_context owner to storageloader;
 
 
 --public.com_snowplowanalytics_snowplow_web_page
