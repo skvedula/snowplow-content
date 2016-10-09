@@ -807,44 +807,6 @@ SORTKEY (derived_tstamp);
 ALTER TABLE public.com_snowplowanalytics_snowplow_timing owner to storageloader;
 
 
---public.com_snowplowanalytics_snowplow_ua_parser_context
-
-CREATE TABLE public.com_snowplowanalytics_snowplow_ua_parser_context (
-	-- Schema of this type
-	schema_vendor  varchar(128)   encode runlength not null,
-	schema_name    varchar(128)   encode runlength not null,
-	schema_format  varchar(128)   encode runlength not null,
-	schema_version varchar(128)   encode runlength not null,
-	-- Parentage of this type
-	root_id        char(36)       encode raw not null,
-	root_tstamp    timestamp      encode raw not null,
-	derived_tstamp timestamp      encode raw not null,
-	ref_root       varchar(255)   encode runlength not null,
-	ref_tree       varchar(1500)  encode runlength not null,
-	ref_parent     varchar(255)   encode runlength not null,
-	-- Properties of this type
-	useragent_family   varchar(255) encode text255 not null,
-	useragent_major    varchar(64)  encode text255,
-	useragent_minor    varchar(64)  encode text255,
-	useragent_patch    varchar(64)  encode text255,
-	useragent_version  varchar(255) encode text32k not null,
-	os_family          varchar(255) encode text255 not null,
-	os_major           varchar(64)  encode text255,
-	os_minor           varchar(64)  encode text255,
-	os_patch           varchar(64)  encode text255,
-	os_patch_minor     varchar(64)  encode text255,
-	os_version         varchar(255) encode text32k not null,
-	device_family      varchar(255) encode text255 not null,
-	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
-)
-DISTSTYLE KEY
--- Optimized join to public.events
-DISTKEY (root_id)
-SORTKEY (derived_tstamp);
-
-ALTER TABLE public.com_snowplowanalytics_snowplow_ua_parser_context owner to storageloader;
-
-
 --public.com_snowplowanalytics_snowplow_web_page
 
 CREATE TABLE public.com_snowplowanalytics_snowplow_web_page (
