@@ -1,0 +1,2 @@
+vacuum public.com_nordstrom_elwin_exposures;
+analyze public.com_nordstrom_elwin_exposures;

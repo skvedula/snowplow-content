@@ -1,0 +1,2 @@
+vacuum public.com_nordstrom_remove_item_attrs;
+analyze public.com_nordstrom_remove_item_attrs;
