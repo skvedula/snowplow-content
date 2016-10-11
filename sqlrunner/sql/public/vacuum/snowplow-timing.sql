@@ -1,0 +1,2 @@
+vacuum public.com_snowplowanalytics_snowplow_timing;
+analyze public.com_snowplowanalytics_snowplow_timing;

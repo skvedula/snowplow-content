@@ -1,0 +1,2 @@
+vacuum public.com_nordstrom_page_view_attrs;
+analyze public.com_nordstrom_page_view_attrs;
