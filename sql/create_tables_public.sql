@@ -397,7 +397,7 @@ CREATE TABLE public.com_nordstrom_marketing_attrs (
 DISTSTYLE KEY
 --Optimized join to public.events
 DISTKEY(root_id)
-SORTKEY(root_tstamp);
+SORTKEY(derived_tstamp);
 
 ALTER TABLE public.com_nordstrom_marketing_attrs owner to storageloader;
 
