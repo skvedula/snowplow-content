@@ -12,7 +12,8 @@ INSERT INTO public.com_snowplowanalytics_snowplow_site_search (
        schema_format,
        schema_version,
        root_id,
-       root_tstamp,
+       convert_timezone('US/Pacific', root_tstamp),
+       convert_timezone('US/Pacific', derived_tstamp),
        ref_root,
        ref_tree,
        ref_parent,
@@ -20,7 +21,8 @@ INSERT INTO public.com_snowplowanalytics_snowplow_site_search (
        filters,
        total_results,
        page_results
-FROM atomic.com_snowplowanalytics_snowplow_site_search_1
-      WHERE root_id IN (SELECT event_id FROM scratchpad.event_id)
+FROM atomic.com_snowplowanalytics_snowplow_site_search_1    T1,
+scratchpad.event_id    T2
+      WHERE T1.root_id = T2.event_id
 
 );

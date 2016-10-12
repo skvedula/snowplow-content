@@ -13,6 +13,7 @@ INSERT INTO public.com_nordstrom_remove_item_attrs (
        schema_version,
        root_id,
        convert_timezone('US/Pacific', root_tstamp),
+       convert_timezone('US/Pacific', derived_tstamp),
        ref_root,
        ref_tree,
        ref_parent,
@@ -31,8 +32,9 @@ INSERT INTO public.com_nordstrom_remove_item_attrs (
        tag_id,
        experiment_id,
        experiment_data
-FROM atomic.com_nordstrom_remove_item_attrs_0
-      WHERE root_id IN (SELECT event_id FROM scratchpad.event_id)
+FROM atomic.com_nordstrom_remove_item_attrs_0    T1,
+scratchpad.event_id    T2
+      WHERE T1.root_id = T2.event_id
 
 );
 
@@ -44,6 +46,7 @@ INSERT INTO public.com_nordstrom_remove_item_attrs (
        schema_version,
        root_id,
        convert_timezone('US/Pacific', root_tstamp),
+       convert_timezone('US/Pacific', derived_tstamp),
        ref_root,
        ref_tree,
        ref_parent,
@@ -62,7 +65,8 @@ INSERT INTO public.com_nordstrom_remove_item_attrs (
        tag_id,
        experiment_id,
        experiment_data
-FROM atomic.com_nordstrom_remove_item_attrs_1
-      WHERE root_id IN (SELECT event_id FROM scratchpad.event_id)
+FROM atomic.com_nordstrom_remove_item_attrs_1    T1,
+scratchpad.event_id    T2
+      WHERE T1.root_id = T2.event_id
 
 );
