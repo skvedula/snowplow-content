@@ -7,16 +7,9 @@
 
 INSERT INTO public.com_nordstrom_elwin_exposures (
 
-    SELECT schema_vendor,
-       schema_name,
-       schema_format,
-       schema_version,
-       root_id,
+    SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
        convert_timezone('US/Pacific', derived_tstamp),
-       ref_root,
-       ref_tree,
-       ref_parent,
        team_id,
        experiment_name,
        parameter_name,

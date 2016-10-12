@@ -7,43 +7,49 @@
     :username:  # Insert username with relevant credentials to run the below queries
     :password:  # Insert user password
 :steps:
-  - :name: 01-get-last-etls
+  - :name: get-last-etls
     :queries:
       - :name: get-last-etls
         :file: ./atomic/copy-events/get-last-etl.sql
-  - :name: 02-get-event-ids-from-last-etls
+  - :name: get-event-ids-from-last-etls
     :queries:
       - :name: get-event-ids-from-last-etls
         :file: ./atomic/copy-events/log-event-ids.sql
-  - :name: 03-copy-events
+  - :name: copy-events
     :queries:
       - :name: copy-events
         :file: ./atomic/copy-events/copy-events.sql
-  - :name: 04-copy-nordstrom-child-tables
+  - :name: copy-nordstrom-child-tables-1
     :queries:
-      - :name: copy-com-nordstrom-add-item-attrs
-        :file: ./atomic/copy-events/copy-com-nordstrom-add-item-attrs.sql
-      - :name: copy-com-nordstrom-order-item-attrs
-        :file: ./atomic/copy-events/copy-com-nordstrom-order-item-attrs.sql
-      - :name: copy-com-nordstrom-page-view-attrs
-        :file: ./atomic/copy-events/copy-com-nordstrom-page-view-attrs.sql
-      - :name: copy-com-nordstrom-product-view-attrs
-        :file: ./atomic/copy-events/copy-com-nordstrom-product-view-attrs.sql
-      - :name: copy-com-nordstrom-remove-item-attrs
-        :file: ./atomic/copy-events/copy-com-nordstrom-remove-item-attrs.sql
-  - :name: 05-copy-snowplow-child-tables
+      - :name: nordstrom_add_item
+        :file: ./atomic/copy-events/nordstrom_add_item.sql
+      - :name: order_items
+        :file: ./atomic/copy-events/order_items.sql
+      - :name: page_views
+        :file: ./atomic/copy-events/page_views.sql
+      - :name: product_views
+        :file: ./atomic/copy-events/product_views.sql
+      - :name: nordstrom_remove_item
+        :file: ./atomic/copy-events/nordstrom_remove_item.sql
+  - :name: copy-nordstrom-child-tables-2
+      - :name: marketing
+        :file: ./atomic/copy-events/marketing.sql
+      - :name: elwin_exposures
+        :file: ./atomic/copy-events/elwin_exposures.sql
     :queries:
-      - :name: copy-com-snowplowanalytics-snowplow-add-to-cart
-        :file: ./atomic/copy-events/copy-com-snowplowanalytics-snowplow-add-to-cart.sql
-      - :name: copy-com-snowplowanalytics-snowplow-link-click
-        :file: ./atomic/copy-events/copy-com-snowplowanalytics-snowplow-link-click.sql
-      - :name: copy-com-snowplowanalytics-snowplow-remove-from-cart
-        :file: ./atomic/copy-events/copy-com-snowplowanalytics-snowplow-remove-from-cart.sql
-      - :name: copy-com-snowplowanalytics-snowplow-site-search
-        :file: ./atomic/copy-events/copy-com-snowplowanalytics-snowplow-site-search.sql
-      - :name: copy-com-snowplowanalytics-snowplow-timing
-        :file: ./atomic/copy-events/copy-com-snowplowanalytics-snowplow-timing.sql
-  - :name: 06-update-etl-manifest
+  - :name: copy-snowplow-child-tables
+    :queries:
+      - :name: snowplow_add_to_cart
+        :file: ./atomic/copy-events/snowplow_add_to_cart.sql
+      - :name: link_clicks
+        :file: ./atomic/copy-events/link_clicks.sql
+      - :name: snowplow_remove_from_cart
+        :file: ./atomic/copy-events/snowplow_remove_from_cart.sql
+      - :name: search
+        :file: ./atomic/copy-events/search.sql
+      - :name: timing
+        :file: ./atomic/copy-events/timing.sql
+  - :name: update-etl-manifest
     :queries:
       - :name: update-etl-manifest
         :file: ./atomic/copy-events/log-etl-manifest.sql

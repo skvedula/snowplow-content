@@ -1,23 +1,5 @@
 --public.events
 
--- Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
---
--- This program is licensed to you under the Apache License Version 2.0,
--- and you may not use this file except in compliance with the Apache License Version 2.0.
--- You may obtain a copy of the Apache License Version 2.0 at http://www.apache.org/licenses/LICENSE-2.0.
---
--- Unless required by applicable law or agreed to in writing,
--- software distributed under the Apache License Version 2.0 is distributed on an
--- "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
--- See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
---
--- Version:     0.8.0
--- URL:         -
---
--- Authors:     Yali Sassoon, Alex Dean, Peter van Wesep, Fred Blundun
--- Copyright:   Copyright (c) 2013-2015 Snowplow Analytics Ltd
--- License:     Apache License Version 2.0
-
 -- Create the schema
 CREATE SCHEMA public;
 
@@ -206,21 +188,13 @@ COMMENT ON TABLE "public"."events" IS '0.8.0';
 ALTER TABLE public.events owner to storageloader;
 
 
---public.com_nordstrom_add_item_attrs
+--public.nordstrom_add_item
 
-CREATE TABLE public.com_nordstrom_add_item_attrs (
-	-- Schema of this type
-	schema_vendor			varchar(128)  	encode runlength not null,
-	schema_name				varchar(128)  	encode runlength not null,
-	schema_format			varchar(128)  	encode runlength not null,
-	schema_version			varchar(128)  	encode runlength not null,
+CREATE TABLE public.nordstrom_add_item (
 	-- Parentage of this type
 	root_id					char(36)      	encode lzo not null,
 	root_tstamp				timestamp     	encode raw not null,
 	derived_tstamp  		timestamp     	encode raw not null,
-	ref_root				varchar(255)  	encode runlength not null,
-	ref_tree				varchar(1500) 	encode runlength not null,
-	ref_parent				varchar(255)  	encode runlength not null,
 	-- Properties of this type
 	document_url			varchar(2000) 	encode lzo,
 	style_number			varchar(20)		encode lzo,
@@ -244,83 +218,16 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE public.com_nordstrom_add_item_attrs owner to storageloader;
+ALTER TABLE public.nordstrom_add_item owner to storageloader;
 
 
---public.com_nordstrom_element_attrs
+--public.elwin_exposures
 
-CREATE TABLE public.com_nordstrom_element_attrs (
-	-- Schema of this type
-	schema_vendor   		varchar(128)  	encode runlength not null,
-	schema_name     		varchar(128)  	encode runlength not null,
-	schema_format   		varchar(128)  	encode runlength not null,
-	schema_version  		varchar(128)  	encode runlength not null,
-	-- Parentage of this type
-	root_id         		char(36)      	encode raw not null,
-	root_tstamp     		timestamp     	encode raw not null,
-	derived_tstamp  		timestamp     	encode raw not null,
-	ref_root        		varchar(255)  	encode runlength not null,
-	ref_tree        		varchar(1500) 	encode runlength not null,
-	ref_parent      		varchar(255)  	encode runlength not null,
-	-- Properties of this type
-	wish_list 		   		varchar(1)  	encode text32k,
-	video_name 		   		varchar(255)	encode lzo,
-	video_product_name		varchar(255)	encode lzo,
-	sku 					varchar(255)	encode lzo,
-	number_of_recs 			smallint,
-	rec_strategy			varchar(255)	encode text32k,
-	filter_category			varchar(255)	encode text32k,
-	filter_value			varchar(255)	encode text32k,
-	video_state 			varchar(10)		encode text32k,
-	video_timestamp			varchar(5)		encode lzo,
-	video_length			varchar(5)		encode lzo,
-	style_number			varchar(255)	encode lzo,
-	star_rating				numeric(4),
-	reviews_size_select		varchar(255)	encode text32k,
-	reviews_age_select		varchar(255)	encode text32k,
-	reviews_sort_by			varchar(255)	encode text32k,
-	results_page			smallint,
-	brand_name				varchar(255)	encode lzo,
-	number_of_images		smallint,
-	number_of_videos		smallint,
-	note_value				numeric(15,2),
-	note_expire_date		date,
-	applied_notes_total		numeric(15,2),
-	available_notes_total	numeric(15,2),
-	gift_card_total			numeric(15,2),
-	gift_card_value			numeric(15,2),
-	page_id					varchar(255)	encode lzo,
-	search_term				varchar(255)	encode lzo,
-	number_of_reviews		smallint,
-	rms_sku					varchar(255)	encode lzo,
-	web_style_id			varchar(255)	encode lzo,
-	outfit_id				varchar(255)	encode lzo,
-	store_number			smallint,
-	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
-)
-DISTSTYLE KEY
--- Optimized join to public.events
-DISTKEY (root_id)
-SORTKEY (derived_tstamp);
-
-ALTER TABLE public.com_nordstrom_element_attrs owner to storageloader;
-
-
---public.com_nordstrom_elwin
-
-CREATE TABLE public.com_nordstrom_elwin_exposures (
-	-- Schema of this type
-	schema_vendor   varchar(128)  encode runlength not null,
-	schema_name     varchar(128)  encode runlength not null,
-	schema_format   varchar(128)  encode runlength not null,
-	schema_version  varchar(128)  encode runlength not null,
+CREATE TABLE public.elwin_exposures (
 	-- Parentage of this type
 	root_id         char(36)      encode raw not null,
 	root_tstamp     timestamp     encode raw not null,
 	derived_tstamp  timestamp     encode raw not null,
-	ref_root        varchar(255)  encode runlength not null,
-	ref_tree        varchar(1500) encode runlength not null,
-	ref_parent      varchar(255)  encode runlength not null,
 	-- Properties of this type
 	team_id				varchar(255)	encode lzo,
 	experiment_name		varchar(255)	encode lzo,
@@ -334,53 +241,16 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE public.com_nordstrom_elwin_exposures owner to storageloader;
+ALTER TABLE public.elwin_exposures owner to storageloader;
 
 
---public.com_nordstrom_errors
+--public.marketing
 
-CREATE TABLE public.com_nordstrom_errors (
-	-- Schema of this type
-	schema_vendor   varchar(128)  encode runlength not null,
-	schema_name     varchar(128)  encode runlength not null,
-	schema_format   varchar(128)  encode runlength not null,
-	schema_version  varchar(128)  encode runlength not null,
-	-- Parentage of this type
-	root_id         char(36)      encode raw not null,
-	root_tstamp     timestamp     encode raw not null,
-	derived_tstamp  timestamp     encode raw not null,
-	ref_root        varchar(255)  encode runlength not null,
-	ref_tree        varchar(1500) encode runlength not null,
-	ref_parent      varchar(255)  encode runlength not null,
-	-- Properties of this type
-	error 			varchar(2000)  encode lzo,
-	tag_id 			varchar(10)   encode lzo,
-	page_url 		varchar(2000) encode lzo,
-	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
-)
-DISTSTYLE KEY
--- Optimized join to public.events
-DISTKEY (root_id)
-SORTKEY (derived_tstamp);
-
-ALTER TABLE public.com_nordstrom_errors owner to storageloader;
-
-
---public.com_nordstrom_marketing_attrs
-
-CREATE TABLE public.com_nordstrom_marketing_attrs (
-	-- Schema of this type
-	schema_vendor		varchar(128)  encode runlength not null,
-	schema_name			varchar(128)  encode runlength not null,
-	schema_format		varchar(128)  encode runlength not null,
-	schema_version		varchar(128)  encode runlength not null,
+CREATE TABLE public.marketing (
 	-- Parentage of this type
 	root_id				char(36)      encode raw not null,
 	root_tstamp			timestamp     encode raw not null,
 	derived_tstamp  	timestamp     encode raw not null,
-	ref_root			varchar(255)  encode runlength not null,
-	ref_tree			varchar(1500) encode runlength not null,
-	ref_parent			varchar(255)  encode runlength not null,
     --Properties of this type 
     mkt_source varchar(255)  encode lzo,
     mkt_medium varchar(255)  encode lzo,
@@ -399,24 +269,16 @@ DISTSTYLE KEY
 DISTKEY(root_id)
 SORTKEY(derived_tstamp);
 
-ALTER TABLE public.com_nordstrom_marketing_attrs owner to storageloader;
+ALTER TABLE public.marketing owner to storageloader;
 
 
---public.com_nordstrom_order_item_attrs
+--public.order_items
 
-CREATE TABLE public.com_nordstrom_order_item_attrs (
-	-- Schema of this type
-	schema_vendor		varchar(128)  encode runlength not null,
-	schema_name			varchar(128)  encode runlength not null,
-	schema_format		varchar(128)  encode runlength not null,
-	schema_version		varchar(128)  encode runlength not null,
+CREATE TABLE public.order_items (
 	-- Parentage of this type
 	root_id				char(36)      encode raw not null,
 	root_tstamp			timestamp     encode raw not null,
 	derived_tstamp  	timestamp     encode raw not null,
-	ref_root			varchar(255)  encode runlength not null,
-	ref_tree			varchar(1500) encode runlength not null,
-	ref_parent			varchar(255)  encode runlength not null,
 	-- Properties of this type
 	outfit_id			varchar(255)  encode lzo,
 	gift_services		varchar(255)  encode lzo,
@@ -446,24 +308,16 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE public.com_nordstrom_order_item_attrs owner to storageloader;
+ALTER TABLE public.order_items owner to storageloader;
 
 
---public.com_nordstrom_pageview_attrs
+--public.page_views
 
-CREATE TABLE public.com_nordstrom_page_view_attrs (
-	-- Schema of this type
-	schema_vendor   		varchar(128)  	encode runlength not null,
-	schema_name     		varchar(128)  	encode runlength not null,
-	schema_format   		varchar(128)  	encode runlength not null,
-	schema_version  		varchar(128)  	encode runlength not null,
+CREATE TABLE public.page_views (
 	-- Parentage of this type
 	root_id         		char(36)      	encode raw not null,
 	root_tstamp     		timestamp     	encode raw not null,
 	derived_tstamp  		timestamp     	encode raw not null,
-	ref_root        		varchar(255)  	encode runlength not null,
-	ref_tree        		varchar(1500) 	encode runlength not null,
-	ref_parent      		varchar(255)  	encode runlength not null,
 	-- Properties of this type
 	page_url				varchar(2000)	encode lzo,
 	page_category   		varchar(255)  	encode lzo,
@@ -482,24 +336,16 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE public.com_nordstrom_page_view_attrs owner to storageloader;
+ALTER TABLE public.page_views owner to storageloader;
 
 
---public.com_nordstrom_product_view_attrs
+--public.product_views
 
-CREATE TABLE public.com_nordstrom_product_view_attrs (
-	-- Schema of this type
-	schema_vendor		varchar(128)  encode runlength not null,
-	schema_name			varchar(128)  encode runlength not null,
-	schema_format		varchar(128)  encode runlength not null,
-	schema_version		varchar(128)  encode runlength not null,
+CREATE TABLE public.product_views (
 	-- Parentage of this type
 	root_id				char(36)      encode raw not null,
 	root_tstamp			timestamp     encode raw not null,
 	derived_tstamp  	timestamp     encode raw not null,
-	ref_root			varchar(255)  encode runlength not null,
-	ref_tree			varchar(1500) encode runlength not null,
-	ref_parent			varchar(255)  encode runlength not null,
 	-- Properties of this type
 	page_url			varchar(2000)  encode lzo,
 	product_id			varchar(255)  encode lzo,
@@ -519,24 +365,16 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE public.com_nordstrom_product_view_attrs owner to storageloader;
+ALTER TABLE public.product_views owner to storageloader;
 
 
---public.com_nordstrom_remove_item_attrs
+--public.nordstrom_remove_item
 
-CREATE TABLE public.com_nordstrom_remove_item_attrs (
-	-- Schema of this type
-	schema_vendor			varchar(128)  	encode runlength not null,
-	schema_name				varchar(128)  	encode runlength not null,
-	schema_format			varchar(128)  	encode runlength not null,
-	schema_version			varchar(128)  	encode runlength not null,
+CREATE TABLE public.nordstrom_remove_item (
 	-- Parentage of this type
 	root_id					char(36)      	encode raw not null,
 	root_tstamp				timestamp     	encode raw not null,
 	derived_tstamp  		timestamp     	encode raw not null,
-	ref_root				varchar(255)  	encode runlength not null,
-	ref_tree				varchar(1500) 	encode runlength not null,
-	ref_parent				varchar(255)  	encode runlength not null,
 	-- Properties of this type
 	document_url			varchar(2000) 	encode lzo,
 	style_number			varchar(20)		encode lzo,
@@ -560,24 +398,16 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE public.com_nordstrom_remove_item_attrs owner to storageloader;
+ALTER TABLE public.nordstrom_remove_item owner to storageloader;
 
 
---public.com_snowplowanalytics_snowplow_add_to_cart
+--public.snowplow_add_to_cart
 
-CREATE TABLE public.com_snowplowanalytics_snowplow_add_to_cart (
-	-- Schema of this type
-	schema_vendor   varchar(128)  encode runlength not null,
-	schema_name     varchar(128)  encode runlength not null,
-	schema_format   varchar(128)  encode runlength not null,
-	schema_version  varchar(128)  encode runlength not null,
+CREATE TABLE public.snowplow_add_to_cart (
 	-- Parentage of this type
 	root_id         char(36)      encode raw not null,
 	root_tstamp     timestamp     encode raw not null,
 	derived_tstamp  timestamp     encode raw not null,
-	ref_root        varchar(255)  encode runlength not null,
-	ref_tree        varchar(1500) encode runlength not null,
-	ref_parent      varchar(255)  encode runlength not null,
 	-- Properties of this type
 	sku             varchar(255)  encode text32k not null,
 	name            varchar(255)  encode text32k,
@@ -592,51 +422,16 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE public.com_snowplowanalytics_snowplow_add_to_cart owner to storageloader;
+ALTER TABLE public.snowplow_add_to_cart owner to storageloader;
 
 
---public.com_snowplowanalytics_snowplow_client_session
+--public.link_clicks
 
-CREATE TABLE IF NOT EXISTS public.com_snowplowanalytics_snowplow_client_session (
-    "schema_vendor"       VARCHAR(128)  ENCODE RUNLENGTH NOT NULL,
-    "schema_name"         VARCHAR(128)  ENCODE RUNLENGTH NOT NULL,
-    "schema_format"       VARCHAR(128)  ENCODE RUNLENGTH NOT NULL,
-    "schema_version"      VARCHAR(128)  ENCODE RUNLENGTH NOT NULL,
-    "root_id"             CHAR(36)      ENCODE RAW       NOT NULL,
-    "root_tstamp"         TIMESTAMP     ENCODE RAW       NOT NULL,
-	"derived_tstamp"  	  timestamp     encode raw 		 not null,
-    "ref_root"            VARCHAR(255)  ENCODE RUNLENGTH NOT NULL,
-    "ref_tree"            VARCHAR(1500) ENCODE RUNLENGTH NOT NULL,
-    "ref_parent"          VARCHAR(255)  ENCODE RUNLENGTH NOT NULL,
-    "session_id"          CHAR(36)      encode lzo       NOT NULL,
-    "session_index"       INT           encode delta32k  NOT NULL,
-    "storage_mechanism"   VARCHAR(13)   encode lzo       NOT NULL,
-    "user_id"             VARCHAR(36)   encode lzo       NOT NULL,
-    "previous_session_id" CHAR(36)      encode lzo,
-FOREIGN KEY (root_id) REFERENCES public.events(event_id)
-)
-DISTSTYLE KEY
-DISTKEY (root_id)
-SORTKEY (derived_tstamp);
-
-ALTER TABLE public.com_snowplowanalytics_snowplow_client_session owner to storageloader;
-
-
---public.com_snowplowanalytics_snowplow_link_click
-
-CREATE TABLE public.com_snowplowanalytics_snowplow_link_click (
-	-- Schema of this type
-	schema_vendor   varchar(128)  encode runlength not null,
-	schema_name     varchar(128)  encode runlength not null,
-	schema_format   varchar(128)  encode runlength not null,
-	schema_version  varchar(128)  encode runlength not null,
+CREATE TABLE public.link_clicks (
 	-- Parentage of this type
 	root_id         char(36)      encode raw not null,
 	root_tstamp     timestamp     encode raw not null,
 	derived_tstamp  timestamp     encode raw not null,
-	ref_root        varchar(255)  encode runlength not null,
-	ref_tree        varchar(1500) encode runlength not null,
-	ref_parent      varchar(255)  encode runlength not null,
 	-- Properties of this type
 	element_id      varchar(255)  encode text32k,
 	element_classes varchar(2048) encode raw, -- Holds a JSON array. TODO: will replace with a ref_ following https://github.com/snowplow/snowplow/issues/647
@@ -649,59 +444,16 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE public.com_snowplowanalytics_snowplow_link_click owner to storageloader;
+ALTER TABLE public.link_clicks owner to storageloader;
 
 
---public.com_snowplowanalytics_snowplow_mobile_context
+--public.snowplow_remove_from_cart
 
-CREATE TABLE public.com_snowplowanalytics_snowplow_mobile_context (
-	-- Schema of this type
-	schema_vendor       varchar(128)  encode runlength not null,
-	schema_name         varchar(128)  encode runlength not null,
-	schema_format       varchar(128)  encode runlength not null,
-	schema_version      varchar(128)  encode runlength not null,
-	-- Parentage of this type
-	root_id             char(36)      encode raw not null,
-	root_tstamp         timestamp     encode raw not null,
-	derived_tstamp  	timestamp     encode raw not null,
-	ref_root            varchar(255)  encode runlength not null,
-	ref_tree            varchar(1500) encode runlength not null,
-	ref_parent          varchar(255)  encode runlength not null,
-	-- Properties of this type
-	os_type             varchar(255)  encode text255 not null,
-	os_version          varchar(255)  encode text32k not null,
-	device_manufacturer varchar(255)  encode text255 not null,
-	device_model        varchar(255)  encode text32k not null,
-	carrier             varchar(255)  encode text32k,
-	open_idfa           varchar(128)  encode runlength,
-	apple_idfa          varchar(128)  encode runlength,
-	apple_idfv          varchar(128)  encode runlength,
-	android_idfa        varchar(128)  encode runlength,
-	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
-)
-DISTSTYLE KEY
--- Optimized join to public.events
-DISTKEY (root_id)
-SORTKEY (derived_tstamp);
-
-ALTER TABLE public.com_snowplowanalytics_snowplow_mobile_context owner to storageloader;
-
-
---public.com_snowplowanalytics_snowplow_remove_from_cart
-
-CREATE TABLE public.com_snowplowanalytics_snowplow_remove_from_cart (
-	-- Schema of this type
-	schema_vendor   varchar(128)  encode runlength not null,
-	schema_name     varchar(128)  encode runlength not null,
-	schema_format   varchar(128)  encode runlength not null,
-	schema_version  varchar(128)  encode runlength not null,
+CREATE TABLE public.snowplow_remove_from_cart (
 	-- Parentage of this type
 	root_id         char(36)      encode raw not null,
 	root_tstamp     timestamp     encode raw not null,
 	derived_tstamp  timestamp     encode raw not null,
-	ref_root        varchar(255)  encode runlength not null,
-	ref_tree        varchar(1500) encode runlength not null,
-	ref_parent      varchar(255)  encode runlength not null,
 	-- Properties of this type
 	sku             varchar(255)  encode text32k not null,
 	name            varchar(255)  encode text32k,
@@ -716,52 +468,16 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE public.com_snowplowanalytics_snowplow_remove_from_cart owner to storageloader;
+ALTER TABLE public.snowplow_remove_from_cart owner to storageloader;
 
 
---public.com_snowplowanalytics_snowplow_screen_view
+--public.search
 
-CREATE TABLE public.com_snowplowanalytics_snowplow_screen_view (
-	-- Schema of this type
-	schema_vendor  varchar(128)  encode runlength not null,
-	schema_name    varchar(128)  encode runlength not null,
-	schema_format  varchar(128)  encode runlength not null,
-	schema_version varchar(128)  encode runlength not null,
-	-- Parentage of this type
-	root_id        char(36)      encode raw not null,
-	root_tstamp    timestamp     encode raw not null,
-	derived_tstamp timestamp     encode raw not null,
-	ref_root       varchar(255)  encode runlength not null,
-	ref_tree       varchar(1500) encode runlength not null,
-	ref_parent     varchar(255)  encode runlength not null,
-	-- Properties of this type
-	name           varchar(255)  encode text32k,
-	id             varchar(255)  encode text32k,
-	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
-)
-DISTSTYLE KEY
--- Optimized join to public.events
-DISTKEY (root_id)
-SORTKEY (derived_tstamp);
-
-ALTER TABLE public.com_snowplowanalytics_snowplow_screen_view owner to storageloader;
-
-
---public.com_snowplowanalytics_snowplow_site_search
-
-CREATE TABLE public.com_snowplowanalytics_snowplow_site_search (
-	-- Schema of this type
-	schema_vendor   varchar(128)  encode runlength not null,
-	schema_name     varchar(128)  encode runlength not null,
-	schema_format   varchar(128)  encode runlength not null,
-	schema_version  varchar(128)  encode runlength not null,
+CREATE TABLE public.search (
 	-- Parentage of this type
 	root_id         char(36)      encode raw not null,
 	root_tstamp     timestamp     encode raw not null,
 	derived_tstamp  timestamp     encode raw not null,
-	ref_root        varchar(255)  encode runlength not null,
-	ref_tree        varchar(1500) encode runlength not null,
-	ref_parent      varchar(255)  encode runlength not null,
 	-- Properties of this type
 	terms           varchar(2048) encode raw not null, -- Holds a JSON array. TODO: will replace with a ref_ following https://github.com/snowplow/snowplow/issues/647
 	filters         varchar(2048) encode raw, -- Holds a JSON object. TODO: will replace with a ref_ following https://github.com/snowplow/snowplow/issues/647
@@ -774,24 +490,16 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE public.com_snowplowanalytics_snowplow_site_search owner to storageloader;
+ALTER TABLE public.search owner to storageloader;
 
 
---public.com_snowplowanalytics_snowplow_timing
+--public.timing
 
-CREATE TABLE public.com_snowplowanalytics_snowplow_timing (
-	-- Schema of this type
-	schema_vendor  varchar(128)  encode runlength not null,
-	schema_name    varchar(128)  encode runlength not null,
-	schema_format  varchar(128)  encode runlength not null,
-	schema_version varchar(128)  encode runlength not null,
+CREATE TABLE public.timing (
 	-- Parentage of this type
 	root_id        char(36)      encode raw not null,
 	root_tstamp    timestamp     encode raw not null,
 	derived_tstamp timestamp     encode raw not null,
-	ref_root       varchar(255)  encode runlength not null,
-	ref_tree       varchar(1500) encode runlength not null,
-	ref_parent     varchar(255)  encode runlength not null,
 	-- Properties of this type
 	category       varchar(255)  encode text255 not null,
 	variable       varchar(255)  encode text32k not null,
@@ -804,80 +512,4 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE public.com_snowplowanalytics_snowplow_timing owner to storageloader;
-
-
---public.com_snowplowanalytics_snowplow_web_page
-
-CREATE TABLE public.com_snowplowanalytics_snowplow_web_page (
-	-- Schema of this type
-	schema_vendor   varchar(128)  encode runlength not null,
-	schema_name     varchar(128)  encode runlength not null,
-	schema_format   varchar(128)  encode runlength not null,
-	schema_version  varchar(128)  encode runlength not null,
-	-- Parentage of this type
-	root_id         char(36)      encode raw not null,
-	root_tstamp     timestamp     encode raw not null,
-	derived_tstamp  timestamp     encode raw not null,
-	ref_root        varchar(255)  encode runlength not null,
-	ref_tree        varchar(1500) encode runlength not null,
-	ref_parent      varchar(255)  encode runlength not null,
-	-- Properties of this type
-	id              char(36)      encode raw not null,
-	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
-)
-DISTSTYLE KEY
--- Optimized join to public.events
-DISTKEY (root_id)
-SORTKEY (derived_tstamp);
-
-ALTER TABLE public.com_snowplowanalytics_snowplow_web_page owner to storageloader;
-
-
---public.org_w3_performance_timing
-
-CREATE TABLE public.org_w3_performance_timing (
-	-- Schema of this type
-	schema_vendor                  varchar(128)  encode runlength not null,
-	schema_name                    varchar(128)  encode runlength not null,
-	schema_format                  varchar(128)  encode runlength not null,
-	schema_version                 varchar(128)  encode runlength not null,
-	-- Parentage of this type
-	root_id                        char(36)      encode raw not null,
-	root_tstamp                    timestamp     encode raw not null,
-	derived_tstamp  			   timestamp     encode raw not null,
-	ref_root                       varchar(255)  encode runlength not null,
-	ref_tree                       varchar(1500) encode runlength not null,
-	ref_parent                     varchar(255)  encode runlength not null,
-	-- Properties of this type
-	navigation_start               bigint encode raw,
-	redirect_start                 bigint encode raw,
-	redirect_end                   bigint encode raw,
-	fetch_start                    bigint encode raw,
-	domain_lookup_start            bigint encode raw,
-	domain_lookup_end              bigint encode raw,
-	secure_connection_start        bigint encode raw,
-	connect_start                  bigint encode raw,
-	connect_end                    bigint encode raw,
-	request_start                  bigint encode raw,
-	response_start                 bigint encode raw,
-	response_end                   bigint encode raw,
-	unload_event_start             bigint encode raw,
-	unload_event_end               bigint encode raw,
-	dom_loading                    bigint encode raw,
-	dom_interactive                bigint encode raw,
-	dom_content_loaded_event_start bigint encode raw,
-	dom_content_loaded_event_end   bigint encode raw,
-	dom_complete                   bigint encode raw,
-	load_event_start               bigint encode raw,
-	load_event_end                 bigint encode raw,
-	ms_first_paint                 bigint encode raw,
-	chrome_first_paint             bigint encode raw,
-	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
-)
-DISTSTYLE KEY
--- Optimized join to public.events
-DISTKEY (root_id)
-SORTKEY (derived_tstamp);
-
-ALTER TABLE public.org_w3_performance_timing owner to storageloader;
+ALTER TABLE public.timing owner to storageloader;

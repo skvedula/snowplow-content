@@ -5,23 +5,22 @@
 
 -- (a) get all events that are in atomic.events but not yet in public.events and perform time zone conversion
 
-INSERT INTO public.com_snowplowanalytics_snowplow_timing (
+INSERT INTO public.marketing (
 
-    SELECT schema_vendor,
-       schema_name,
-       schema_format,
-       schema_version,
-       root_id,
+    SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
        convert_timezone('US/Pacific', derived_tstamp),
-       ref_root,
-       ref_tree,
-       ref_parent,
-       category,
-       variable,
-       timing,
-       label
-FROM atomic.com_snowplowanalytics_snowplow_timing_1    T1,
+       mkt_source,
+       mkt_medium,
+       mkt_campaign,
+       mkt_term,
+       mkt_content,
+       mkt_cm_camp_name,
+       mkt_cm_camp_uid,
+       mkt_rkg_id,
+       mkt_linkshare_siteid,
+       mkt_cm_em
+FROM atomic.com_nordstrom_marketing_attrs_1    T1,
 scratchpad.event_id    T2
       WHERE T1.root_id = T2.event_id
 

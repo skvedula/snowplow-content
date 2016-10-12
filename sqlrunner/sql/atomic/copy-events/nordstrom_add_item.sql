@@ -7,16 +7,9 @@
 
 INSERT INTO public.com_nordstrom_add_item_attrs (
 
-    SELECT schema_vendor,
-       schema_name,
-       schema_format,
-       schema_version,
-       root_id,
+    SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
        convert_timezone('US/Pacific', derived_tstamp),
-       ref_root,
-       ref_tree,
-       ref_parent,
        document_url,
        style_number,
        style_id,
@@ -39,16 +32,9 @@ scratchpad.event_id    T2
 
 INSERT INTO public.com_nordstrom_add_item_attrs (
 
-    SELECT schema_vendor,
-       schema_name,
-       schema_format,
-       schema_version,
-       root_id,
+    SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
        convert_timezone('US/Pacific', derived_tstamp),
-       ref_root,
-       ref_tree,
-       ref_parent,
        document_url,
        style_number,
        style_id,
