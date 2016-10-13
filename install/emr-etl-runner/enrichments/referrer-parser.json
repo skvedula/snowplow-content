@@ -8,6 +8,10 @@
         "enabled": true,
         "parameters": {
             "internalDomains": [
+                'shop.nordstrom.com',
+                'secure.nordstrom.com',
+                'www.nordstromrack.com',
+                'www.hautelook.com'
             ]
         }
     }
