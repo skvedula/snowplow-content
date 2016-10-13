@@ -1,0 +1,8 @@
+cloudformation create-stack --stack-name snowplow-kinesis-dev --template-body file:///Users/qkpw/Development/stash/snowplow-content/templates
+/snowplow-kinesis-dev-cftemplate.json --capabilities CAPABILITY_IAM 
+
+cloudformation create-stack --stack-name snowplow-kinesis-staging --template-body file:///Users/qkpw/Development/stash/snowplow-content/templates
+/snowplow-kinesis-staging-cftemplate.json --capabilities CAPABILITY_IAM 
+
+cloudformation create-stack --stack-name snowplow-kinesis-prod --template-body file:///Users/qkpw/Development/stash/snowplow-content/templates
+/snowplow-kinesis-prod-cftemplate.json --capabilities CAPABILITY_IAM 

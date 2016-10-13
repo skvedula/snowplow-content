@@ -1,0 +1,27 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Snowplow Dev Kinesis streams",
+    "Resources": {
+        "SnowplowKinesisProdGood": {
+            "Type": "AWS::Kinesis::Stream",
+            "Properties": {
+                "Name": "a0007-sp-dev-good",
+                "ShardCount": 5
+            }
+        },
+        "SnowplowKinesisProdEnrich": {
+            "Type": "AWS::Kinesis::Stream",
+            "Properties": {
+                "Name": "a0007-sp-dev-enrich",
+                "ShardCount": 5
+            }
+        },
+        "SnowplowKinesisProdBad": {
+            "Type": "AWS::Kinesis::Stream",
+            "Properties": {
+                "Name": "a0007-sp-dev-bad",
+                "ShardCount": 2
+            }
+        }
+    }
+}
