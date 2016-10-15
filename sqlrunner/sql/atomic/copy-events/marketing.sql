@@ -21,7 +21,7 @@ INSERT INTO public.marketing (
        mkt_linkshare_siteid,
        mkt_cm_em
 FROM atomic.com_nordstrom_marketing_attrs_1    T1,
-scratchpad.event_id    T2
+atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
 
 );

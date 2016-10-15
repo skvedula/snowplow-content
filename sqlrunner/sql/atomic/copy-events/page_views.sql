@@ -21,7 +21,7 @@ INSERT INTO public.com_nordstrom_page_view_attrs (
        experiment_id,
        experiment_data
 FROM atomic.com_nordstrom_page_view_attrs_0    T1,
-scratchpad.event_id    T2
+atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
 
 );
@@ -42,7 +42,7 @@ INSERT INTO public.com_nordstrom_page_view_attrs (
        experiment_id,
        experiment_data
 FROM atomic.com_nordstrom_page_view_attrs_1    T1,
-scratchpad.event_id    T2
+atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
 
 );

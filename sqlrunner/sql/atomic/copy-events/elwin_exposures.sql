@@ -16,7 +16,7 @@ INSERT INTO public.com_nordstrom_elwin_exposures (
        parameter_value,
        elwin_id
 FROM atomic.com_nordstrom_elwin_exposures_1    T1,
-scratchpad.event_id    T2
+atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
 
 );

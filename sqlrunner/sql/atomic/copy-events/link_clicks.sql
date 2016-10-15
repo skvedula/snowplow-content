@@ -15,7 +15,7 @@ INSERT INTO public.com_snowplowanalytics_snowplow_link_click (
        element_target,
        target_url
 FROM atomic.com_snowplowanalytics_snowplow_link_click_1    T1,
-scratchpad.event_id    T2
+atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
 
 );
