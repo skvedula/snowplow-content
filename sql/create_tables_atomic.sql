@@ -933,19 +933,19 @@ ALTER TABLE atomic.org_w3_performance_timing_1 owner to storageloader;
 
 --table for ETL manifest
 
-CREATE TABLE derived.etl_tstamps (etl_tstamp timestamp encode lzo)
-SORTKEY (tstamp);
+CREATE TABLE atomic.etl_tstamps (etl_tstamp timestamp encode lzo)
+SORTKEY (etl_tstamp);
 
-INSERT INTO derived.etl_tstamps (SELECT DISTINCT etl_tstamp FROM atomic.events);
+INSERT INTO atomic.etl_tstamps (SELECT DISTINCT etl_tstamp FROM atomic.events);
 
 
 --temp table for most recent unloaded ETL timestamps
 
-CREATE TABLE scratchpad.etl_tstamps (LIKE derived.etl_tstamps);
+CREATE TABLE atomic.temp_etl_tstamps (LIKE atomic.etl_tstamps);
 
 
 --table for event_ids of most recent unloaded ETL timestamps
 
-CREATE TABLE scratchpad.event_id (event_id varchar(36) encode lzo)
+CREATE TABLE atomic.temp_event_ids (event_id varchar(36) encode lzo)
 DISTSTYLE KEY
 DISTKEY (event_id);

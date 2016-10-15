@@ -1,14 +1,14 @@
 -- empty temp table
-TRUNCATE scratchpad.etl_tstamps; 
-ANALYZE scratchpad.etl_tstamps;
+TRUNCATE atomic.temp_etl_tstamps; 
+ANALYZE atomic.temp_etl_tstamps;
 
-TRUNCATE scratchpad.event_id; 
-ANALYZE scratchpad.event_id;
+TRUNCATE atomic.temp_event_ids; 
+ANALYZE atomic.temp_event_ids;
 
 
 -- get etl_tstamps from last week that are not already in manifest
 
-INSERT INTO scratchpad.etl_tstamps (
+INSERT INTO atomic.temp_etl_tstamps (
 
   WITH recent_etl_tstamps AS ( -- return all recent ETL timestamps
 
@@ -25,7 +25,7 @@ INSERT INTO scratchpad.etl_tstamps (
   SELECT
     DISTINCT etl_tstamp
   FROM recent_etl_tstamps
-  WHERE etl_tstamp NOT IN (SELECT etl_tstamp FROM derived.etl_tstamps ORDER BY 1)
+  WHERE etl_tstamp NOT IN (SELECT etl_tstamp FROM atomic.etl_tstamps ORDER BY 1)
   ORDER BY 1
 
 );
