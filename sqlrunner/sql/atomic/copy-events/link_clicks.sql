@@ -5,7 +5,7 @@
 
 -- (a) get all events that are in atomic.events but not yet in public.events and perform time zone conversion
 
-INSERT INTO public.com_snowplowanalytics_snowplow_link_click (
+INSERT INTO public.link_clicks (
 
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
