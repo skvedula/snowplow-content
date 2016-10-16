@@ -5,7 +5,7 @@
 
 -- (a) get all events that are in atomic.events but not yet in public.events and perform time zone conversion
 
-INSERT INTO public.com_snowplowanalytics_snowplow_site_search (
+INSERT INTO public.search (
 
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),

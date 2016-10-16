@@ -5,7 +5,7 @@
 
 -- (a) get all events that are in atomic.events but not yet in public.events and perform time zone conversion
 
-INSERT INTO public.com_nordstrom_add_item_attrs (
+INSERT INTO public.nordstrom_add_item (
 
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
@@ -30,7 +30,7 @@ atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
 );
 
-INSERT INTO public.com_nordstrom_add_item_attrs (
+INSERT INTO public.nordstrom_add_item (
 
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),

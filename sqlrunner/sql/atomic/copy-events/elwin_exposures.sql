@@ -5,7 +5,7 @@
 
 -- (a) get all events that are in atomic but not yet in public
 
-INSERT INTO public.com_nordstrom_elwin_exposures (
+INSERT INTO public.elwin_exposures (
 
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
