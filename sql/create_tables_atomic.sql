@@ -946,6 +946,9 @@ CREATE TABLE atomic.temp_etl_tstamps (LIKE atomic.etl_tstamps);
 
 --table for event_ids of most recent unloaded ETL timestamps
 
-CREATE TABLE atomic.temp_event_ids (event_id varchar(36) encode lzo)
+CREATE TABLE atomic.temp_event_ids (
+	event_id varchar(36) encode lzo,
+	derived_tstamp timestamp encode lzo
+)
 DISTSTYLE KEY
 DISTKEY (event_id);
