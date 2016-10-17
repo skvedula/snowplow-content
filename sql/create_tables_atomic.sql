@@ -936,12 +936,16 @@ ALTER TABLE atomic.org_w3_performance_timing_1 owner to storageloader;
 CREATE TABLE atomic.etl_tstamps (etl_tstamp timestamp encode lzo)
 SORTKEY (etl_tstamp);
 
+ALTER TABLE atomic.etl_tstamps owner to storageloader;
+
 INSERT INTO atomic.etl_tstamps (SELECT DISTINCT etl_tstamp FROM atomic.events);
 
 
 --temp table for most recent unloaded ETL timestamps
 
 CREATE TABLE atomic.temp_etl_tstamps (LIKE atomic.etl_tstamps);
+
+ALTER TABLE atomic.temp_etl_tstamps owner to storageloader;
 
 
 --table for event_ids of most recent unloaded ETL timestamps
@@ -952,3 +956,5 @@ CREATE TABLE atomic.temp_event_ids (
 )
 DISTSTYLE KEY
 DISTKEY (event_id);
+
+ALTER TABLE atomic.temp_event_ids owner to storageloader;
