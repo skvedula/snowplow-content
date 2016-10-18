@@ -10,7 +10,7 @@ INSERT INTO atomic.temp_etl_tstamps (
     SELECT
       DISTINCT etl_tstamp
     FROM atomic.events
-    WHERE collector_tstamp > DATEADD(week, -1, CURRENT_DATE) -- restrict table scan to the last week (SORTKEY)
+    WHERE derived_tstamp > DATEADD(week, -1, CURRENT_DATE) -- restrict table scan to the last week (SORTKEY)
     ORDER BY 1
 
   )
