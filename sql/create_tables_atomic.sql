@@ -198,7 +198,7 @@ CREATE TABLE atomic.events (
 )
 DISTSTYLE KEY
 DISTKEY (event_id)
-SORTKEY (collector_tstamp);
+SORTKEY (derived_tstamp);
 
 COMMENT ON TABLE "atomic"."events" IS '0.8.0';
 
