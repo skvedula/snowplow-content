@@ -1,5 +1,7 @@
 -- get event_id for child table root_ids
 
+TRUNCATE atomic.temp_event_ids; 
+
 INSERT INTO atomic.temp_event_ids (
 
   SELECT
@@ -10,3 +12,5 @@ INSERT INTO atomic.temp_event_ids (
   ORDER BY 1
 
 );
+
+ANALYZE atomic.temp_event_ids;

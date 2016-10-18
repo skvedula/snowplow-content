@@ -1,10 +1,5 @@
 -- empty temp table
 TRUNCATE atomic.temp_etl_tstamps; 
-ANALYZE atomic.temp_etl_tstamps;
-
-TRUNCATE atomic.temp_event_ids; 
-ANALYZE atomic.temp_event_ids;
-
 
 -- get etl_tstamps from last week that are not already in manifest
 
@@ -29,3 +24,5 @@ INSERT INTO atomic.temp_etl_tstamps (
   ORDER BY 1
 
 );
+
+ANALYZE atomic.temp_etl_tstamps;
