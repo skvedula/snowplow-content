@@ -1,4 +1,4 @@
--- snowplow-site-search.sql
+-- copy-events/search.sql
 -- Version: 1.0
 --
 -- Requires atomic.events 0.8.0
@@ -17,5 +17,6 @@ INSERT INTO public.search (
 FROM atomic.com_snowplowanalytics_snowplow_site_search_1    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
+      AND T1.derived_tstamp = T2.derived_tstamp
 
 );
