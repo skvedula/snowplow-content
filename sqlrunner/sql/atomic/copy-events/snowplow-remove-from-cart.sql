@@ -19,6 +19,6 @@ INSERT INTO public.snowplow_remove_from_cart (
 FROM atomic.com_snowplowanalytics_snowplow_remove_from_cart_1    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
-      AND T1.derived_tstamp = T2.derived_tstamp
+      AND T1.root_tstamp = T2.collector_tstamp
 
 );

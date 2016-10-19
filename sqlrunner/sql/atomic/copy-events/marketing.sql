@@ -23,6 +23,6 @@ INSERT INTO public.marketing (
 FROM atomic.com_nordstrom_marketing_attrs_1    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
-      AND T1.derived_tstamp = T2.derived_tstamp
+      AND T1.root_tstamp = T2.collector_tstamp
 
 );
