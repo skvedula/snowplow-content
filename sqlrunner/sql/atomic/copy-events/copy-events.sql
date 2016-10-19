@@ -1,53 +1,17 @@
--- Data Model: deduplicate
+-- copy-events/copy-events.sql
 -- Version: 0.1
 --
--- Requires public.events 0.7.0
---
--- Steps (a) get event_id and tr_orderid where a single tr_orderid occurs > 1, (b) get full records and count matching rows from step a, and (c) remove duplicates from public.events and repopulate the first occurrence from step b
+-- Requires atomic.events 0.7.0
 
-DROP TABLE IF EXISTS duplicates.tmp_orders;
+-- (a) get all events that are in atomic.events but not yet in public.events and insert with time zone conversion
 
-DROP TABLE IF EXISTS duplicates.tmp_order_ids_remaining;
+INSERT INTO public.events (
 
--- (a) get event and order IDs where tr_orderid count > 1
-
-CREATE TABLE duplicates.tmp_order_ids_remaining
- DISTKEY (event_id)
- SORTKEY (event_id)
-AS (SELECT event_id, tr_orderid
-       FROM public.events
-       WHERE tr_orderid IN
-       (SELECT tr_orderid FROM (SELECT tr_orderid, COUNT(*) AS count FROM public.events GROUP BY 1) WHERE count > 1)
-);
-
--- (b) get full records and count matching rows
-
-DROP TABLE IF EXISTS duplicates.tmp_orders;
-
-CREATE TABLE duplicates.tmp_orders
- DISTKEY (event_id)
- SORTKEY (event_id)
-AS (
-
- SELECT *, ROW_NUMBER() OVER (PARTITION BY tr_orderid ORDER BY collector_tstamp) as event_number
- FROM public.events
- WHERE event_id IN (SELECT event_id FROM duplicates.tmp_order_ids_remaining)
-);
-
--- (c) remove duplicates from public.events
-
-BEGIN;
-
- DELETE FROM public.events
- WHERE event_id IN (SELECT event_id FROM duplicates.tmp_order_ids_remaining);
-
- INSERT INTO public.events (
-
-   SELECT app_id,
+    SELECT app_id,
        platform,
        etl_tstamp,
-       collector_tstamp,
-       dvce_created_tstamp,
+       convert_timezone('US/Pacific', collector_tstamp),
+       convert_timezone('US/Pacific', dvce_created_tstamp),
        event,
        event_id,
        txn_id,
@@ -160,26 +124,21 @@ BEGIN;
        mkt_clickid,
        mkt_network,
        etl_tags,
-       dvce_sent_tstamp,
+       convert_timezone('US/Pacific', dvce_sent_tstamp),
        refr_domain_userid,
-       refr_dvce_tstamp,
+       convert_timezone('US/Pacific', refr_dvce_tstamp),
        domain_sessionid,
-       derived_tstamp,
+       convert_timezone('US/Pacific', derived_tstamp),
        event_vendor,
        event_name,
        event_format,
        event_version,
        event_fingerprint,
-       true_tstamp,
-       etl_tstamp_local
-   FROM duplicates.tmp_orders WHERE event_number = 1
+       convert_timezone('US/Pacific', true_tstamp),
+       convert_timezone('US/Pacific', etl_tstamp) as etl_tstamp_local
+	FROM atomic.events
+       WHERE etl_tstamp IN (SELECT etl_tstamp FROM atomic.temp_etl_tstamps ORDER BY 1)
+       AND page_urlscheme <> 'file'
+       AND (br_name <> 'Robot/Spider' or br_name is null)
 
 );
-
-COMMIT;
-
--- (e) drop tables
-
-DROP TABLE IF EXISTS duplicates.tmp_orders;
-
-DROP TABLE IF EXISTS duplicates.tmp_order_ids_remaining;

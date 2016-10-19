@@ -198,7 +198,7 @@ CREATE TABLE atomic.events (
 )
 DISTSTYLE KEY
 DISTKEY (event_id)
-SORTKEY (collector_tstamp);
+SORTKEY (derived_tstamp);
 
 COMMENT ON TABLE "atomic"."events" IS '0.8.0';
 
@@ -929,3 +929,32 @@ DISTKEY (root_id)
 SORTKEY (root_tstamp);
 
 ALTER TABLE atomic.org_w3_performance_timing_1 owner to storageloader;
+
+
+--table for ETL manifest
+
+CREATE TABLE atomic.etl_tstamps (etl_tstamp timestamp encode lzo)
+SORTKEY (etl_tstamp);
+
+ALTER TABLE atomic.etl_tstamps owner to storageloader;
+
+INSERT INTO atomic.etl_tstamps (SELECT DISTINCT etl_tstamp FROM atomic.events);
+
+
+--temp table for most recent unloaded ETL timestamps
+
+CREATE TABLE atomic.temp_etl_tstamps (LIKE atomic.etl_tstamps);
+
+ALTER TABLE atomic.temp_etl_tstamps owner to storageloader;
+
+
+--table for event_ids of most recent unloaded ETL timestamps
+
+CREATE TABLE atomic.temp_event_ids (
+	event_id varchar(36) encode lzo,
+	derived_tstamp timestamp encode lzo
+)
+DISTSTYLE KEY
+DISTKEY (event_id);
+
+ALTER TABLE atomic.temp_event_ids owner to storageloader;
