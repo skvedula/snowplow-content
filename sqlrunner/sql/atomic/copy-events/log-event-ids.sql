@@ -1,3 +1,4 @@
+-- copy-events/log-event-ids.sql
 -- get event_id for child table root_ids
 
 TRUNCATE atomic.temp_event_ids; 

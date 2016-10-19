@@ -1,4 +1,4 @@
--- nordstrom-page-view-attrs.sql
+-- copy-events/page-views.sql
 -- Version: 1.0
 --
 -- Requires atomic.events 0.8.0
@@ -23,6 +23,7 @@ INSERT INTO public.page_views (
 FROM atomic.com_nordstrom_page_view_attrs_0    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
+      AND T1.derived_tstamp = T2.derived_tstamp
 
 );
 
@@ -44,5 +45,6 @@ INSERT INTO public.page_views (
 FROM atomic.com_nordstrom_page_view_attrs_1    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
+      AND T1.derived_tstamp = T2.derived_tstamp
 
 );

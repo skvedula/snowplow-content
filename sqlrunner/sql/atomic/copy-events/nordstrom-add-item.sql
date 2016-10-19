@@ -1,4 +1,4 @@
--- nordstrom-add-item-attrs.sql
+-- copy-events/nordstrom-add-item.sql
 -- Version: 1.0
 --
 -- Requires atomic.events 0.8.0
@@ -28,6 +28,7 @@ INSERT INTO public.nordstrom_add_item (
 FROM atomic.com_nordstrom_add_item_attrs_0    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
+      AND T1.derived_tstamp = T2.derived_tstamp
 );
 
 INSERT INTO public.nordstrom_add_item (
@@ -53,4 +54,5 @@ INSERT INTO public.nordstrom_add_item (
 FROM atomic.com_nordstrom_add_item_attrs_1    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
+      AND T1.derived_tstamp = T2.derived_tstamp
 );

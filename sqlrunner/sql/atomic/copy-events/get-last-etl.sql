@@ -1,3 +1,4 @@
+-- copy-events/get-last-etl.sql
 -- empty temp table
 TRUNCATE atomic.temp_etl_tstamps; 
 

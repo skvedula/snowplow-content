@@ -1,3 +1,4 @@
+-- copy-events/copy-events.sql
 -- Version: 0.1
 --
 -- Requires atomic.events 0.7.0
