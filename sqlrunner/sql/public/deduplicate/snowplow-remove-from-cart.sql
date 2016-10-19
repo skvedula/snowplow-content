@@ -21,8 +21,8 @@ AS (
   SELECT
 
     root_id,
-    MIN(root_tstamp), -- keep the earliest event
-    MIN(derived_tstamp), -- keep the earliest event
+    MIN(root_tstamp) as root_tstamp,
+    MIN(derived_tstamp) as derived_tstamp, -- keep the earliest event
 
        sku,
        name,
