@@ -7,7 +7,34 @@
     :username: # Insert username with relevant credentials to run the below queries
     :password: # Insert user password
 :steps:
-  - :name: 01-unload-data
+  - :name: 01-unload-events
     :queries:
-      - :name: 01-01-unload-data-from-ato
-        :file: ./ca/01-01-unload-data-from-ato.sql
+      - :name: 01-01-unload-events
+        :file: ./ca/01-01-unload-events.sql
+
+  - :name: 02-unload-child-tables
+    :queries:
+      - :name: 01-02-unload-link-clicks
+        :file: ./ca/01-02-unload-link-clicks.sql
+      - :name: 01-03-unload-marketing
+        :file: ./ca/01-03-unload-marketing.sql
+      - :name: 01-04-unload-nordstrom-add-item
+        :file: ./ca/01-04-unload-nordstrom-add-item.sql
+      - :name: 01-05-unload-nordstrom-remove-item
+        :file: ./ca/01-06-unload-nordstrom-remove-item.sql
+      - :name: 01-06-unload-order-items
+        :file: ./ca/01-06-unload-order-items.sql
+      - :name: 01-07-unload-page-views
+        :file: ./ca/01-07-unload-page-views.sql
+      - :name: 01-08-unload-product-views
+        :file: ./ca/01-08-unload-product-views.sql
+      - :name: 01-09-unload-search
+        :file: ./ca/01-09-unload-search.sql
+      - :name: 01-10-unload-snowplow-add-to-cart
+        :file: ./ca/01-10-unload-snowplow-add-to-cart.sql
+      - :name: 01-11-unload-snowplow-remove-from-cart
+        :file: ./ca/01-11-unload-snowplow-remove-from-cart.sql
+      - :name: 01-12-unload-timing
+        :file: ./ca/01-12-unload-timing.sql
+      - :name: 01-13-unload-elwin-exposures
+        :file: ./ca/01-12-unload-elwin-exposures.sql
