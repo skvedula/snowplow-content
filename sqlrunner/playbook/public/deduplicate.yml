@@ -17,27 +17,27 @@
         :file: ./public/deduplicate/orders.sql
   - :name: 03-nordstrom-children
     :queries:
-      - :name: com-nordstrom-add-item-attrs
-        :file: ./public/deduplicate/com-nordstrom-add-item-attrs.sql
-      - :name: com-nordstrom-elwin-exposures
-        :file: ./public/deduplicate/com-nordstrom-elwin-exposures.sql
-      - :name: com-nordstrom-order-item-attrs
-        :file: ./public/deduplicate/com-nordstrom-order-item-attrs.sql
-      - :name: com-nordstrom-page-view-attrs
-        :file: ./public/deduplicate/com-nordstrom-page-view-attrs.sql
-      - :name: com-nordstrom-product-view-attrs
-        :file: ./public/deduplicate/com-nordstrom-product-view-attrs.sql
-      - :name: com-nordstrom-remove-item-attrs
-        :file: ./public/deduplicate/com-nordstrom-remove-item-attrs.sql
+      - :name: nordstrom-add-item
+        :file: ./public/deduplicate/nordstrom-add-item.sql
+      - :name: nordstrom-elwin-exposures
+        :file: ./public/deduplicate/elwin-exposures.sql
+      - :name: nordstrom-order-item
+        :file: ./public/deduplicate/order-items.sql
+      - :name: nordstrom-page-view
+        :file: ./public/deduplicate/page-views.sql
+      - :name: nordstrom-product-view
+        :file: ./public/deduplicate/product-views.sql
+      - :name: nordstrom-remove-item
+        :file: ./public/deduplicate/nordstrom-remove-item.sql
   - :name: 03-snowplow-children
     :queries:
-      - :name: com-snowplowanalytics-snowplow-add-to-cart
-        :file: ./public/deduplicate/com-snowplowanalytics-snowplow-add-to-cart.sql
-      - :name: com-snowplowanalytics-snowplow-link-click
-        :file: ./public/deduplicate/com-snowplowanalytics-snowplow-link-click.sql
-      - :name: com-snowplowanalytics-snowplow-remove-from-cart
-        :file: ./public/deduplicate/com-snowplowanalytics-snowplow-remove-from-cart.sql
-      - :name: com-snowplowanalytics-snowplow-site-search
-        :file: ./public/deduplicate/com-snowplowanalytics-snowplow-site-search.sql
-      - :name: com-snowplowanalytics-snowplow-timing
-        :file: ./public/deduplicate/com-snowplowanalytics-snowplow-timing.sql
+      - :name: snowplow-add-to-cart
+        :file: ./public/deduplicate/snowplow-add-to-cart.sql
+      - :name: snowplow-link-click
+        :file: ./public/deduplicate/link-clicks.sql
+      - :name: snowplow-remove-from-cart
+        :file: ./public/deduplicate/snowplow-remove-from-cart.sql
+      - :name: snowplow-site-search
+        :file: ./public/deduplicate/search.sql
+      - :name: snowplow-timing
+        :file: ./public/deduplicate/timing.sql
