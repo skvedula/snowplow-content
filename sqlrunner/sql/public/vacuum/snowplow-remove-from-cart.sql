@@ -1,0 +1,2 @@
+vacuum public.snowplow_remove_from_cart;
+analyze public.snowplow_remove_from_cart;

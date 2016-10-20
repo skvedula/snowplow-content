@@ -138,7 +138,6 @@ INSERT INTO public.events (
        convert_timezone('US/Pacific', etl_tstamp) as etl_tstamp_local
 	FROM atomic.events
        WHERE etl_tstamp IN (SELECT etl_tstamp FROM atomic.temp_etl_tstamps ORDER BY 1)
-       AND page_urlscheme <> 'file'
-       AND (br_name <> 'Robot/Spider')
+       AND (br_name is null or br_name <> 'Robot/Spider')
 
 );

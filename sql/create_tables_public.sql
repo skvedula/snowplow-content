@@ -390,7 +390,7 @@ CREATE TABLE public.nordstrom_remove_item (
 	mmp 					varchar(1)		encode lzo,
 	tag_id					varchar(10)	    encode lzo,
 	experiment_id			varchar(255)	encode lzo,
-	experiment_data			varchar(255)	encode lzo,
+	experiment_data			varchar(1000)	encode lzo,
 	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
 )
 DISTSTYLE KEY

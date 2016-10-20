@@ -11,6 +11,7 @@ INSERT INTO atomic.temp_event_ids (
     collector_tstamp
   FROM atomic.events
   WHERE etl_tstamp IN (SELECT etl_tstamp FROM atomic.temp_etl_tstamps ORDER BY 1)
+  AND (br_name is null or br_name <> 'Robot/Spider')
   ORDER BY 1
 
 );
