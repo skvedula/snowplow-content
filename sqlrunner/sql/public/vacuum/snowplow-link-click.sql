@@ -1,2 +1,0 @@
-vacuum public.com_snowplowanalytics_snowplow_link_click;
-analyze public.com_snowplowanalytics_snowplow_link_click;

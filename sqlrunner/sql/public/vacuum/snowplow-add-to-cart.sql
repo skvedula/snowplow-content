@@ -1,2 +1,2 @@
-vacuum public.com_snowplowanalytics_snowplow_add_to_cart;
-analyze public.com_snowplowanalytics_snowplow_add_to_cart;
+vacuum public.snowplow_add_to_cart;
+analyze public.snowplow_add_to_cart;

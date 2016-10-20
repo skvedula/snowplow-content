@@ -1,0 +1,2 @@
+vacuum public.nordstrom_remove_item;
+analyze public.nordstrom_remove_item;
