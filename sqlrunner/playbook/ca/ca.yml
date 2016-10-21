@@ -9,32 +9,32 @@
 :steps:
   - :name: 02-load-events
     :queries:
-      - :name: 02-01-load-events
-        :file: ./ca/02-01-load-events.sql
+      - :name: load-events
+        :file: ./ca/load-events.sql
 
   - :name: 02-load-child-tables
     :queries:
-      - :name: 02-02-load-link-clicks
-        :file: ./ca/02-02-load-link-clicks.sql
-      - :name: 02-03-load-marketing
-        :file: ./ca/02-03-load-marketing.sql
-      - :name: 02-04-load-nordstrom-add-item
-        :file: ./ca/02-04-load-nordstrom-add-item.sql
-      - :name: 02-05-load-nordstrom-remove-item
-        :file: ./ca/02-06-load-nordstrom-remove-item.sql
-      - :name: 02-06-load-order-items
-        :file: ./ca/02-06-load-order-items.sql
-      - :name: 02-07-load-page-views
-        :file: ./ca/02-07-load-page-views.sql
-      - :name: 02-08-load-product-views
-        :file: ./ca/02-08-load-product-views.sql
-      - :name: 02-09-load-search
-        :file: ./ca/02-09-load-search.sql
-      - :name: 02-10-load-snowplow-add-to-cart
-        :file: ./ca/02-10-load-snowplow-add-to-cart.sql
-      - :name: 02-11-load-snowplow-remove-from-cart
-        :file: ./ca/02-11-load-snowplow-remove-from-cart.sql
-      - :name: 02-12-load-timing
-        :file: ./ca/02-12-load-timing.sql
-      - :name: 02-13-load-elwin-exposures
-        :file: ./ca/02-12-load-elwin-exposures.sql
+      - :name: load-link-clicks
+        :file: ./ca/load-link-clicks.sql
+      - :name: load-marketing
+        :file: ./ca/load-marketing.sql
+      - :name: load-nordstrom-add-item
+        :file: ./ca/load-nordstrom-add-item.sql
+      - :name: load-nordstrom-remove-item
+        :file: ./ca/load-nordstrom-remove-item.sql
+      - :name: load-order-items
+        :file: ./ca/load-order-items.sql
+      - :name: load-page-views
+        :file: ./ca/load-page-views.sql
+      - :name: load-product-views
+        :file: ./ca/load-product-views.sql
+      - :name: load-search
+        :file: ./ca/load-search.sql
+      - :name: load-snowplow-add-to-cart
+        :file: ./ca/load-snowplow-add-to-cart.sql
+      - :name: load-snowplow-remove-from-cart
+        :file: ./ca/load-snowplow-remove-from-cart.sql
+      - :name: load-timing
+        :file: ./ca/load-timing.sql
+      - :name: load-elwin-exposures
+        :file: ./ca/load-elwin-exposures.sql
