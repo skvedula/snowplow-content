@@ -4,5 +4,5 @@ UNLOAD ('SELECT *
 			SELECT max(etl_tstamp) 
 			FROM public.events
 		);')
-TO 's3://cxar-ato-bigdata/snowplow-prod/temp/events/'
+TO 's3://cxar-ato-bigdata/snowplow-prod/CA/events/'
 CREDENTIALS 'aws_iam_role=arn:aws:iam::832038866117:role/a0007-Redshift-COPY';
