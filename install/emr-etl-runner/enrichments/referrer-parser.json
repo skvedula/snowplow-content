@@ -1,0 +1,58 @@
+{
+    "schema": "iglu:com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0",
+
+    "data": {
+
+        "name": "referer_parser",
+        "vendor": "com.snowplowanalytics.snowplow",
+        "enabled": true,
+        "parameters": {
+            "internalDomains": [
+                "nordstrom.com",
+                "nordstrom.taleo.net",
+                "nordstromsilverscreen.com",
+                "nordstrome.com",
+                "nordstromspa.com",
+                "nordstroms.net",
+                "nordstrom.com.tw",
+                "nordstromkids.com",
+                "nordstromfashionrewards.com",
+                "nordstormdepartmentstore.com",
+                "nordstrom.net",
+                "nordstrom.org",
+                "nordstroms.com",
+                "nordstromes.com",
+                "nordstromstore.com",
+                "nordtom.com",
+                "nordostrom.com",
+                "nordstromoutlet.com",
+                "nordstromdepartmentstore.com",
+                "nordstromcard.com",
+                "shopnordstrom.com",
+                "nordstom.com",
+                "nordstrom.tel",
+                "nordstroms.com",
+                "shopnordstrom.net",
+                "nordstrom.fr",
+                "nordstrombank.com",
+                "nordstrums.com",
+                "norfstrom.com",
+                "nordstrominc.com",
+                "nordstorms.com",
+                "nordstrombaby.org",
+                "nordstromonline.com",
+                "nordstroms.cn",
+                "nordstromshoes.com",
+                "nordstroms.org",
+                "bpnordstrom.com",
+                "nordstromdirect.com",
+                "nordstromcredit.net",
+
+                "nordstromrack.com",
+                "nordstromsrack.com",
+
+                "hautelook.com"
+            ]
+        }
+    }
+}
