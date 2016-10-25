@@ -1,4 +1,4 @@
-var tag_id = '3389631';
+var tag_id = null;
 if (window.SOASTA) window.SOASTA.abTest = 'snowplow_mow';
 
 var prod = (['shop.nordstrom.com', 'secure.nordstrom.com', 'm.shop.nordstrom.com', 'm.secure.nordstrom.com', 'about.nordstrom.com'].indexOf(window.location.hostname) > -1 ? 1 : 0)
@@ -149,7 +149,18 @@ function loadSP() {
 	}
 	else if(Legacy){
 		sp_uid = (PageParameters.shopperId ? PageParameters.shopperId : '');
-		page_id = (PageParameters.pageId ? PageParameters.pageId : document.title.replace(' | Nordstrom', ''));
+		page_id = (function() {
+			if (/ShoppingBag/.test(window.location.pathname)) {
+				var bag = document.querySelectorAll('#ctl00_mainContentPlaceHolder_shoppingBagList_orderItemUpdatePanel .itemrowItemNum');
+				 //get all the items in save for later
+				var sfl = document.querySelectorAll('#ctl00_mainContentPlaceHolder_saveForLaterList_orderItemUpdatePanel .itemrowItemNum');
+				var bag_empty = (bag.length > 0 ? '' : 'EMPTY_');
+				var sfl_empty = (sfl.length > 0 ? '' : 'EMPTY');
+				return '/CHECKOUT/SHOPPINGBAG - ' + bag_empty + 'SFL' + sfl_empty;
+			}
+			else if (/OrderConfirmation/.test(window.location.pathname)) return '/CHECKOUT/ORDER RECEIPT';
+			else return (PageParameters.pageId ? PageParameters.pageId : document.title.replace(' | Nordstrom', ''));
+		})();
 		page_category = (PageParameters.categoryString ? PageParameters.categoryString : PageParameters.ioCoremetricsPageId ? PageParameters.ioCoremetricsPageId : PageParameters.PageType ? PageParameters.PageType : null);
 		page_template = (PageParameters.templateName ? PageParameters.templateName : 'Legacy');
 		is_recognized = (PageParameters.shopper && PageParameters.shopper.firstName && PageParameters.shopper.firstName !== '' ? 'Y' : 'N');
@@ -227,7 +238,7 @@ function loadSP() {
 		}
 		if (mkt_params.mkt_source || mkt_params.mkt_medium || mkt_params.mkt_campaign || mkt_params.mkt_term || mkt_params.mkt_cm_content || mkt_params.mkt_cm_camp_name || mkt_params.mkt_cm_camp_uid || mkt_params.mkt_rkg_id || mkt_params.mkt_linkshare_siteid || mkt_params.mkt_cm_em) {
 			mkt = {
-				schema: data.mkt_schema || 'iglu:com.nordstrom/marketing_attrs/jsonschema/1-0-0',
+				schema: 'iglu:com.nordstrom/marketing_attrs/jsonschema/1-0-0',
 				data: {
 	                mkt_source: mkt_params.mkt_source || null,
 	                mkt_medium: mkt_params.mkt_medium || null,
