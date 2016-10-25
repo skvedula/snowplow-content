@@ -1,4 +1,4 @@
-var tag_id = '3799799';
+var tag_id = '3389631';
 if (window.SOASTA) window.SOASTA.abTest = 'snowplow_mow';
 
 var prod = (['shop.nordstrom.com', 'secure.nordstrom.com', 'm.shop.nordstrom.com', 'm.secure.nordstrom.com', 'about.nordstrom.com'].indexOf(window.location.hostname) > -1 ? 1 : 0)
@@ -12,9 +12,9 @@ var prod = (['shop.nordstrom.com', 'secure.nordstrom.com', 'm.shop.nordstrom.com
 function loadSP() {
 	// sp.js
 	(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
-	p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
+	p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments);
 	};p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-	n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","https://images.nordstromdata.com/js/sp/2.6.2/sp.js","snowplow"));
+	n.src=w;g.parentNode.insertBefore(n,g);}}(window,document,"script","https://images.nordstromdata.com/js/sp/2.6.2/sp.js","snowplow"));
 
 	snowplow("newTracker", 'nord' + (prod ? '_prod' : '_dev'), env_vars.collector, 
 		{
@@ -47,48 +47,36 @@ function loadSP() {
 	            try {
 	                var key = split_query[query].split('=')[0].toLowerCase()
 	                  , val = split_query[query].split('=')[1];
+		            if (cleanurl.indexOf('cm_mmc') > -1 && key === 'cm_mmc') {
+		                var mmc_split = val.split('-_-');
+		                params.mkt_source = mmc_split[0];
+		                params.mkt_medium = mmc_split[1] || null;
+		                params.mkt_campaign = mmc_split[2] || null;
+		                params.mkt_term = mmc_split[3] || null;
+		            }
+		            else if ((key === 'cm_ven' || key === 'cm_cat' || key === 'cm_pla' || key === 'cm_ite') && cleanurl.indexOf('cm_mmc') == -1) {
+		                if (key === 'cm_ven') {
+		                    params.mkt_source = val;
+		                } if (key === 'cm_cat') {
+		                    params.mkt_medium = val;
+		                } if (key === 'cm_pla') {
+		                    params.mkt_campaign = val;
+		                } if (key === 'cm_ite') {
+		                    params.mkt_term = val;
+		                }
+		            }
+		            if (key === 'cm_em') {
+		                params.mkt_cm_em = val;
+		            } if (key === 'campaign') {
+		                params.mkt_cm_camp_name = val;
+		            } if (key === 'mcamp') {
+		                params.mkt_cm_camp_uid = val;
+		            } if (key === 'rkg_id') {
+		                params.mkt_rkg_id = val;
+		            } if (key === 'siteid') {
+		                params.mkt_linkshare_siteid = val;
+		            }
 	            } catch(e) { }
-	            if (cleanurl.indexOf('cm_mmc') > -1 && key === 'cm_mmc') {
-	                var mmc_split = val.split('-_-');
-	                params.mkt_source = mmc_split[0];
-	                params.mkt_medium = mmc_split[1] || null;
-	                params.mkt_campaign = mmc_split[2] || null;
-	                params.mkt_term = mmc_split[3] || null;
-	            }
-	            else if ((key === 'cm_ven' || key === 'cm_cat' || key === 'cm_pla' || key === 'cm_ite') && cleanurl.indexOf('cm_mmc') == -1) {
-	                if (key === 'cm_ven') {
-	                    params.mkt_source = val;
-	                } if (key === 'cm_cat') {
-	                    params.mkt_medium = val;
-	                } if (key === 'cm_pla') {
-	                    params.mkt_campaign = val;
-	                } if (key === 'cm_ite') {
-	                    params.mkt_term = val;
-	                }
-	            }
-	            if (key === 'cm_re') {
-	                var sp_split = val.split('-_-');
-	                params.real_estate_version = sp_split[0],
-	                params.real_estate_page_area = sp_split[1] || null,
-	                params.real_estate_link = sp_split[2] || null;
-	            }
-	            if (key === 'cm_sp') {
-	                var sp_split = val.split('-_-');
-	                params.promotion_type = sp_split[0],
-	                params.promotion = sp_split[1] || null,
-	                params.promotion_link = sp_split[2] || null;
-	            }
-	            if (key === 'cm_em') {
-	                params.mkt_cm_em = val;
-	            } if (key === 'campaign') {
-	                params.mkt_cm_camp_name = val;
-	            } if (key === 'mcamp') {
-	                params.mkt_cm_camp_uid = val;
-	            } if (key === 'rkg_id') {
-	                params.mkt_rkg_id = val;
-	            } if (key === 'siteid') {
-	                params.mkt_linkshare_siteid = val;
-	            }
 	        }
 	    } catch(e) { }
 	    if (Object.getOwnPropertyNames(params).length) return params;
@@ -135,7 +123,7 @@ function loadSP() {
 			rack = (info.saleType && info.saleType === 'Rack' ? 'N' : 'Y');
 			available = (info.isAvailable ? 'Y' : 'N');
 			experiment = { experimentId : digitalData.elwin.elwinId,
-                                experimentData : digitalData.elwin.elwinData }
+                                experimentData : digitalData.elwin.elwinData };
 		}
 		sp_uid = (digitalData.shopper && digitalData.shopper.shopperId ? digitalData.shopper.shopperId : '');
 		page_id = (function() {
