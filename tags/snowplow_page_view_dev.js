@@ -1,11 +1,11 @@
-var tag_id = '3806725';
+var tag_id = '3799799';
 if (window.SOASTA) window.SOASTA.abTest = 'snowplow';
 
 var prod = (['shop.nordstrom.com', 'secure.nordstrom.com', 'm.shop.nordstrom.com', 'm.secure.nordstrom.com', 'about.nordstrom.com'].indexOf(window.location.hostname) > -1 ? 1 : 0)
 	, mobile = (/^m/.test(window.location.hostname) ? 1 : 0)
 	, env_vars = {
 		collector: (prod ? 'p.nordstromdata.com' : 't.nordstromdata.com')
-		, appId: (mobile ? 'nord.mow' : 'nord.com')
+		, appId: (mobile ? 'm.com' : 'n.com')
 	}
 ;
 
@@ -14,9 +14,15 @@ function loadSP() {
 	(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 	p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
 	};p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-	n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","https://images.nordstromdata.com/js/sp/2.6.2/sp.js","snowplow"));
+	n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","https://images.nordstromdata.com/js/sp/2.6.1/sp.js","snowplow"));
 
-	snowplow("newTracker", 'nord' + (prod ? '_prod' : '_dev'), env_vars.collector, 
+	// ga.js
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	snowplow("newTracker", 'nord', env_vars.collector, 
 		{
 			appId: env_vars.appId,
 			cookieDomain: ".nordstrom.com",
@@ -28,9 +34,9 @@ function loadSP() {
 			forceSecureTracker: true,
 			respectDoNotTrack: true,
 			contexts: {
-				webPage: false,
-				performanceTiming: false,
-				gaCookies: false
+				webPage: true,
+				performanceTiming: true,
+				gaCookies: true
 			}
 		}
 	);
@@ -51,19 +57,10 @@ function loadSP() {
 		, fit_value = null
 		, rack = null
 		, available = null
+		, googClientID = ''
+		, googUserID = ''
 		, experiment = {}		
 		;
-
-	var mkt_source = ""
-        , mkt_medium = ""
-        , mkt_campaign = ""
-        , mkt_term = ""
-        , mkt_content = ""
-        , mkt_cm_em = ""
-        , mkt_cm_camp_name = ""
-        , mkt_cm_camp_uid = ""
-        , mkt_rkg_id = ""
-        , mkt_linkshare_siteid = "";	
 
 	if (window.digitalData && digitalData.page && digitalData.page.category && digitalData.page.category.pageType) MMP = 1;
 	else if (window.nord && nord.config && nord.config.settings && nord.config.settings.analytics && nord.config.settings.analytics.pageTemplate === 'WCM') WCM = 1;
@@ -130,47 +127,52 @@ function loadSP() {
 	}
 	sp_uid = (sp_uid !== null && sp_uid !== '' && window._$cV1 && window._$cV1.indexOf('welcome') === -1 && window._$cV1.indexOf('tagmanager') === -1 ? sp_uid + '_' + window._$cV1 : sp_uid);
 
-    var split_query = (window.location.href).split('&');
-    for (var query in split_query) {
-        if (split_query[query].indexOf('cm_mmc') >= 0) {
-            var mmc_split = (split_query[query]).split('-_-');
-            mkt_source = (mmc_split[0]).split('=')[1];
-            mkt_medium = mmc_split[1];
-            mkt_campaign = mmc_split[2];
-            mkt_term = mmc_split[3];
-        } else {
-	         if (split_query[query].indexOf('cm_ven') >= 0) {
-	            mkt_source = split_query[query];
-	        } if (split_query[query].indexOf('cm_cat') >= 0) {
-	            mkt_medium = split_query[query];
-	        } if (split_query[query].indexOf('cm_pla') >= 0) {
-	            mkt_campaign = split_query[query];
-	        } if (split_query[query].indexOf('cm_ite') >= 0) {
-	            mkt_term = split_query[query];
-	        } if (split_query[query].indexOf('cm_em') >= 0) {
-	            mkt_cm_em = (split_query[query]).split('=')[1];
-	        } if (split_query[query].indexOf('Campaign') >= 0 || split_query[query].indexOf('campaign') >= 0 ) {
-	            mkt_cm_camp_name = (split_query[query]).split('=')[1];
-	        } if (split_query[query].indexOf('mcamp') >= 0) {
-	            mkt_cm_camp_uid = (split_query[query]).split('=')[1];
-	        } if (split_query[query].indexOf('rkg_id') >= 0) {
-	            mkt_rkg_id = (split_query[query]).split('=')[1];
-	        } if (split_query[query].indexOf('siteId') >= 0) {
-	            mkt_linkshare_siteid = (split_query[query]).split('=')[1];
-	        }
-	    }
+	function getUTCTime() {
+	    // Get local time as ISO string with offset at the end
+	    var now = new Date();
+	    var tzo = -now.getTimezoneOffset();
+	    var dif = tzo >= 0 ? '+' : '-';
+	    var pad = function(num) {
+	        var norm = Math.abs(Math.floor(num));
+	        return (norm < 10 ? '0' : '') + norm;
+	    };
+	    return now.getFullYear() 
+	        + '-' + pad(now.getMonth()+1)
+	        + '-' + pad(now.getDate())
+	        + 'T' + pad(now.getHours())
+	        + ':' + pad(now.getMinutes()) 
+	        + ':' + pad(now.getSeconds())
+	        + '.' + pad(now.getMilliseconds())
+	        + dif + pad(tzo / 60) 
+	        + ':' + pad(tzo % 60);
+	}
+
+	function sendGA() {
+	    ga('create', 'UA-65825786-4', 'auto', {
+	        'userId': googClientID
+	    });
+	    
+	    var sessionID = new Date().getTime() + '.' + Math.random().toString(36).substring(5);
+	    var hitTimestamp = getUTCTime();
+
+	    ga(function(tracker) {
+	    	ga('set', 'dimension1', tracker.get('clientId')); //client id
+	    	ga('set', 'dimension2', sessionID); //session id
+			ga('set', 'dimension3', hitTimestamp); //hit timestamp
+	        var sendID = (isLoggedIn == 1 || is_recognized == 'Y') ? ga('set', 'dimension4', sp_uid) : ga('set', 'dimension5', sp_uid);
+	    });
 	}
 
 	if ('snowplow' in window) {
 		if (sp_uid) snowplow('setUserId', sp_uid);
 		snowplow('enableLinkClickTracking', null, null, true);
-		if (window.digitalData && digitalData.product && digitalData.product.productInfo && window.location.href.indexOf('cm_') > -1) {
+		if (window.digitalData && digitalData.product && digitalData.product.productInfo) {
 			snowplow(
 				'trackPageView',
 				page_id,
 				[
 					{
-						schema: 'iglu:com.nordstrom/page_view_attrs/jsonschema/1-0-0',
+						schema: 'iglu:com.nordstrom/page_view_attrs/jsonschema/0-0-7',
 						data: {
 							page_url: window.location.href
 							, page_category: (search_term ? '1.6' : page_category)
@@ -184,61 +186,7 @@ function loadSP() {
 						}
 					},
 					{
-						schema: 'iglu:com.nordstrom/product_view_attrs/jsonschema/1-0-0',
-						data: {
-							page_url: window.location.href
-							, product_id: product_id
-							, product_category: page_category
-							, style_number: style_number
-							, product_name: product_name
-							, on_sale: on_sale
-							, brand_name: brand_name
-							, fit_value: fit_value
-							, rack: rack
-							, available: available
-							, tag_id: tag_id
-						}
-					},
-					{
-						schema: 'iglu:com.nordstrom/marketing_attrs/jsonschema/0-0-1',
-						data: {
-							mkt_source: mkt_source
-							, mkt_medium: mkt_medium
-							, mkt_campaign: mkt_campaign
-							, mkt_term: mkt_term
-							, mkt_content: mkt_content
-							, mkt_cm_camp_name: mkt_cm_camp_name
-							, mkt_cm_camp_uid: mkt_cm_camp_uid
-							, mkt_rkg_id: mkt_rkg_id
-							, mkt_linkshare_siteid: mkt_linkshare_siteid
-							, mkt_cm_em: mkt_cm_em
-						}
-					}
-					
-				]
-			);
-		}
-		else if (window.digitalData && digitalData.product && digitalData.product.productInfo) {
-			snowplow(
-				'trackPageView',
-				page_id,
-				[
-					{
-						schema: 'iglu:com.nordstrom/page_view_attrs/jsonschema/1-0-0',
-						data: {
-							page_url: window.location.href
-							, page_category: (search_term ? '1.6' : page_category)
-							, page_template: page_template
-							, style_number: style_number
-							, is_recognized: is_recognized
-							, search_term: search_term
-							, search_results_count: search_results_count
-							, tag_id: tag_id
-							, experiment : experiment
-						}
-					},
-					{
-						schema: 'iglu:com.nordstrom/product_view_attrs/jsonschema/1-0-0',
+						schema: 'iglu:com.nordstrom/product_view_attrs/jsonschema/0-0-2',
 						data: {
 							page_url: window.location.href
 							, product_id: product_id
@@ -255,43 +203,7 @@ function loadSP() {
 					}
 				]
 			);
-		}
-		else if (window.location.href.indexOf('cm_') > -1) {
-			snowplow(
-				'trackPageView',
-				page_id,
-				[
-					{
-						schema: 'iglu:com.nordstrom/page_view_attrs/jsonschema/1-0-0',
-						data: {
-							page_url: window.location.href
-							, page_category: (search_term ? '1.6' : page_category)
-							, page_template: page_template
-							, style_number: style_number
-							, is_recognized: is_recognized
-							, search_term: search_term
-							, search_results_count: search_results_count
-							, tag_id: tag_id
-							, experiment : experiment
-						}
-					},
-					{
-						schema: 'iglu:com.nordstrom/marketing_attrs/jsonschema/0-0-1',
-						data: {
-							mkt_source: mkt_source
-							, mkt_medium: mkt_medium
-							, mkt_campaign: mkt_campaign
-							, mkt_term: mkt_term
-							, mkt_content: mkt_content
-							, mkt_cm_camp_name: mkt_cm_camp_name
-							, mkt_cm_camp_uid: mkt_cm_camp_uid
-							, mkt_rkg_id: mkt_rkg_id
-							, mkt_linkshare_siteid: mkt_linkshare_siteid
-							, mkt_cm_em: mkt_cm_em
-						}
-					}
-				]
-			);
+			ga('send', 'pageview');
 		}
 		else {
 			snowplow(
@@ -299,7 +211,7 @@ function loadSP() {
 				page_id,
 				[
 					{
-						schema: 'iglu:com.nordstrom/page_view_attrs/jsonschema/1-0-0',
+						schema: 'iglu:com.nordstrom/page_view_attrs/jsonschema/0-0-7',
 						data: {
 							page_url: window.location.href
 							, page_category: page_category
@@ -314,15 +226,25 @@ function loadSP() {
 					}
 				]
 			);
+			ga('send', 'pageview');
 		}
-
-
 		window.sp_pv = 1;
 		if (document.createEvent) {
 			var event = document.createEvent('Event');
 			event.initEvent('sp_pv', true, true);
 			document.dispatchEvent(event);
 		}
+		sendGA();
+	}
+}
+
+function startSP() {
+	if (prod) {
+		if (window.mm_sp) loadSP();
+		else document.addEventListener( "MM_SP_Loaded", function(){ loadSP(); }, false );
+	}
+	else {
+		loadSP();
 	}
 }
 
@@ -332,19 +254,20 @@ function mustExecute(func, numTrys) {
       func();
     } catch (e) {
       if (numTrys === 0) {
-        loadSP();
+        startSP();
       }
       setTimeout(mustExecute(func, numTrys - 1), 250);
     }
   };
 }
+// mustExecute(function(){}, 10)();
 
 function CMloaded() {
 	if (typeof cmSetClientID === 'function') {
 		mustExecute(function() {
 			if (typeof window._$cV1 !== "string") throw 'no coreid6';
 			else {
-				loadSP();
+				startSP();
 				return true;
 			}
 		}, 10)();
