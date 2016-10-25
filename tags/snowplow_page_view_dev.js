@@ -245,83 +245,6 @@ function loadSP() {
 		}
 
 		snowplow('trackPageView', page_id, contexts);
-
-			/*snowplow(
-				'trackPageView',
-				page_id,
-				[
-					{
-						schema: 'iglu:com.nordstrom/page_view_attrs/jsonschema/1-0-0',
-						data: {
-							page_url: window.location.href
-							, page_category: (search_term ? '1.6' : page_category)
-							, page_template: page_template
-							, style_number: style_number
-							, is_recognized: is_recognized
-							, search_term: search_term
-							, search_results_count: search_results_count
-							, tag_id: tag_id
-							, experiment : experiment
-						}
-					},
-					{
-						schema: 'iglu:com.nordstrom/product_view_attrs/jsonschema/1-0-0',
-						data: {
-							page_url: window.location.href
-							, product_id: product_id
-							, product_category: page_category
-							, style_number: style_number
-							, product_name: product_name
-							, on_sale: on_sale
-							, brand_name: brand_name
-							, fit_value: fit_value
-							, rack: rack
-							, available: available
-							, tag_id: tag_id
-						}
-					}
-				]
-			);
-		}
-		else {
-			snowplow(
-				'trackPageView',
-				page_id,
-				[
-					{
-						schema: 'iglu:com.nordstrom/page_view_attrs/jsonschema/1-0-0',
-						data: {
-							page_url: window.location.href
-							, page_category: page_category
-							, page_template: page_template
-							, style_number: style_number
-							, is_recognized: is_recognized
-							, search_term: (bt_parameter('keyword') !== '' ? bt_parameter('keyword') : null)
-							, search_results_count: search_results_count
-							, tag_id: tag_id
-							, experiment : experiment
-						}
-					}
-				]
-			);
-		}*/
-
-		window.sp_pv = 1;
-		if (document.createEvent) {
-			var event = document.createEvent('Event');
-			event.initEvent('sp_pv', true, true);
-			document.dispatchEvent(event);
-		}
-	}
-}
-
-function startSP() {
-	if (prod) {
-		if (window.mm_sp) loadSP();
-		else document.addEventListener( "MM_SP_Loaded", function(){ loadSP(); }, false );
-	}
-	else {
-		loadSP();
 	}
 }
 
@@ -331,7 +254,8 @@ function mustExecute(func, numTrys) {
       func();
     } catch (e) {
       if (numTrys === 0) {
-        startSP();
+        // startSP();
+        loadSP();
       }
       setTimeout(mustExecute(func, numTrys - 1), 250);
     }
@@ -344,7 +268,8 @@ function CMloaded() {
 		mustExecute(function() {
 			if (typeof window._$cV1 !== "string") throw 'no coreid6';
 			else {
-				startSP();
+				// startSP();
+				loadSP();
 				return true;
 			}
 		}, 10)();
