@@ -1,11 +1,11 @@
 var tag_id = '3799799';
-if (window.SOASTA) window.SOASTA.abTest = 'snowplow';
+if (window.SOASTA) window.SOASTA.abTest = 'snowplow_mow';
 
 var prod = (['shop.nordstrom.com', 'secure.nordstrom.com', 'm.shop.nordstrom.com', 'm.secure.nordstrom.com', 'about.nordstrom.com'].indexOf(window.location.hostname) > -1 ? 1 : 0)
 	, mobile = (/^m/.test(window.location.hostname) ? 1 : 0)
 	, env_vars = {
 		collector: (prod ? 'p.nordstromdata.com' : 't.nordstromdata.com')
-		, appId: (mobile ? 'm.com' : 'n.com')
+		, appId: (mobile ? 'nord.mow' : 'nord.com')
 	}
 ;
 
@@ -14,15 +14,9 @@ function loadSP() {
 	(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 	p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
 	};p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-	n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","https://images.nordstromdata.com/js/sp/2.6.1/sp.js","snowplow"));
+	n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","https://images.nordstromdata.com/js/sp/2.6.2/sp.js","snowplow"));
 
-	// ga.js
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	snowplow("newTracker", 'nord', env_vars.collector, 
+	snowplow("newTracker", 'nord' + (prod ? '_prod' : '_dev'), env_vars.collector, 
 		{
 			appId: env_vars.appId,
 			cookieDomain: ".nordstrom.com",
@@ -34,12 +28,72 @@ function loadSP() {
 			forceSecureTracker: true,
 			respectDoNotTrack: true,
 			contexts: {
-				webPage: true,
-				performanceTiming: true,
-				gaCookies: true
+				webPage: false,
+				performanceTiming: false,
+				gaCookies: false
 			}
 		}
 	);
+
+	function mkt_params() {
+	    // fix bad URLs
+	    var cleanurl = decodeURIComponent(window.location.search.replace('?', '') + window.location.hash).replace(/[?,#]/g, '&');
+
+	    var params = {},
+	        split_query = cleanurl.split('&');
+
+	    try {
+	        for (var query in split_query) {
+	            try {
+	                var key = split_query[query].split('=')[0].toLowerCase()
+	                  , val = split_query[query].split('=')[1];
+	            } catch(e) { }
+	            if (cleanurl.indexOf('cm_mmc') > -1 && key === 'cm_mmc') {
+	                var mmc_split = val.split('-_-');
+	                params.mkt_source = mmc_split[0];
+	                params.mkt_medium = mmc_split[1] || null;
+	                params.mkt_campaign = mmc_split[2] || null;
+	                params.mkt_term = mmc_split[3] || null;
+	            }
+	            else if ((key === 'cm_ven' || key === 'cm_cat' || key === 'cm_pla' || key === 'cm_ite') && cleanurl.indexOf('cm_mmc') == -1) {
+	                if (key === 'cm_ven') {
+	                    params.mkt_source = val;
+	                } if (key === 'cm_cat') {
+	                    params.mkt_medium = val;
+	                } if (key === 'cm_pla') {
+	                    params.mkt_campaign = val;
+	                } if (key === 'cm_ite') {
+	                    params.mkt_term = val;
+	                }
+	            }
+	            if (key === 'cm_re') {
+	                var sp_split = val.split('-_-');
+	                params.real_estate_version = sp_split[0],
+	                params.real_estate_page_area = sp_split[1] || null,
+	                params.real_estate_link = sp_split[2] || null;
+	            }
+	            if (key === 'cm_sp') {
+	                var sp_split = val.split('-_-');
+	                params.promotion_type = sp_split[0],
+	                params.promotion = sp_split[1] || null,
+	                params.promotion_link = sp_split[2] || null;
+	            }
+	            if (key === 'cm_em') {
+	                params.mkt_cm_em = val;
+	            } if (key === 'campaign') {
+	                params.mkt_cm_camp_name = val;
+	            } if (key === 'mcamp') {
+	                params.mkt_cm_camp_uid = val;
+	            } if (key === 'rkg_id') {
+	                params.mkt_rkg_id = val;
+	            } if (key === 'siteid') {
+	                params.mkt_linkshare_siteid = val;
+	            }
+	        }
+	    } catch(e) { }
+	    if (Object.getOwnPropertyNames(params).length) return params;
+	    else return false;
+	}
 
 	var MMP, WCM, Legacy, sp_uid;
 	var page_id = null
@@ -57,8 +111,6 @@ function loadSP() {
 		, fit_value = null
 		, rack = null
 		, available = null
-		, googClientID = ''
-		, googUserID = ''
 		, experiment = {}		
 		;
 
@@ -127,52 +179,91 @@ function loadSP() {
 	}
 	sp_uid = (sp_uid !== null && sp_uid !== '' && window._$cV1 && window._$cV1.indexOf('welcome') === -1 && window._$cV1.indexOf('tagmanager') === -1 ? sp_uid + '_' + window._$cV1 : sp_uid);
 
-	function getUTCTime() {
-	    // Get local time as ISO string with offset at the end
-	    var now = new Date();
-	    var tzo = -now.getTimezoneOffset();
-	    var dif = tzo >= 0 ? '+' : '-';
-	    var pad = function(num) {
-	        var norm = Math.abs(Math.floor(num));
-	        return (norm < 10 ? '0' : '') + norm;
-	    };
-	    return now.getFullYear() 
-	        + '-' + pad(now.getMonth()+1)
-	        + '-' + pad(now.getDate())
-	        + 'T' + pad(now.getHours())
-	        + ':' + pad(now.getMinutes()) 
-	        + ':' + pad(now.getSeconds())
-	        + '.' + pad(now.getMilliseconds())
-	        + dif + pad(tzo / 60) 
-	        + ':' + pad(tzo % 60);
-	}
-
-	function sendGA() {
-	    ga('create', 'UA-65825786-4', 'auto', {
-	        'userId': googClientID
-	    });
-	    
-	    var sessionID = new Date().getTime() + '.' + Math.random().toString(36).substring(5);
-	    var hitTimestamp = getUTCTime();
-
-	    ga(function(tracker) {
-	    	ga('set', 'dimension1', tracker.get('clientId')); //client id
-	    	ga('set', 'dimension2', sessionID); //session id
-			ga('set', 'dimension3', hitTimestamp); //hit timestamp
-	        var sendID = (isLoggedIn == 1 || is_recognized == 'Y') ? ga('set', 'dimension4', sp_uid) : ga('set', 'dimension5', sp_uid);
-	    });
-	}
-
 	if ('snowplow' in window) {
 		if (sp_uid) snowplow('setUserId', sp_uid);
 		snowplow('enableLinkClickTracking', null, null, true);
+
+		var mkt_params = mkt_params();
+		var contexts = [], page = {}, product, mkt;
+
 		if (window.digitalData && digitalData.product && digitalData.product.productInfo) {
-			snowplow(
+			page = {
+				schema: 'iglu:com.nordstrom/page_view_attrs/jsonschema/1-0-0',
+				data: {
+					page_url: window.location.href
+					, page_category: (search_term ? '1.6' : page_category)
+					, page_template: page_template
+					, style_number: style_number
+					, is_recognized: is_recognized
+					, search_term: search_term
+					, search_results_count: search_results_count
+					, tag_id: tag_id
+					, experiment : experiment
+				}
+			};
+			contexts.push(page);
+			product = {
+				schema: 'iglu:com.nordstrom/product_view_attrs/jsonschema/1-0-0',
+				data: {
+					page_url: window.location.href
+					, product_id: product_id
+					, product_category: page_category
+					, style_number: style_number
+					, product_name: product_name
+					, on_sale: on_sale
+					, brand_name: brand_name
+					, fit_value: fit_value
+					, rack: rack
+					, available: available
+					, tag_id: tag_id
+				}
+			};
+			contexts.push(product);
+		}
+		else {
+			page = {
+				schema: 'iglu:com.nordstrom/page_view_attrs/jsonschema/1-0-0',
+				data: {
+					page_url: window.location.href
+					, page_category: page_category
+					, page_template: page_template
+					, style_number: style_number
+					, is_recognized: is_recognized
+					, search_term: (bt_parameter('keyword') !== '' ? bt_parameter('keyword') : null)
+					, search_results_count: search_results_count
+					, tag_id: tag_id
+					, experiment : experiment
+				}
+			};
+			contexts.push(page);
+		}
+		if (mkt_params.mkt_source || mkt_params.mkt_medium || mkt_params.mkt_campaign || mkt_params.mkt_term || mkt_params.mkt_cm_content || mkt_params.mkt_cm_camp_name || mkt_params.mkt_cm_camp_uid || mkt_params.mkt_rkg_id || mkt_params.mkt_linkshare_siteid || mkt_params.mkt_cm_em) {
+			mkt = {
+				schema: data.mkt_schema || 'iglu:com.nordstrom/marketing_attrs/jsonschema/1-0-0',
+				data: {
+	                mkt_source: mkt_params.mkt_source || null,
+	                mkt_medium: mkt_params.mkt_medium || null,
+	                mkt_campaign: mkt_params.mkt_campaign || null,
+	                mkt_term: mkt_params.mkt_term || null,
+			        mkt_content: mkt_params.mkt_cm_content || null,
+			        mkt_cm_camp_name: mkt_params.mkt_cm_camp_name || null,
+			        mkt_cm_camp_uid: mkt_params.mkt_cm_camp_uid || null,
+			        mkt_rkg_id: mkt_params.mkt_rkg_id || null,
+			        mkt_linkshare_siteid: mkt_params.mkt_linkshare_siteid || null,
+			        mkt_cm_em: mkt_params.mkt_cm_em || null
+				}
+			};
+			contexts.push(mkt);
+		}
+
+		snowplow('trackPageView', page_id, contexts);
+
+			/*snowplow(
 				'trackPageView',
 				page_id,
 				[
 					{
-						schema: 'iglu:com.nordstrom/page_view_attrs/jsonschema/0-0-7',
+						schema: 'iglu:com.nordstrom/page_view_attrs/jsonschema/1-0-0',
 						data: {
 							page_url: window.location.href
 							, page_category: (search_term ? '1.6' : page_category)
@@ -186,7 +277,7 @@ function loadSP() {
 						}
 					},
 					{
-						schema: 'iglu:com.nordstrom/product_view_attrs/jsonschema/0-0-2',
+						schema: 'iglu:com.nordstrom/product_view_attrs/jsonschema/1-0-0',
 						data: {
 							page_url: window.location.href
 							, product_id: product_id
@@ -203,7 +294,6 @@ function loadSP() {
 					}
 				]
 			);
-			ga('send', 'pageview');
 		}
 		else {
 			snowplow(
@@ -211,7 +301,7 @@ function loadSP() {
 				page_id,
 				[
 					{
-						schema: 'iglu:com.nordstrom/page_view_attrs/jsonschema/0-0-7',
+						schema: 'iglu:com.nordstrom/page_view_attrs/jsonschema/1-0-0',
 						data: {
 							page_url: window.location.href
 							, page_category: page_category
@@ -226,15 +316,14 @@ function loadSP() {
 					}
 				]
 			);
-			ga('send', 'pageview');
-		}
+		}*/
+
 		window.sp_pv = 1;
 		if (document.createEvent) {
 			var event = document.createEvent('Event');
 			event.initEvent('sp_pv', true, true);
 			document.dispatchEvent(event);
 		}
-		sendGA();
 	}
 }
 
