@@ -49,7 +49,3 @@
         :file: ./atomic/copy-events/search.sql
       - :name: timing
         :file: ./atomic/copy-events/timing.sql
-  - :name: update-etl-manifest
-    :queries:
-      - :name: update-etl-manifest
-        :file: ./atomic/copy-events/log-etl-manifest.sql
