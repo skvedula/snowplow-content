@@ -4,36 +4,43 @@
     :host:     a0036-ei-analytics.c9gybgr1jgvx.us-west-2.redshift.amazonaws.com  # Insert Redshfit host
     :database: cust_analytics_dev  # Insert database name
     :port:     5439  # Insert database port
-    :username: # Insert username with relevant credentials to run the below queries
-    :password: # Insert user password
+    :username: clk_strm_sp_usr  # Insert username with relevant credentials to run the below queries
+    :password: Welcome123  # Insert user password
 :steps:
-  - :name: 02-load-events
+  - :name: events
     :queries:
       - :name: load-events
         :file: ./ca/load-events.sql
-
-  - :name: 02-load-child-tables
+  - :name: bag-events
+    :queries:
+      - :name: load-nordstrom-add-item
+        :file: ./ca/load-nordstrom-add-item.sql
+      - :name: load-nordstrom-remove-item
+        :file: ./ca/load-nordstrom-remove-item.sql
+      - :name: load-snowplow-add-to-cart
+        :file: ./ca/load-snowplow-add-to-cart.sql
+      - :name: load-snowplow-remove-from-cart
+        :file: ./ca/load-snowplow-remove-from-cart.sql
+  - :name: page-and-product-views
+    :queries:
+      - :name: load-page-views
+        :file: ./ca/load-page-views.sql
+      - :name: load-product-views
+        :file: ./ca/load-product-views.sql
+  - :name: order-items
+    :queries:
+      - :name: load-order-items
+        :file: ./ca/load-order-items.sql
+  - :name: marketing
     :queries:
       - :name: load-link-clicks
         :file: ./ca/load-link-clicks.sql
       - :name: load-marketing
         :file: ./ca/load-marketing.sql
-      - :name: load-nordstrom-add-item
-        :file: ./ca/load-nordstrom-add-item.sql
-      - :name: load-nordstrom-remove-item
-        :file: ./ca/load-nordstrom-remove-item.sql
-      - :name: load-order-items
-        :file: ./ca/load-order-items.sql
-      - :name: load-page-views
-        :file: ./ca/load-page-views.sql
-      - :name: load-product-views
-        :file: ./ca/load-product-views.sql
       - :name: load-search
         :file: ./ca/load-search.sql
-      - :name: load-snowplow-add-to-cart
-        :file: ./ca/load-snowplow-add-to-cart.sql
-      - :name: load-snowplow-remove-from-cart
-        :file: ./ca/load-snowplow-remove-from-cart.sql
+  - :name: other
+    :queries:
       - :name: load-timing
         :file: ./ca/load-timing.sql
       - :name: load-elwin-exposures
