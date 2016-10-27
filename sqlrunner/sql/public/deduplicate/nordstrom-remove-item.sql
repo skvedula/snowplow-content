@@ -23,6 +23,7 @@ AS (
     root_id,
     MIN(root_tstamp) as root_tstamp,
     MIN(derived_tstamp) as derived_tstamp, -- keep the earliest event
+    etl_tstamp_local,
     
        document_url,
        style_number,
@@ -42,7 +43,7 @@ AS (
 
   FROM public.nordstrom_remove_item
   WHERE root_id IN (SELECT root_id FROM duplicates.tmp_nordstrom_remove_item_id)
-  GROUP BY 1, 4,5,6,7,8,9,10,11,12,13,14,15,16,17,18
+  GROUP BY 1,4, 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
 
 );
 

@@ -1,6 +1,7 @@
 UNLOAD ('SELECT root_id,
        root_tstamp,
        T1.derived_tstamp,
+       etl_tstamp_local,
        page_url,
        page_category,
        page_template,

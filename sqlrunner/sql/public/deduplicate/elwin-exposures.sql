@@ -23,6 +23,7 @@ AS (
     root_id,
     MIN(root_tstamp) as root_tstamp,
     MIN(derived_tstamp) as derived_tstamp, -- keep the earliest event
+    etl_tstamp_local,
 
        team_id,
        experiment_name,
@@ -32,7 +33,7 @@ AS (
 
   FROM public.elwin_exposures
   WHERE root_id IN (SELECT root_id FROM duplicates.tmp_elwin_exposures_id)
-  GROUP BY 1, 4,5,6,7,8
+  GROUP BY 1,4, 5,6,7,8,9
 
 );
 

@@ -1,6 +1,7 @@
 UNLOAD ('SELECT root_id,
        root_tstamp,
        T1.derived_tstamp,
+       etl_tstamp_local,
        mkt_source,
        mkt_medium,
        mkt_campaign,

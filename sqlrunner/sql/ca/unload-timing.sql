@@ -1,6 +1,7 @@
 UNLOAD ('SELECT root_id,
        root_tstamp,
        T1.derived_tstamp,
+       etl_tstamp_local,
        category,
        variable,
        timing,

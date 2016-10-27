@@ -10,6 +10,7 @@ INSERT INTO public.search (
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
        convert_timezone('US/Pacific', derived_tstamp),
+       convert_timezone('US/Pacific', etl_tstamp),
        terms,
        filters,
        total_results,
@@ -17,6 +18,5 @@ INSERT INTO public.search (
 FROM atomic.com_snowplowanalytics_snowplow_site_search_1    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
-      AND T1.root_tstamp = T2.collector_tstamp
 
 );

@@ -1,6 +1,7 @@
 UNLOAD ('SELECT root_id,
        root_tstamp,
        T1.derived_tstamp,
+       etl_tstamp_local,
        team_id,
        experiment_name,
        parameter_name,

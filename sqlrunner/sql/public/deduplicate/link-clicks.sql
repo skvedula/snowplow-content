@@ -23,6 +23,7 @@ AS (
     root_id,
     MIN(root_tstamp) as root_tstamp,
     MIN(derived_tstamp) as derived_tstamp, -- keep the earliest event
+    etl_tstamp_local,
 
        element_id,
        element_classes,
@@ -31,7 +32,7 @@ AS (
 
   FROM public.link_clicks
   WHERE root_id IN (SELECT root_id FROM duplicates.tmp_link_clicks_id)
-  GROUP BY 1, 4,5,6,7
+  GROUP BY 1,4, 5,6,7,8
 
 );
 

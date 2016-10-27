@@ -23,6 +23,7 @@ AS (
     root_id,
     MIN(root_tstamp) as root_tstamp,
     MIN(derived_tstamp) as derived_tstamp, -- keep the earliest event
+    etl_tstamp_local,
 
        sku,
        name,
@@ -33,7 +34,7 @@ AS (
 
   FROM public.snowplow_add_to_cart
   WHERE root_id IN (SELECT root_id FROM duplicates.tmp_snowplow_add_to_cart_id)
-  GROUP BY 1, 4,5,6,7,8,9
+  GROUP BY 1,4, 5,6,7,8,9,10
 
 );
 
