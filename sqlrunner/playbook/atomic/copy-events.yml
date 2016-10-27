@@ -1,47 +1,55 @@
 :targets:
-  - :name:     snowplow-prod  # Insert your own name to identify the database
+  - :name:     snowplow-  # Insert your own name to identify the database
     :type:     redshift
     :host:     a0007-cxar-ato-clickstream-jwn.c9gybgr1jgvx.us-west-2.redshift.amazonaws.com  # Insert Redshfit host
-    :database: snowplowprod  # Insert database name
+    :database:   # Insert database name
     :port:     5439  # Insert database port
     :username:  # Insert username with relevant credentials to run the below queries
     :password:  # Insert user password
 :steps:
-  - :name: 01-copy-events
+  - :name: get-last-etls
+    :queries:
+      - :name: get-last-etls
+        :file: ./atomic/copy-events/get-last-etl.sql
+  - :name: get-event-ids-from-last-etls
+    :queries:
+      - :name: get-event-ids-from-last-etls
+        :file: ./atomic/copy-events/log-event-ids.sql
+  - :name: copy-events
     :queries:
       - :name: copy-events
         :file: ./atomic/copy-events/copy-events.sql
-  - :name: 02-copy-events-root-ids
+  - :name: copy-nordstrom-child-tables-1
     :queries:
-      - :name: copy-events-root-ids
-        :file: ./atomic/copy-events/copy-events-root-ids.sql
-  - :name: 03-copy-nordstrom-child-tables
+      - :name: nordstrom-add-item
+        :file: ./atomic/copy-events/nordstrom-add-item.sql
+      - :name: order-items
+        :file: ./atomic/copy-events/order-items.sql
+      - :name: page-views
+        :file: ./atomic/copy-events/page-views.sql
+      - :name: product-views
+        :file: ./atomic/copy-events/product-views.sql
+      - :name: nordstrom-remove-item
+        :file: ./atomic/copy-events/nordstrom-remove-item.sql
+  - :name: copy-nordstrom-child-tables-2
     :queries:
-      - :name: copy-com-nordstrom-add-item-attrs
-        :file: ./atomic/copy-events/copy-com-nordstrom-add-item-attrs.sql
-      - :name: copy-com-nordstrom-elwin-exposures
-        :file: ./atomic/copy-events/copy-com-nordstrom-elwin-exposures.sql
-      - :name: copy-com-nordstrom-order-item-attrs
-        :file: ./atomic/copy-events/copy-com-nordstrom-order-item-attrs.sql
-      - :name: copy-com-nordstrom-page-view-attrs
-        :file: ./atomic/copy-events/copy-com-nordstrom-page-view-attrs.sql
-      - :name: copy-com-nordstrom-product-view-attrs
-        :file: ./atomic/copy-events/copy-com-nordstrom-product-view-attrs.sql
-      - :name: copy-com-nordstrom-remove-item-attrs
-        :file: ./atomic/copy-events/copy-com-nordstrom-remove-item-attrs.sql
-  - :name: 04-copy-snowplow-child-tables
+      - :name: marketing
+        :file: ./atomic/copy-events/marketing.sql
+      - :name: elwin-exposures
+        :file: ./atomic/copy-events/elwin-exposures.sql
+  - :name: copy-snowplow-child-tables
     :queries:
-      - :name: copy-com-snowplowanalytics-snowplow-add-to-cart
-        :file: ./atomic/copy-events/copy-com-snowplowanalytics-snowplow-add-to-cart.sql
-      - :name: copy-com-snowplowanalytics-snowplow-link-click
-        :file: ./atomic/copy-events/copy-com-snowplowanalytics-snowplow-link-click.sql
-      - :name: copy-com-snowplowanalytics-snowplow-remove-from-cart
-        :file: ./atomic/copy-events/copy-com-snowplowanalytics-snowplow-remove-from-cart.sql
-      - :name: copy-com-snowplowanalytics-snowplow-site-search
-        :file: ./atomic/copy-events/copy-com-snowplowanalytics-snowplow-site-search.sql
-      - :name: copy-com-snowplowanalytics-snowplow-timing
-        :file: ./atomic/copy-events/copy-com-snowplowanalytics-snowplow-timing.sql
-  - :name: 05-drop-events-root-ids
+      - :name: snowplow-add-to-cart
+        :file: ./atomic/copy-events/snowplow-add-to-cart.sql
+      - :name: link-clicks
+        :file: ./atomic/copy-events/link-clicks.sql
+      - :name: snowplow-remove-from-cart
+        :file: ./atomic/copy-events/snowplow-remove-from-cart.sql
+      - :name: search
+        :file: ./atomic/copy-events/search.sql
+      - :name: timing
+        :file: ./atomic/copy-events/timing.sql
+  - :name: update-etl-manifest
     :queries:
-      - :name: drop-events-root-ids
-        :file: ./atomic/copy-events/drop-events-root-ids.sql
+      - :name: update-etl-manifest
+        :file: ./atomic/copy-events/log-etl-manifest.sql
