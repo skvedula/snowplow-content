@@ -9,8 +9,8 @@ INSERT INTO public.nordstrom_add_item (
 
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
-       convert_timezone('US/Pacific', T2.derived_tstamp),
-       convert_timezone('US/Pacific', T2.etl_tstamp),
+       convert_timezone('US/Pacific', derived_tstamp),
+       convert_timezone('US/Pacific', etl_tstamp),
        document_url,
        style_number,
        style_id,
@@ -27,19 +27,16 @@ INSERT INTO public.nordstrom_add_item (
        tag_id,
        experiment_data
 FROM atomic.com_nordstrom_add_item_attrs_0    T1,
-atomic.temp_event_ids    T2,
-atomic.events T3
+atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
-      AND T2.event_id = T3.event_id
-      AND T2.etl_tstamp = T3.etl_tstamp
 );
 
 INSERT INTO public.nordstrom_add_item (
 
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
-       convert_timezone('US/Pacific', T2.derived_tstamp),
-       convert_timezone('US/Pacific', T2.etl_tstamp),
+       convert_timezone('US/Pacific', derived_tstamp),
+       convert_timezone('US/Pacific', etl_tstamp),
        document_url,
        style_number,
        style_id,
@@ -56,9 +53,6 @@ INSERT INTO public.nordstrom_add_item (
        tag_id,
        experiment_data
 FROM atomic.com_nordstrom_add_item_attrs_1    T1,
-atomic.temp_event_ids    T2,
-atomic.events T3
+atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
-      AND T2.event_id = T3.event_id
-      AND T2.etl_tstamp = T3.etl_tstamp
 );

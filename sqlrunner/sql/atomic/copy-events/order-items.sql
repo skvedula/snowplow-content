@@ -9,8 +9,8 @@ INSERT INTO public.order_items (
 
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
-       convert_timezone('US/Pacific', T2.derived_tstamp),
-       convert_timezone('US/Pacific', T2.etl_tstamp),
+       convert_timezone('US/Pacific', derived_tstamp),
+       convert_timezone('US/Pacific', etl_tstamp),
        outfit_id,
        gift_services,
        saved_for_later,
@@ -33,11 +33,8 @@ INSERT INTO public.order_items (
        is_recognized,
        tag_id
 FROM atomic.com_nordstrom_order_item_attrs_0    T1,
-atomic.temp_event_ids    T2,
-atomic.events T3
+atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
-      AND T2.event_id = T3.event_id
-      AND T2.etl_tstamp = T3.etl_tstamp
 
 );
 
@@ -45,8 +42,8 @@ INSERT INTO public.order_items (
 
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
-       convert_timezone('US/Pacific', T2.derived_tstamp),
-       convert_timezone('US/Pacific', T2.etl_tstamp),
+       convert_timezone('US/Pacific', derived_tstamp),
+       convert_timezone('US/Pacific', etl_tstamp),
        outfit_id,
        gift_services,
        saved_for_later,
@@ -69,10 +66,7 @@ INSERT INTO public.order_items (
        is_recognized,
        tag_id
 FROM atomic.com_nordstrom_order_item_attrs_1    T1,
-atomic.temp_event_ids    T2,
-atomic.events T3
+atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
-      AND T2.event_id = T3.event_id
-      AND T2.etl_tstamp = T3.etl_tstamp
 
 );

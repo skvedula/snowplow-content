@@ -9,18 +9,15 @@ INSERT INTO public.elwin_exposures (
 
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
-       convert_timezone('US/Pacific', T2.derived_tstamp),
-       convert_timezone('US/Pacific', T2.etl_tstamp),
+       convert_timezone('US/Pacific', derived_tstamp),
+       convert_timezone('US/Pacific', etl_tstamp),
        team_id,
        experiment_name,
        parameter_name,
        parameter_value,
        elwin_id
 FROM atomic.com_nordstrom_elwin_exposures_1    T1,
-atomic.temp_event_ids    T2,
-atomic.events T3
+atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
-      AND T2.event_id = T3.event_id
-      AND T2.etl_tstamp = T3.etl_tstamp
 
 );
