@@ -188,6 +188,82 @@ COMMENT ON TABLE "public"."events" IS '0.8.0';
 ALTER TABLE public.events owner to storageloader;
 
 
+--public.elwin_exposures
+
+CREATE TABLE public.elwin_exposures (
+	-- Parentage of this type
+	root_id         	char(36)      encode raw not null,
+	root_tstamp     	timestamp     encode raw not null,
+	derived_tstamp  	timestamp     encode raw not null,
+	etl_tstamp_local 	timestamp 	  encode raw not null,
+	-- Properties of this type
+	team_id				varchar(255)	encode lzo,
+	experiment_name		varchar(255)	encode lzo,
+	parameter_name		varchar(255)	encode lzo,
+	parameter_value		varchar(255)	encode lzo,
+	elwin_id			varchar(255)	encode lzo,
+	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
+)
+DISTSTYLE KEY
+-- Optimized join to public.events
+DISTKEY (root_id)
+SORTKEY (derived_tstamp);
+
+ALTER TABLE public.elwin_exposures owner to storageloader;
+
+
+--public.link_clicks
+
+CREATE TABLE public.link_clicks (
+	-- Parentage of this type
+	root_id         	char(36)      encode raw not null,
+	root_tstamp     	timestamp     encode raw not null,
+	derived_tstamp  	timestamp     encode raw not null,
+	etl_tstamp_local 	timestamp 	  encode raw not null,
+	-- Properties of this type
+	element_id      	varchar(255)  encode text32k,
+	element_classes 	varchar(2048) encode raw, -- Holds a JSON array. TODO: will replace with a ref_ following https://github.com/snowplow/snowplow/issues/647
+	element_target  	varchar(255)  encode text255,
+	target_url      	varchar(4096) encode text32k not null,
+	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
+)
+DISTSTYLE KEY
+-- Optimized join to public.events
+DISTKEY (root_id)
+SORTKEY (derived_tstamp);
+
+ALTER TABLE public.link_clicks owner to storageloader;
+
+
+--public.marketing
+
+CREATE TABLE public.marketing (
+	-- Parentage of this type
+	root_id				char(36)      encode raw not null,
+	root_tstamp			timestamp     encode raw not null,
+	derived_tstamp  	timestamp     encode raw not null,
+	etl_tstamp_local	timestamp 	  encode raw not null,
+    --Properties of this type 
+    mkt_source varchar(255)  encode lzo,
+    mkt_medium varchar(255)  encode lzo,
+    mkt_campaign varchar(255)  encode lzo,
+    mkt_term varchar(255)  encode lzo,
+    mkt_content varchar(255)  encode lzo,
+    mkt_cm_camp_name varchar(255)  encode lzo,
+    mkt_cm_camp_uid varchar(255)  encode lzo,
+    mkt_rkg_id varchar(255)  encode lzo,
+    mkt_linkshare_siteid varchar(255)  encode lzo,
+    mkt_cm_em varchar(255)  encode lzo, 
+    FOREIGN KEY(root_id) REFERENCES public.events(event_id)
+)
+DISTSTYLE KEY
+--Optimized join to public.events
+DISTKEY(root_id)
+SORTKEY(derived_tstamp);
+
+ALTER TABLE public.marketing owner to storageloader;
+
+
 --public.nordstrom_add_item
 
 CREATE TABLE public.nordstrom_add_item (
@@ -195,6 +271,7 @@ CREATE TABLE public.nordstrom_add_item (
 	root_id					char(36)      	encode lzo not null,
 	root_tstamp				timestamp     	encode raw not null,
 	derived_tstamp  		timestamp     	encode raw not null,
+	etl_tstamp_local 		timestamp 		encode raw not null,
 	-- Properties of this type
 	document_url			varchar(2000) 	encode lzo,
 	style_number			varchar(20)		encode lzo,
@@ -221,19 +298,30 @@ SORTKEY (derived_tstamp);
 ALTER TABLE public.nordstrom_add_item owner to storageloader;
 
 
---public.elwin_exposures
+--public.nordstrom_remove_item
 
-CREATE TABLE public.elwin_exposures (
+CREATE TABLE public.nordstrom_remove_item (
 	-- Parentage of this type
-	root_id         char(36)      encode raw not null,
-	root_tstamp     timestamp     encode raw not null,
-	derived_tstamp  timestamp     encode raw not null,
+	root_id					char(36)      	encode raw not null,
+	root_tstamp				timestamp     	encode raw not null,
+	derived_tstamp  		timestamp     	encode raw not null,
+	etl_tstamp_local		timestamp 	    encode raw not null,
 	-- Properties of this type
-	team_id				varchar(255)	encode lzo,
-	experiment_name		varchar(255)	encode lzo,
-	parameter_name		varchar(255)	encode lzo,
-	parameter_value		varchar(255)	encode lzo,
-	elwin_id			varchar(255)	encode lzo,
+	document_url			varchar(2000) 	encode lzo,
+	style_number			varchar(20)		encode lzo,
+	style_id 				varchar(20)		encode lzo,
+	size	 				varchar(20)		encode lzo,
+	width	 				varchar(20)		encode lzo,
+	color	 				varchar(20)		encode lzo,
+	percentage_off			smallint,
+	sale_type				varchar(1)		encode lzo,
+	authenticated_status	varchar(10)		encode lzo,
+	bopus					varchar(1)		encode lzo,
+	store_number			varchar(4)		encode lzo,
+	mmp 					varchar(1)		encode lzo,
+	tag_id					varchar(10)	    encode lzo,
+	experiment_id			varchar(255)	encode lzo,
+	experiment_data			varchar(1000)	encode lzo,
 	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
 )
 DISTSTYLE KEY
@@ -241,35 +329,7 @@ DISTSTYLE KEY
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE public.elwin_exposures owner to storageloader;
-
-
---public.marketing
-
-CREATE TABLE public.marketing (
-	-- Parentage of this type
-	root_id				char(36)      encode raw not null,
-	root_tstamp			timestamp     encode raw not null,
-	derived_tstamp  	timestamp     encode raw not null,
-    --Properties of this type 
-    mkt_source varchar(255)  encode lzo,
-    mkt_medium varchar(255)  encode lzo,
-    mkt_campaign varchar(255)  encode lzo,
-    mkt_term varchar(255)  encode lzo,
-    mkt_content varchar(255)  encode lzo,
-    mkt_cm_camp_name varchar(255)  encode lzo,
-    mkt_cm_camp_uid varchar(255)  encode lzo,
-    mkt_rkg_id varchar(255)  encode lzo,
-    mkt_linkshare_siteid varchar(255)  encode lzo,
-    mkt_cm_em varchar(255)  encode lzo, 
-    FOREIGN KEY(root_id) REFERENCES public.events(event_id)
-)
-DISTSTYLE KEY
---Optimized join to public.events
-DISTKEY(root_id)
-SORTKEY(derived_tstamp);
-
-ALTER TABLE public.marketing owner to storageloader;
+ALTER TABLE public.nordstrom_remove_item owner to storageloader;
 
 
 --public.order_items
@@ -279,6 +339,7 @@ CREATE TABLE public.order_items (
 	root_id				char(36)      encode raw not null,
 	root_tstamp			timestamp     encode raw not null,
 	derived_tstamp  	timestamp     encode raw not null,
+	etl_tstamp_local	timestamp 	  encode raw not null,
 	-- Properties of this type
 	outfit_id			varchar(255)  encode lzo,
 	gift_services		varchar(255)  encode lzo,
@@ -318,6 +379,7 @@ CREATE TABLE public.page_views (
 	root_id         		char(36)      	encode raw not null,
 	root_tstamp     		timestamp     	encode raw not null,
 	derived_tstamp  		timestamp     	encode raw not null,
+	etl_tstamp_local		timestamp 	    encode raw not null,
 	-- Properties of this type
 	page_url				varchar(2000)	encode lzo,
 	page_category   		varchar(255)  	encode lzo,
@@ -346,6 +408,7 @@ CREATE TABLE public.product_views (
 	root_id				char(36)      encode raw not null,
 	root_tstamp			timestamp     encode raw not null,
 	derived_tstamp  	timestamp     encode raw not null,
+	etl_tstamp_local	timestamp 	  encode raw not null,
 	-- Properties of this type
 	page_url			varchar(2000)  encode lzo,
 	product_id			varchar(255)  encode lzo,
@@ -368,121 +431,19 @@ SORTKEY (derived_tstamp);
 ALTER TABLE public.product_views owner to storageloader;
 
 
---public.nordstrom_remove_item
-
-CREATE TABLE public.nordstrom_remove_item (
-	-- Parentage of this type
-	root_id					char(36)      	encode raw not null,
-	root_tstamp				timestamp     	encode raw not null,
-	derived_tstamp  		timestamp     	encode raw not null,
-	-- Properties of this type
-	document_url			varchar(2000) 	encode lzo,
-	style_number			varchar(20)		encode lzo,
-	style_id 				varchar(20)		encode lzo,
-	size	 				varchar(20)		encode lzo,
-	width	 				varchar(20)		encode lzo,
-	color	 				varchar(20)		encode lzo,
-	percentage_off			smallint,
-	sale_type				varchar(1)		encode lzo,
-	authenticated_status	varchar(10)		encode lzo,
-	bopus					varchar(1)		encode lzo,
-	store_number			varchar(4)		encode lzo,
-	mmp 					varchar(1)		encode lzo,
-	tag_id					varchar(10)	    encode lzo,
-	experiment_id			varchar(255)	encode lzo,
-	experiment_data			varchar(1000)	encode lzo,
-	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
-)
-DISTSTYLE KEY
--- Optimized join to public.events
-DISTKEY (root_id)
-SORTKEY (derived_tstamp);
-
-ALTER TABLE public.nordstrom_remove_item owner to storageloader;
-
-
---public.snowplow_add_to_cart
-
-CREATE TABLE public.snowplow_add_to_cart (
-	-- Parentage of this type
-	root_id         char(36)      encode raw not null,
-	root_tstamp     timestamp     encode raw not null,
-	derived_tstamp  timestamp     encode raw not null,
-	-- Properties of this type
-	sku             varchar(255)  encode text32k not null,
-	name            varchar(255)  encode text32k,
-	category        varchar(255)  encode text32k,
-	unit_price      decimal(15,2) encode runlength,
-	quantity        int           encode runlength not null,
-	currency        varchar(31)   encode runlength,
-	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
-)
-DISTSTYLE KEY
--- Optimized join to public.events
-DISTKEY (root_id)
-SORTKEY (derived_tstamp);
-
-ALTER TABLE public.snowplow_add_to_cart owner to storageloader;
-
-
---public.link_clicks
-
-CREATE TABLE public.link_clicks (
-	-- Parentage of this type
-	root_id         char(36)      encode raw not null,
-	root_tstamp     timestamp     encode raw not null,
-	derived_tstamp  timestamp     encode raw not null,
-	-- Properties of this type
-	element_id      varchar(255)  encode text32k,
-	element_classes varchar(2048) encode raw, -- Holds a JSON array. TODO: will replace with a ref_ following https://github.com/snowplow/snowplow/issues/647
-	element_target  varchar(255)  encode text255,
-	target_url      varchar(4096) encode text32k not null,
-	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
-)
-DISTSTYLE KEY
--- Optimized join to public.events
-DISTKEY (root_id)
-SORTKEY (derived_tstamp);
-
-ALTER TABLE public.link_clicks owner to storageloader;
-
-
---public.snowplow_remove_from_cart
-
-CREATE TABLE public.snowplow_remove_from_cart (
-	-- Parentage of this type
-	root_id         char(36)      encode raw not null,
-	root_tstamp     timestamp     encode raw not null,
-	derived_tstamp  timestamp     encode raw not null,
-	-- Properties of this type
-	sku             varchar(255)  encode text32k not null,
-	name            varchar(255)  encode text32k,
-	category        varchar(255)  encode text32k,
-	unit_price      decimal(15,2) encode runlength,
-	quantity        int           encode runlength not null,
-	currency        varchar(31)   encode runlength,
-	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
-)
-DISTSTYLE KEY
--- Optimized join to public.events
-DISTKEY (root_id)
-SORTKEY (derived_tstamp);
-
-ALTER TABLE public.snowplow_remove_from_cart owner to storageloader;
-
-
 --public.search
 
 CREATE TABLE public.search (
 	-- Parentage of this type
-	root_id         char(36)      encode raw not null,
-	root_tstamp     timestamp     encode raw not null,
-	derived_tstamp  timestamp     encode raw not null,
+	root_id         	char(36)      encode raw not null,
+	root_tstamp     	timestamp     encode raw not null,
+	derived_tstamp  	timestamp     encode raw not null,
+	etl_tstamp_local 	timestamp 	  encode raw not null,
 	-- Properties of this type
-	terms           varchar(2048) encode raw not null, -- Holds a JSON array. TODO: will replace with a ref_ following https://github.com/snowplow/snowplow/issues/647
-	filters         varchar(2048) encode raw, -- Holds a JSON object. TODO: will replace with a ref_ following https://github.com/snowplow/snowplow/issues/647
-	total_results   int encode raw,
-	page_results    int encode runlength,
+	terms           	varchar(2048) encode raw not null, -- Holds a JSON array. TODO: will replace with a ref_ following https://github.com/snowplow/snowplow/issues/647
+	filters         	varchar(2048) encode raw, -- Holds a JSON object. TODO: will replace with a ref_ following https://github.com/snowplow/snowplow/issues/647
+	total_results   	int encode raw,
+	page_results    	int encode runlength,
 	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
 )
 DISTSTYLE KEY
@@ -493,18 +454,69 @@ SORTKEY (derived_tstamp);
 ALTER TABLE public.search owner to storageloader;
 
 
+--public.snowplow_add_to_cart
+
+CREATE TABLE public.snowplow_add_to_cart (
+	-- Parentage of this type
+	root_id         	char(36)      encode raw not null,
+	root_tstamp     	timestamp     encode raw not null,
+	derived_tstamp  	timestamp     encode raw not null,
+	etl_tstamp_local 	timestamp 	  encode raw not null,
+	-- Properties of this type
+	sku             	varchar(255)  encode text32k not null,
+	name            	varchar(255)  encode text32k,
+	category        	varchar(255)  encode text32k,
+	unit_price      	decimal(15,2) encode runlength,
+	quantity        	int           encode runlength not null,
+	currency        	varchar(31)   encode runlength,
+	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
+)
+DISTSTYLE KEY
+-- Optimized join to public.events
+DISTKEY (root_id)
+SORTKEY (derived_tstamp);
+
+ALTER TABLE public.snowplow_add_to_cart owner to storageloader;
+
+
+--public.snowplow_remove_from_cart
+
+CREATE TABLE public.snowplow_remove_from_cart (
+	-- Parentage of this type
+	root_id         	char(36)      encode raw not null,
+	root_tstamp     	timestamp     encode raw not null,
+	derived_tstamp  	timestamp     encode raw not null,
+	etl_tstamp_local 	timestamp 	  encode raw not null,
+	-- Properties of this type
+	sku             	varchar(255)  encode text32k not null,
+	name            	varchar(255)  encode text32k,
+	category        	varchar(255)  encode text32k,
+	unit_price      	decimal(15,2) encode runlength,
+	quantity        	int           encode runlength not null,
+	currency        	varchar(31)   encode runlength,
+	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
+)
+DISTSTYLE KEY
+-- Optimized join to public.events
+DISTKEY (root_id)
+SORTKEY (derived_tstamp);
+
+ALTER TABLE public.snowplow_remove_from_cart owner to storageloader;
+
+
 --public.timing
 
 CREATE TABLE public.timing (
 	-- Parentage of this type
-	root_id        char(36)      encode raw not null,
-	root_tstamp    timestamp     encode raw not null,
-	derived_tstamp timestamp     encode raw not null,
+	root_id        		char(36)      encode raw not null,
+	root_tstamp    		timestamp     encode raw not null,
+	derived_tstamp 		timestamp     encode raw not null,
+	etl_tstamp_local 	timestamp 	 encode raw not null,
 	-- Properties of this type
-	category       varchar(255)  encode text255 not null,
-	variable       varchar(255)  encode text32k not null,
-	timing         integer       encode raw not null,
-	label          varchar(255)  encode text32k,
+	category       		varchar(255)  encode text255 not null,
+	variable       		varchar(255)  encode text32k not null,
+	timing         		integer       encode raw not null,
+	label          		varchar(255)  encode text32k,
 	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
 )
 DISTSTYLE KEY
