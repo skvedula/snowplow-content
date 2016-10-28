@@ -1,11 +1,8 @@
 import spCreateElementTag from '../../libs/spCreateElementTag';
 
-export default function Outfits_imageZooms() {
+export default function Outfits_imageZooms(payload, attrs) {
 	if (payload.action === window.nord.core.actions.GalleryWindowClick) {
-		var attrArray=[];
-		attrArray[16] = digitalData.outfit.styleNumber;
-		attrArray[42] = payload.styleNumber;
-		cmCreateElementTag('Image Zoom', 'Outfit Page', attrArray.join('-_-'));
-		spCreateElementTag('Image Zoom', 'Outfit Page', attrArray.join('-_-'));
+		cmCreateElementTag('Image Zoom', 'Outfit Page', attrs);
+		spCreateElementTag('Image Zoom', 'Outfit Page', attrs);
 	}
 }

@@ -1,11 +1,8 @@
 import spCreateElementTag from '../../libs/spCreateElementTag';
 
-export default function Outfits_largeImageMobile() {
+export default function Outfits_largeImageMobile(payload, attrs) {
 	if (payload.action === window.nord.core.actions.SwipeGalleryZoomModalShow) {
-		var attrArray=[];
-		attrArray["17"] = digitalData.outfit.styleNumber;
-
-		cmCreateElementTag('Large Image', 'Outfit Page', attrArray.join('-_-'));
-		spCreateElementTag('Large Image', 'Outfit Page', attrArray.join('-_-'));
+		cmCreateElementTag('Large Image', 'Outfit Page', attrs);
+		spCreateElementTag('Large Image', 'Outfit Page', attrs);
 	}
 }
