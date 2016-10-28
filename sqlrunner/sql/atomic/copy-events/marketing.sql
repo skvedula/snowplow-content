@@ -22,7 +22,10 @@ INSERT INTO public.marketing (
        mkt_linkshare_siteid,
        mkt_cm_em
 FROM atomic.com_nordstrom_marketing_attrs_1    T1,
-atomic.temp_event_ids    T2
+atomic.temp_event_ids    T2,
+atomic.events T3
       WHERE T1.root_id = T2.event_id
+      AND T2.event_id = T3.event_id
+      AND T2.etl_tstamp = T3.etl_tstamp
 
 );
