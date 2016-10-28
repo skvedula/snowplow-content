@@ -32,7 +32,7 @@ AS (
        experiment_id,
        tag_id,
        experiment_data,
-ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
+ROW_NUMBER() OVER (PARTITION BY T1.root_id ORDER BY T1.derived_tstamp) as event_number
  FROM public.nordstrom_add_item T1,
  duplicates.tmp_nordstrom_add_item_ids T2
  WHERE T1.root_id = T2.root_id

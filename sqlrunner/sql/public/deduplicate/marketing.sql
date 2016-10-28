@@ -27,7 +27,7 @@ AS (
        mkt_rkg_id,
        mkt_linkshare_siteid,
        mkt_cm_em,
-ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
+ROW_NUMBER() OVER (PARTITION BY T1.root_id ORDER BY T1.derived_tstamp) as event_number
  FROM public.marketing T1,
  duplicates.tmp_marketing_ids T2
  WHERE T1.root_id = T2.root_id

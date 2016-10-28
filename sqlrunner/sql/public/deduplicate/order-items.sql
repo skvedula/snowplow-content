@@ -38,7 +38,7 @@ AS (
        color,
        is_recognized,
        tag_id,
-ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
+ROW_NUMBER() OVER (PARTITION BY T1.root_id ORDER BY T1.derived_tstamp) as event_number
  FROM public.order_items T1,
  duplicates.tmp_order_items_ids T2
  WHERE T1.root_id = T2.root_id

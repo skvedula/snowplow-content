@@ -2,7 +2,7 @@
 
 DROP TABLE IF EXISTS duplicates.tmp_page_views_ids;
 
-CREATE TABLE duplicates.tmp_page_views_ids  -- get all duplicate root_ids in public.page_views
+CREATE TABLE duplicates.tmp_page_views_ids  -- get all duplicate root_ids in public.page_views - owner??
  DISTKEY (root_id)
  SORTKEY (root_id)
 AS (SELECT root_id FROM (SELECT root_id, COUNT(*) AS count FROM public.page_views GROUP BY 1) WHERE count > 1);
@@ -27,7 +27,7 @@ AS (
        tag_id,
        experiment_id,
        experiment_data,
-ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
+ROW_NUMBER() OVER (PARTITION BY T1.root_id ORDER BY T1.derived_tstamp) as event_number
  FROM public.page_views T1,
  duplicates.tmp_page_views_ids T2
  WHERE T1.root_id = T2.root_id

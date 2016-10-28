@@ -28,7 +28,7 @@ AS (
        rack,
        available,
        tag_id,
-ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
+ROW_NUMBER() OVER (PARTITION BY T1.root_id ORDER BY T1.derived_tstamp) as event_number
  FROM public.product_views T1,
  duplicates.tmp_product_views_ids T2
  WHERE T1.root_id = T2.root_id

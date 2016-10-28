@@ -23,7 +23,7 @@ AS (
        unit_price,
        quantity,
        currency,
-ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
+ROW_NUMBER() OVER (PARTITION BY T1.root_id ORDER BY T1.derived_tstamp) as event_number
  FROM public.snowplow_add_to_cart T1,
  duplicates.tmp_snowplow_add_to_cart_ids T2
  WHERE T1.root_id = T2.root_id

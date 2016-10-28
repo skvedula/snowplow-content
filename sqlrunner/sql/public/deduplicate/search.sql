@@ -21,7 +21,7 @@ AS (
        filters,
        total_results,
        page_results,
-ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
+ROW_NUMBER() OVER (PARTITION BY T1.root_id ORDER BY T1.derived_tstamp) as event_number
  FROM public.search T1,
  duplicates.tmp_search_ids T2
  WHERE T1.root_id = T2.root_id
