@@ -192,10 +192,10 @@ ALTER TABLE public.events owner to storageloader;
 
 CREATE TABLE public.elwin_exposures (
 	-- Parentage of this type
-	root_id         char(36)      encode raw not null,
-	root_tstamp     timestamp     encode raw not null,
-	derived_tstamp  timestamp     encode raw not null,
-	etl_tstamp 		timestamp 	  encode raw not null,
+	root_id         	char(36)      encode raw not null,
+	root_tstamp     	timestamp     encode raw not null,
+	derived_tstamp  	timestamp     encode raw not null,
+	etl_tstamp_local 	timestamp 	  encode raw not null,
 	-- Properties of this type
 	team_id				varchar(255)	encode lzo,
 	experiment_name		varchar(255)	encode lzo,
@@ -216,15 +216,15 @@ ALTER TABLE public.elwin_exposures owner to storageloader;
 
 CREATE TABLE public.link_clicks (
 	-- Parentage of this type
-	root_id         char(36)      encode raw not null,
-	root_tstamp     timestamp     encode raw not null,
-	derived_tstamp  timestamp     encode raw not null,
-	etl_tstamp 		timestamp 	  encode raw not null,
+	root_id         	char(36)      encode raw not null,
+	root_tstamp     	timestamp     encode raw not null,
+	derived_tstamp  	timestamp     encode raw not null,
+	etl_tstamp_local 	timestamp 	  encode raw not null,
 	-- Properties of this type
-	element_id      varchar(255)  encode text32k,
-	element_classes varchar(2048) encode raw, -- Holds a JSON array. TODO: will replace with a ref_ following https://github.com/snowplow/snowplow/issues/647
-	element_target  varchar(255)  encode text255,
-	target_url      varchar(4096) encode text32k not null,
+	element_id      	varchar(255)  encode text32k,
+	element_classes 	varchar(2048) encode raw, -- Holds a JSON array. TODO: will replace with a ref_ following https://github.com/snowplow/snowplow/issues/647
+	element_target  	varchar(255)  encode text255,
+	target_url      	varchar(4096) encode text32k not null,
 	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
 )
 DISTSTYLE KEY
@@ -242,7 +242,7 @@ CREATE TABLE public.marketing (
 	root_id				char(36)      encode raw not null,
 	root_tstamp			timestamp     encode raw not null,
 	derived_tstamp  	timestamp     encode raw not null,
-	etl_tstamp 			timestamp 	  encode raw not null,
+	etl_tstamp_local	timestamp 	  encode raw not null,
     --Properties of this type 
     mkt_source varchar(255)  encode lzo,
     mkt_medium varchar(255)  encode lzo,

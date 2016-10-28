@@ -13,7 +13,22 @@ CREATE TABLE duplicates.tmp_product_views       -- get full rows + duplicate num
  DISTKEY (root_id)
  SORTKEY (root_id)
 AS (
- SELECT *, ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
+ SELECT T1.root_id, 
+   root_tstamp,
+   T1.derived_tstamp,
+   T1.etl_tstamp_local,
+       page_url,
+       product_id,
+       product_category,
+       style_number,
+       product_name,
+       on_sale,
+       brand_name,
+       fit_value,
+       rack,
+       available,
+       tag_id,
+ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
  FROM public.product_views T1,
  duplicates.tmp_product_views_ids T2
  WHERE T1.root_id = T2.root_id
@@ -25,11 +40,41 @@ BEGIN;
  WHERE root_id IN (SELECT root_id FROM duplicates.tmp_product_views_ids);
 
  INSERT INTO public.product_views (             -- write only first occurrence back to public.product_views
-   SELECT * FROM duplicates.tmp_product_views WHERE event_number = 1
+   SELECT root_id, 
+   root_tstamp,
+   derived_tstamp,
+   etl_tstamp_local,
+       page_url,
+       product_id,
+       product_category,
+       style_number,
+       product_name,
+       on_sale,
+       brand_name,
+       fit_value,
+       rack,
+       available,
+       tag_id
+FROM duplicates.tmp_product_views WHERE event_number = 1
 );
 
   INSERT INTO duplicates.product_views (  -- write remaining to duplicates.product_views
-   SELECT * FROM duplicates.tmp_product_views WHERE event_number > 1
+   SELECT root_id, 
+   root_tstamp,
+   derived_tstamp,
+   etl_tstamp_local,
+       page_url,
+       product_id,
+       product_category,
+       style_number,
+       product_name,
+       on_sale,
+       brand_name,
+       fit_value,
+       rack,
+       available,
+       tag_id
+FROM duplicates.tmp_product_views WHERE event_number > 1
   );
 
 COMMIT;

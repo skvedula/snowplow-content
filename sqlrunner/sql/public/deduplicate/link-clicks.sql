@@ -13,7 +13,17 @@ CREATE TABLE duplicates.tmp_link_clicks       -- get full rows + duplicate numbe
  DISTKEY (root_id)
  SORTKEY (root_id)
 AS (
- SELECT *, ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
+ SELECT T1.root_id, 
+   root_tstamp,
+   T1.derived_tstamp,
+   T1.etl_tstamp_local,
+
+       element_id,
+       element_classes,
+       element_target,
+       target_url,
+	
+	ROW_NUMBER() OVER (PARTITION BY T1.root_id ORDER BY T1.derived_tstamp) as event_number
  FROM public.link_clicks T1,
  duplicates.tmp_link_clicks_ids T2
  WHERE T1.root_id = T2.root_id
@@ -25,11 +35,29 @@ BEGIN;
  WHERE root_id IN (SELECT root_id FROM duplicates.tmp_link_clicks_ids);
 
  INSERT INTO public.link_clicks (             -- write only first occurrence back to public.link_clicks
-   SELECT * FROM duplicates.tmp_link_clicks WHERE event_number = 1
+   SELECT root_id, 
+   root_tstamp,
+   derived_tstamp,
+   etl_tstamp_local,
+
+       element_id,
+       element_classes,
+       element_target,
+       target_url
+    FROM duplicates.tmp_link_clicks WHERE event_number = 1
 );
 
   INSERT INTO duplicates.link_clicks (  -- write remaining to duplicates.link_clicks
-   SELECT * FROM duplicates.tmp_link_clicks WHERE event_number > 1
+   SELECT root_id, 
+   root_tstamp,
+   derived_tstamp,
+   etl_tstamp_local,
+
+       element_id,
+       element_classes,
+       element_target,
+       target_url
+     FROM duplicates.tmp_link_clicks WHERE event_number > 1
   );
 
 COMMIT;

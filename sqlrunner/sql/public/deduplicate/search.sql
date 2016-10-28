@@ -13,7 +13,15 @@ CREATE TABLE duplicates.tmp_search       -- get full rows + duplicate number
  DISTKEY (root_id)
  SORTKEY (root_id)
 AS (
- SELECT *, ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
+ SELECT T1.root_id, 
+   root_tstamp,
+   T1.derived_tstamp,
+   T1.etl_tstamp_local,
+       terms,
+       filters,
+       total_results,
+       page_results,
+ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
  FROM public.search T1,
  duplicates.tmp_search_ids T2
  WHERE T1.root_id = T2.root_id
@@ -25,11 +33,27 @@ BEGIN;
  WHERE root_id IN (SELECT root_id FROM duplicates.tmp_search_ids);
 
  INSERT INTO public.search (             -- write only first occurrence back to public.search
-   SELECT * FROM duplicates.tmp_search WHERE event_number = 1
+   SELECT root_id, 
+   root_tstamp,
+   derived_tstamp,
+   etl_tstamp_local,
+       terms,
+       filters,
+       total_results,
+       page_results
+FROM duplicates.tmp_search WHERE event_number = 1
 );
 
   INSERT INTO duplicates.search (  -- write remaining to duplicates.search
-   SELECT * FROM duplicates.tmp_search WHERE event_number > 1
+   SELECT root_id, 
+   root_tstamp,
+   derived_tstamp,
+   etl_tstamp_local,
+       terms,
+       filters,
+       total_results,
+       page_results
+FROM duplicates.tmp_search WHERE event_number > 1
   );
 
 COMMIT;

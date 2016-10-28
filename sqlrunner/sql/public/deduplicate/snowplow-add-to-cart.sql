@@ -13,7 +13,17 @@ CREATE TABLE duplicates.tmp_snowplow_add_to_cart       -- get full rows + duplic
  DISTKEY (root_id)
  SORTKEY (root_id)
 AS (
- SELECT *, ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
+ SELECT T1.root_id, 
+   root_tstamp,
+   T1.derived_tstamp,
+   T1.etl_tstamp_local,
+       sku,
+       name,
+       category,
+       unit_price,
+       quantity,
+       currency,
+ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
  FROM public.snowplow_add_to_cart T1,
  duplicates.tmp_snowplow_add_to_cart_ids T2
  WHERE T1.root_id = T2.root_id
@@ -25,11 +35,31 @@ BEGIN;
  WHERE root_id IN (SELECT root_id FROM duplicates.tmp_snowplow_add_to_cart_ids);
 
  INSERT INTO public.snowplow_add_to_cart (             -- write only first occurrence back to public.snowplow_add_to_cart
-   SELECT * FROM duplicates.tmp_snowplow_add_to_cart WHERE event_number = 1
+   SELECT root_id, 
+   root_tstamp,
+   derived_tstamp,
+   etl_tstamp_local,
+       sku,
+       name,
+       category,
+       unit_price,
+       quantity,
+       currency
+FROM duplicates.tmp_snowplow_add_to_cart WHERE event_number = 1
 );
 
   INSERT INTO duplicates.snowplow_add_to_cart (  -- write remaining to duplicates.snowplow_add_to_cart
-   SELECT * FROM duplicates.tmp_snowplow_add_to_cart WHERE event_number > 1
+   SELECT root_id, 
+   root_tstamp,
+   derived_tstamp,
+   etl_tstamp_local,
+       sku,
+       name,
+       category,
+       unit_price,
+       quantity,
+       currency
+FROM duplicates.tmp_snowplow_add_to_cart WHERE event_number > 1
   );
 
 COMMIT;

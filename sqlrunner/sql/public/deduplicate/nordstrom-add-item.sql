@@ -13,7 +13,26 @@ CREATE TABLE duplicates.tmp_nordstrom_add_item       -- get full rows + duplicat
  DISTKEY (root_id)
  SORTKEY (root_id)
 AS (
- SELECT *, ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
+ SELECT T1.root_id, 
+   root_tstamp,
+   T1.derived_tstamp,
+   T1.etl_tstamp_local,
+       document_url,
+       style_number,
+       style_id,
+       size,
+       width,
+       color,
+       percentage_off,
+       sale_type,
+       authenticated_status,
+       bopus,
+       store_number,
+       mmp,
+       experiment_id,
+       tag_id,
+       experiment_data,
+ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
  FROM public.nordstrom_add_item T1,
  duplicates.tmp_nordstrom_add_item_ids T2
  WHERE T1.root_id = T2.root_id
@@ -25,11 +44,49 @@ BEGIN;
  WHERE root_id IN (SELECT root_id FROM duplicates.tmp_nordstrom_add_item_ids);
 
  INSERT INTO public.nordstrom_add_item (             -- write only first occurrence back to public.nordstrom_add_item
-   SELECT * FROM duplicates.tmp_nordstrom_add_item WHERE event_number = 1
+   SELECT root_id, 
+   root_tstamp,
+   derived_tstamp,
+   etl_tstamp_local,
+       document_url,
+       style_number,
+       style_id,
+       size,
+       width,
+       color,
+       percentage_off,
+       sale_type,
+       authenticated_status,
+       bopus,
+       store_number,
+       mmp,
+       experiment_id,
+       tag_id,
+       experiment_data
+FROM duplicates.tmp_nordstrom_add_item WHERE event_number = 1
 );
 
   INSERT INTO duplicates.nordstrom_add_item (  -- write remaining to duplicates.nordstrom_add_item
-   SELECT * FROM duplicates.tmp_nordstrom_add_item WHERE event_number > 1
+   SELECT root_id, 
+   root_tstamp,
+   derived_tstamp,
+   etl_tstamp_local,
+       document_url,
+       style_number,
+       style_id,
+       size,
+       width,
+       color,
+       percentage_off,
+       sale_type,
+       authenticated_status,
+       bopus,
+       store_number,
+       mmp,
+       experiment_id,
+       tag_id,
+       experiment_data
+FROM duplicates.tmp_nordstrom_add_item WHERE event_number > 1
   );
 
 COMMIT;

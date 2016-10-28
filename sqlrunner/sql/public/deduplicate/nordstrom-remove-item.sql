@@ -13,7 +13,26 @@ CREATE TABLE duplicates.tmp_nordstrom_remove_item       -- get full rows + dupli
  DISTKEY (root_id)
  SORTKEY (root_id)
 AS (
- SELECT *, ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
+ SELECT T1.root_id, 
+   root_tstamp,
+   T1.derived_tstamp,
+   T1.etl_tstamp_local,
+       document_url,
+       style_number,
+       style_id,
+       size,
+       width,
+       color,
+       percentage_off,
+       sale_type,
+       authenticated_status,
+       bopus,
+       store_number,
+       mmp,
+       tag_id,
+       experiment_id,
+       experiment_data,
+ROW_NUMBER() OVER (PARTITION BY root_id ORDER BY derived_tstamp) as event_number
  FROM public.nordstrom_remove_item T1,
  duplicates.tmp_nordstrom_remove_item_ids T2
  WHERE T1.root_id = T2.root_id
@@ -25,11 +44,49 @@ BEGIN;
  WHERE root_id IN (SELECT root_id FROM duplicates.tmp_nordstrom_remove_item_ids);
 
  INSERT INTO public.nordstrom_remove_item (             -- write only first occurrence back to public.nordstrom_remove_item
-   SELECT * FROM duplicates.tmp_nordstrom_remove_item WHERE event_number = 1
+   SELECT root_id, 
+   root_tstamp,
+   derived_tstamp,
+   etl_tstamp_local,
+       document_url,
+       style_number,
+       style_id,
+       size,
+       width,
+       color,
+       percentage_off,
+       sale_type,
+       authenticated_status,
+       bopus,
+       store_number,
+       mmp,
+       tag_id,
+       experiment_id,
+       experiment_data
+FROM duplicates.tmp_nordstrom_remove_item WHERE event_number = 1
 );
 
   INSERT INTO duplicates.nordstrom_remove_item (  -- write remaining to duplicates.nordstrom_remove_item
-   SELECT * FROM duplicates.tmp_nordstrom_remove_item WHERE event_number > 1
+   SELECT root_id, 
+   root_tstamp,
+   derived_tstamp,
+   etl_tstamp_local,
+       document_url,
+       style_number,
+       style_id,
+       size,
+       width,
+       color,
+       percentage_off,
+       sale_type,
+       authenticated_status,
+       bopus,
+       store_number,
+       mmp,
+       tag_id,
+       experiment_id,
+       experiment_data
+FROM duplicates.tmp_nordstrom_remove_item WHERE event_number > 1
   );
 
 COMMIT;
