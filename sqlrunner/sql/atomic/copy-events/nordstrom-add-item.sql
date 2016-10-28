@@ -9,8 +9,8 @@ INSERT INTO public.nordstrom_add_item (
 
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
-       convert_timezone('US/Pacific', derived_tstamp),
-       convert_timezone('US/Pacific', etl_tstamp),
+       convert_timezone('US/Pacific', T2.derived_tstamp),
+       convert_timezone('US/Pacific', T2.etl_tstamp),
        document_url,
        style_number,
        style_id,
@@ -38,8 +38,8 @@ INSERT INTO public.nordstrom_add_item (
 
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
-       convert_timezone('US/Pacific', derived_tstamp),
-       convert_timezone('US/Pacific', etl_tstamp),
+       convert_timezone('US/Pacific', T2.derived_tstamp),
+       convert_timezone('US/Pacific', T2.etl_tstamp),
        document_url,
        style_number,
        style_id,

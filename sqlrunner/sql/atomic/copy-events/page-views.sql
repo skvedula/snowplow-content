@@ -9,8 +9,8 @@ INSERT INTO public.page_views (
 
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
-       convert_timezone('US/Pacific', derived_tstamp),
-       convert_timezone('US/Pacific', etl_tstamp),
+       convert_timezone('US/Pacific', T2.derived_tstamp),
+       convert_timezone('US/Pacific', T2.etl_tstamp),
        T1.page_url,
        page_category,
        page_template,
@@ -34,8 +34,8 @@ INSERT INTO public.page_views (
 
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
-       convert_timezone('US/Pacific', derived_tstamp),
-       convert_timezone('US/Pacific', etl_tstamp),
+       convert_timezone('US/Pacific', T2.derived_tstamp),
+       convert_timezone('US/Pacific', T2.etl_tstamp),
        T1.page_url,
        page_category,
        page_template,

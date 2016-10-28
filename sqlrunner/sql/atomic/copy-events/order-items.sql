@@ -9,8 +9,8 @@ INSERT INTO public.order_items (
 
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
-       convert_timezone('US/Pacific', derived_tstamp),
-       convert_timezone('US/Pacific', etl_tstamp),
+       convert_timezone('US/Pacific', T2.derived_tstamp),
+       convert_timezone('US/Pacific', T2.etl_tstamp),
        outfit_id,
        gift_services,
        saved_for_later,
@@ -45,8 +45,8 @@ INSERT INTO public.order_items (
 
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
-       convert_timezone('US/Pacific', derived_tstamp),
-       convert_timezone('US/Pacific', etl_tstamp),
+       convert_timezone('US/Pacific', T2.derived_tstamp),
+       convert_timezone('US/Pacific', T2.etl_tstamp),
        outfit_id,
        gift_services,
        saved_for_later,
