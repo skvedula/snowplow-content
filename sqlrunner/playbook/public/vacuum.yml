@@ -11,30 +11,30 @@
     :queries:
       - :name: events
         :file: ./public/vacuum/events.sql
-  - :name: nordstrom-add-item-attrs
+  - :name: nordstrom-add-item
     :queries:
-      - :name: nordstrom-add-item-attrs
-        :file: ./public/vacuum/nordstrom-add-item-attrs.sql
+      - :name: nordstrom-add-item
+        :file: ./public/vacuum/nordstrom-add-item.sql
   - :name: nordstrom-elwin-exposures
     :queries:
       - :name: nordstrom-elwin-exposures
-        :file: ./public/vacuum/nordstrom-elwin-exposures.sql
-  - :name: nordstrom-order-item-attrs
+        :file: ./public/vacuum/elwin-exposures.sql
+  - :name: nordstrom-order-item
     :queries:
-      - :name: nordstrom-order-item-attrs
-        :file: ./public/vacuum/nordstrom-order-item-attrs.sql
-  - :name: nordstrom-page-view-attrs
+      - :name: nordstrom-order-item
+        :file: ./public/vacuum/order-items.sql
+  - :name: nordstrom-page-view
     :queries:
-      - :name: nordstrom-page-view-attrs
-        :file: ./public/vacuum/nordstrom-page-view-attrs.sql
-  - :name: nordstrom-product-view-attrs
+      - :name: nordstrom-page-view
+        :file: ./public/vacuum/page-views.sql
+  - :name: nordstrom-product-view
     :queries:
-      - :name: nordstrom-product-view-attrs
-        :file: ./public/vacuum/nordstrom-product-view-attrs.sql
-  - :name: nordstrom-remove-item-attrs
+      - :name: nordstrom-product-view
+        :file: ./public/vacuum/product-views.sql
+  - :name: nordstrom-remove-item
     :queries:
-      - :name: nordstrom-remove-item-attrs
-        :file: ./public/vacuum/nordstrom-remove-item-attrs.sql
+      - :name: nordstrom-remove-item
+        :file: ./public/vacuum/nordstrom-remove-item.sql
   - :name: snowplow-add-to-cart
     :queries:
       - :name: snowplow-add-to-cart
@@ -42,7 +42,7 @@
   - :name: snowplow-link-click
     :queries:
       - :name: snowplow-link-click
-        :file: ./public/vacuum/snowplow-link-click.sql
+        :file: ./public/vacuum/link-clicks.sql
   - :name: snowplow-remove-from-cart
     :queries:
       - :name: snowplow-remove-from-cart
@@ -50,8 +50,8 @@
   - :name: snowplow-site-search
     :queries:
       - :name: snowplow-site-search
-        :file: ./public/vacuum/snowplow-site-search.sql
+        :file: ./public/vacuum/search.sql
   - :name: snowplow-timing
     :queries:
       - :name: snowplow-timing
-        :file: ./public/vacuum/snowplow-timing.sql
+        :file: ./public/vacuum/timing.sql
