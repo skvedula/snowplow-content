@@ -39,6 +39,10 @@
         :file: ./ca/unload-marketing.sql
       - :name: search
         :file: ./ca/unload-search.sql
+      - :name: real-estate
+        :file: ./ca/unload-real-estate.sql
+      - :name: site-promos
+        :file: ./ca/unload-site-promos.sql
   - :name: other
     :queries:
       - :name: unload-timing

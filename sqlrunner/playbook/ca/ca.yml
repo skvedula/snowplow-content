@@ -39,6 +39,10 @@
         :file: ./ca/load-marketing.sql
       - :name: load-search
         :file: ./ca/load-search.sql
+      - :name: real-estate
+        :file: ./ca/load-real-estate.sql
+      - :name: site-promos
+        :file: ./ca/load-site-promos.sql
   - :name: other
     :queries:
       - :name: load-timing

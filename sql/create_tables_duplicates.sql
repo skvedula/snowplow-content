@@ -431,6 +431,28 @@ SORTKEY (derived_tstamp);
 ALTER TABLE duplicates.product_views owner to storageloader;
 
 
+--duplicates.real_estate
+
+CREATE TABLE duplicates.real_estate (
+	-- Parentage of this type
+	root_id         	char(36)      encode raw not null,
+	root_tstamp     	timestamp     encode raw not null,
+	derived_tstamp  	timestamp     encode raw not null,
+	etl_tstamp_local 	timestamp 	  encode raw not null,
+	-- Properties of this type
+	version      		varchar(255) encode raw,
+	page_area         	varchar(255) encode raw,
+	link   				varchar(255) encode raw,
+	FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+)
+DISTSTYLE KEY
+-- Optimized join to duplicates.events
+DISTKEY (root_id)
+SORTKEY (derived_tstamp);
+
+ALTER TABLE duplicates.real_estate owner to storageloader;
+
+
 --duplicates.search
 
 CREATE TABLE duplicates.search (
@@ -452,6 +474,28 @@ DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
 ALTER TABLE duplicates.search owner to storageloader;
+
+
+--duplicates.site_promos
+
+CREATE TABLE duplicates.site_promos (
+	-- Parentage of this type
+	root_id         	char(36)      encode raw not null,
+	root_tstamp     	timestamp     encode raw not null,
+	derived_tstamp  	timestamp     encode raw not null,
+	etl_tstamp_local 	timestamp 	  encode raw not null,
+	-- Properties of this type
+	promotion_type      varchar(255) encode raw,
+	promotion         	varchar(255) encode raw,
+	link   				varchar(255) encode raw,
+	FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+)
+DISTSTYLE KEY
+-- Optimized join to duplicates.events
+DISTKEY (root_id)
+SORTKEY (derived_tstamp);
+
+ALTER TABLE duplicates.site_promos owner to storageloader;
 
 
 --duplicates.snowplow_add_to_cart
