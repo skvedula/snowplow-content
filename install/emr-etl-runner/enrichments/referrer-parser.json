@@ -9,6 +9,11 @@
         "parameters": {
             "internalDomains": [
                 "nordstrom.com",
+                "shop.nordstrom.com",
+                "m.shop.nordstrom.com",
+                "secure.nordstrom.com",
+                "m.secure.nordstrom.com",
+                "restaurants.nordstrom.com",
                 "nordstrom.taleo.net",
                 "nordstromsilverscreen.com",
                 "nordstrome.com",
