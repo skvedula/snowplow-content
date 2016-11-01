@@ -1,6 +1,4 @@
-import spCreateElementTag from '../../libs/spCreateElementTag';
-
-export default function Checkout_availableNote(payload, attrs) {
+export default function Checkout_availableNote() {
 	var	notes, notesNum, i, attrArray = [];
 	notes = document.querySelectorAll("#payment > form > div.payment-method.nord-note.ng-scope > div.applied-nord-notes.ng-scope > ul > li.ng-scope.note");
 	notesNum = notes.length;

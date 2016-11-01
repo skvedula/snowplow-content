@@ -22,7 +22,7 @@
 		}
 
 		, "value": {
-			"type": ["float", "integer", "string", "null"]
+			"type": ["integer", "null"]
 		}
 
 		, "label": {

@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
+    "build": "npm run outfits && npm run checkout",
     "outfits": "browserify -t [ babelify --presets [ es2015 ] ] pages/Outfits.js | uglifyjs -o dist/Outfits.js",
+    "checkout": "browserify -t [ babelify --presets [ es2015 ] ] pages/Checkout.js | uglifyjs -o dist/Checkout.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nordstrom <ndirttotech@nordstrom.com>",
