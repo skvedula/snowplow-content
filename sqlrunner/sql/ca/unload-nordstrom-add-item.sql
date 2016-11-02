@@ -20,6 +20,6 @@ UNLOAD ('SELECT root_id,
 	FROM public.nordstrom_add_item    T1,
 	atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id;') 
-TO 's3://cxar-ato-bigdata/snowplow-dev/CA/nordstrom_add_item/'
+TO 's3://cxar-ato-bigdata/snowplow-prod/CA/nordstrom_add_item/'
 CREDENTIALS 'aws_iam_role=arn:aws:iam::832038866117:role/a0007-Redshift-COPY'
 ESCAPE;
