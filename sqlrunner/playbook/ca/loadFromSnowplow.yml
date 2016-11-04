@@ -10,42 +10,42 @@
   - :name: events
     :queries:
       - :name: load-events
-        :file: ./ca/load-events.sql
+        :file: ./ca/loadFromSnowplow/load-events.sql
   - :name: bag-events
     :queries:
       - :name: load-nordstrom-add-item
-        :file: ./ca/load-nordstrom-add-item.sql
+        :file: ./ca/loadFromSnowplow/load-nordstrom-add-item.sql
       - :name: load-nordstrom-remove-item
-        :file: ./ca/load-nordstrom-remove-item.sql
+        :file: ./ca/loadFromSnowplow/load-nordstrom-remove-item.sql
       - :name: load-snowplow-add-to-cart
-        :file: ./ca/load-snowplow-add-to-cart.sql
+        :file: ./ca/loadFromSnowplow/load-snowplow-add-to-cart.sql
       - :name: load-snowplow-remove-from-cart
-        :file: ./ca/load-snowplow-remove-from-cart.sql
+        :file: ./ca/loadFromSnowplow/load-snowplow-remove-from-cart.sql
   - :name: page-and-product-views
     :queries:
       - :name: load-page-views
-        :file: ./ca/load-page-views.sql
+        :file: ./ca/loadFromSnowplow/load-page-views.sql
       - :name: load-product-views
-        :file: ./ca/load-product-views.sql
+        :file: ./ca/loadFromSnowplow/load-product-views.sql
   - :name: order-items
     :queries:
       - :name: load-order-items
-        :file: ./ca/load-order-items.sql
+        :file: ./ca/loadFromSnowplow/load-order-items.sql
   - :name: marketing
     :queries:
       - :name: load-link-clicks
-        :file: ./ca/load-link-clicks.sql
+        :file: ./ca/loadFromSnowplow/load-link-clicks.sql
       - :name: load-marketing
-        :file: ./ca/load-marketing.sql
+        :file: ./ca/loadFromSnowplow/load-marketing.sql
       - :name: load-search
-        :file: ./ca/load-search.sql
+        :file: ./ca/loadFromSnowplow/load-search.sql
       - :name: real-estate
-        :file: ./ca/load-real-estate.sql
+        :file: ./ca/loadFromSnowplow/load-real-estate.sql
       - :name: site-promos
-        :file: ./ca/load-site-promos.sql
+        :file: ./ca/loadFromSnowplow/load-site-promos.sql
   - :name: other
     :queries:
       - :name: load-timing
-        :file: ./ca/load-timing.sql
+        :file: ./ca/loadFromSnowplow/load-timing.sql
       - :name: load-elwin-exposures
-        :file: ./ca/load-elwin-exposures.sql
+        :file: ./ca/loadFromSnowplow/load-elwin-exposures.sql

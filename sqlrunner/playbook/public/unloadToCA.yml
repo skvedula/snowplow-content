@@ -10,42 +10,42 @@
   - :name: events
     :queries:
       - :name: unload-events
-        :file: ./ca/unload-events.sql
+        :file: ./public/unloadToCA/unload-events.sql
   - :name: bag-events
     :queries:
       - :name: unload-nordstrom-add-item
-        :file: ./ca/unload-nordstrom-add-item.sql
+        :file: ./public/unloadToCA/unload-nordstrom-add-item.sql
       - :name: unload-nordstrom-remove-item
-        :file: ./ca/unload-nordstrom-remove-item.sql
+        :file: ./public/unloadToCA/unload-nordstrom-remove-item.sql
       - :name: unload-snowplow-add-to-cart
-        :file: ./ca/unload-snowplow-add-to-cart.sql
+        :file: ./public/unloadToCA/unload-snowplow-add-to-cart.sql
       - :name: unload-snowplow-remove-from-cart
-        :file: ./ca/unload-snowplow-remove-from-cart.sql
+        :file: ./public/unloadToCA/unload-snowplow-remove-from-cart.sql
   - :name: page-and-product-views
     :queries:
       - :name: unload-page-views
-        :file: ./ca/unload-page-views.sql
+        :file: ./public/unloadToCA/unload-page-views.sql
       - :name: unload-product-views
-        :file: ./ca/unload-product-views.sql
+        :file: ./public/unloadToCA/unload-product-views.sql
   - :name: order-items
     :queries:
       - :name: unload-order-items
-        :file: ./ca/unload-order-items.sql
+        :file: ./public/unloadToCA/unload-order-items.sql
   - :name: marketing
     :queries:
       - :name: unload-link-clicks
-        :file: ./ca/unload-link-clicks.sql
+        :file: ./public/unloadToCA/unload-link-clicks.sql
       - :name: unload-marketing
-        :file: ./ca/unload-marketing.sql
+        :file: ./public/unloadToCA/unload-marketing.sql
       - :name: search
-        :file: ./ca/unload-search.sql
+        :file: ./public/unloadToCA/unload-search.sql
       - :name: real-estate
-        :file: ./ca/unload-real-estate.sql
+        :file: ./public/unloadToCA/unload-real-estate.sql
       - :name: site-promos
-        :file: ./ca/unload-site-promos.sql
+        :file: ./public/unloadToCA/unload-site-promos.sql
   - :name: other
     :queries:
       - :name: unload-timing
-        :file: ./ca/unload-timing.sql
+        :file: ./public/unloadToCA/unload-timing.sql
       - :name: unload-elwin-exposures
-        :file: ./ca/unload-elwin-exposures.sql
+        :file: ./public/unloadToCA/unload-elwin-exposures.sql
