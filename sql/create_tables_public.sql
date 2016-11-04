@@ -525,3 +525,34 @@ DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
 ALTER TABLE public.timing owner to storageloader;
+
+
+--public.uids
+
+CREATE TABLE public.uids (
+	-- Schema of this type
+	schema_vendor		varchar(128)  encode runlength not null,
+	schema_name			varchar(128)  encode runlength not null,
+	schema_format		varchar(128)  encode runlength not null,
+	schema_version		varchar(128)  encode runlength not null,
+	-- Parentage of this type
+	root_id				char(36)      encode raw not null,
+	root_tstamp			timestamp     encode raw not null,
+	ref_root			varchar(255)  encode runlength not null,
+	ref_tree			varchar(1500) encode runlength not null,
+	ref_parent			varchar(255)  encode runlength not null,
+	-- Properties of this type
+	domain_userid  		varchar(255)  encode lzo,
+	shopper_id 			varchar(255)  encode lzo,
+	coremetrics_id 		varchar(255)  encode lzo,
+	adobe_id 			varchar(255)  encode lzo,
+	elwin_id 			varchar(255)  encode lzo,
+	maxymiser_id 		varchar(255)  encode lzo,
+	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
+)
+DISTSTYLE KEY
+-- Optimized join to public.events
+DISTKEY (root_id)
+SORTKEY (derived_tstamp);
+
+ALTER TABLE public.uids owner to storageloader;

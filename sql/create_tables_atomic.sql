@@ -640,7 +640,7 @@ SORTKEY (root_tstamp);
 ALTER TABLE atomic.com_nordstrom_site_promos_1 owner to storageloader;
 
 
---atomic.com_nordstrom_site_promos_1
+--atomic.com_nordstrom_uids_1
 
 CREATE TABLE atomic.com_nordstrom_uids_1 (
 	-- Schema of this type
