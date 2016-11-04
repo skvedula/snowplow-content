@@ -1,0 +1,2 @@
+vacuum ca.snowplow_remove_from_cart;
+analyze ca.snowplow_remove_from_cart;
