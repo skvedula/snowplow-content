@@ -125,3 +125,4 @@ function Checkout_Tags() {
 		spLogError(e);
 	}
 }
+Checkout_Tags();
