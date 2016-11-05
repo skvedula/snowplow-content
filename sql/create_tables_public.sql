@@ -431,6 +431,28 @@ SORTKEY (derived_tstamp);
 ALTER TABLE public.product_views owner to storageloader;
 
 
+--public.real_estate
+
+CREATE TABLE public.real_estate (
+	-- Parentage of this type
+	root_id         	char(36)      encode raw not null,
+	root_tstamp     	timestamp     encode raw not null,
+	derived_tstamp  	timestamp     encode raw not null,
+	etl_tstamp_local 	timestamp 	  encode raw not null,
+	-- Properties of this type
+	version      		varchar(255) encode raw,
+	page_area         	varchar(255) encode raw,
+	link   				varchar(255) encode raw,
+	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
+)
+DISTSTYLE KEY
+-- Optimized join to public.events
+DISTKEY (root_id)
+SORTKEY (derived_tstamp);
+
+ALTER TABLE public.real_estate owner to storageloader;
+
+
 --public.search
 
 CREATE TABLE public.search (
@@ -452,6 +474,28 @@ DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
 ALTER TABLE public.search owner to storageloader;
+
+
+--public.site_promos
+
+CREATE TABLE public.site_promos (
+	-- Parentage of this type
+	root_id         	char(36)      encode raw not null,
+	root_tstamp     	timestamp     encode raw not null,
+	derived_tstamp  	timestamp     encode raw not null,
+	etl_tstamp_local 	timestamp 	  encode raw not null,
+	-- Properties of this type
+	promotion_type      varchar(255) encode raw,
+	promotion         	varchar(255) encode raw,
+	link   				varchar(255) encode raw,
+	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
+)
+DISTSTYLE KEY
+-- Optimized join to public.events
+DISTKEY (root_id)
+SORTKEY (derived_tstamp);
+
+ALTER TABLE public.site_promos owner to storageloader;
 
 
 --public.snowplow_add_to_cart

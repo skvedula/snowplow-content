@@ -11,47 +11,59 @@
     :queries:
       - :name: events
         :file: ./public/vacuum/events.sql
+  - :name: elwin-exposures
+    :queries:
+      - :name: elwin-exposures
+        :file: ./public/vacuum/elwin-exposures.sql
+  - :name: link-clicks
+    :queries:
+      - :name: link-clicks
+        :file: ./public/vacuum/link-clicks.sql
+  - :name: marketing
+    :queries:
+      - :name: marketing
+        :file: ./public/vacuum/marketing.sql
   - :name: nordstrom-add-item
     :queries:
       - :name: nordstrom-add-item
         :file: ./public/vacuum/nordstrom-add-item.sql
-  - :name: nordstrom-elwin-exposures
-    :queries:
-      - :name: nordstrom-elwin-exposures
-        :file: ./public/vacuum/elwin-exposures.sql
-  - :name: nordstrom-order-item
-    :queries:
-      - :name: nordstrom-order-item
-        :file: ./public/vacuum/order-items.sql
-  - :name: nordstrom-page-view
-    :queries:
-      - :name: nordstrom-page-view
-        :file: ./public/vacuum/page-views.sql
-  - :name: nordstrom-product-view
-    :queries:
-      - :name: nordstrom-product-view
-        :file: ./public/vacuum/product-views.sql
   - :name: nordstrom-remove-item
     :queries:
       - :name: nordstrom-remove-item
         :file: ./public/vacuum/nordstrom-remove-item.sql
+  - :name: order-items
+    :queries:
+      - :name: order-items
+        :file: ./public/vacuum/order-items.sql
+  - :name: page-views
+    :queries:
+      - :name: page-views
+        :file: ./public/vacuum/page-views.sql
+  - :name: product-views
+    :queries:
+      - :name: product-views
+        :file: ./public/vacuum/product-views.sql
+  - :name: real-estate
+    :queries:
+      - :name: real-estate
+        :file: ./public/vacuum/real-estate.sql
+  - :name: search
+    :queries:
+      - :name: search
+        :file: ./public/vacuum/search.sql
+  - :name: site-promos
+    :queries:
+      - :name: site-promos
+        :file: ./public/vacuum/site-promos.sql
   - :name: snowplow-add-to-cart
     :queries:
       - :name: snowplow-add-to-cart
         :file: ./public/vacuum/snowplow-add-to-cart.sql
-  - :name: snowplow-link-click
-    :queries:
-      - :name: snowplow-link-click
-        :file: ./public/vacuum/link-clicks.sql
   - :name: snowplow-remove-from-cart
     :queries:
       - :name: snowplow-remove-from-cart
         :file: ./public/vacuum/snowplow-remove-from-cart.sql
-  - :name: snowplow-site-search
+  - :name: timing
     :queries:
-      - :name: snowplow-site-search
-        :file: ./public/vacuum/search.sql
-  - :name: snowplow-timing
-    :queries:
-      - :name: snowplow-timing
+      - :name: timing
         :file: ./public/vacuum/timing.sql

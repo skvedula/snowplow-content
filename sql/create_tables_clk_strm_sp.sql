@@ -1,10 +1,5 @@
---duplicates.events
-
--- Create the schema
-CREATE SCHEMA duplicates;
-
 -- Create events table
-CREATE TABLE duplicates.events (
+CREATE TABLE clk_strm_sp.events (
 	-- App
 	app_id varchar(255) encode lzo,
 	platform varchar(255) encode lzo,
@@ -177,20 +172,18 @@ CREATE TABLE duplicates.events (
 	true_tstamp timestamp encode lzo,
 	etl_tstamp_local timestamp encode lzo,
 
-	CONSTRAINT event_id_080_pk_duplicates PRIMARY KEY(event_id)
+	CONSTRAINT event_id_080_pk_clk_strm_sp PRIMARY KEY(event_id)
 )
 DISTSTYLE KEY
 DISTKEY (event_id)
 SORTKEY (derived_tstamp);
 
-COMMENT ON TABLE "duplicates"."events" IS '0.8.0';
-
-ALTER TABLE duplicates.events owner to storageloader;
+COMMENT ON TABLE "clk_strm_sp"."events" IS '0.8.0';
 
 
---duplicates.elwin_exposures
+--clk_strm_sp.elwin_exposures
 
-CREATE TABLE duplicates.elwin_exposures (
+CREATE TABLE clk_strm_sp.elwin_exposures (
 	-- Parentage of this type
 	root_id         	char(36)      encode raw not null,
 	root_tstamp     	timestamp     encode raw not null,
@@ -202,19 +195,17 @@ CREATE TABLE duplicates.elwin_exposures (
 	parameter_name		varchar(255)	encode lzo,
 	parameter_value		varchar(255)	encode lzo,
 	elwin_id			varchar(255)	encode lzo,
-	FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+	FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY
--- Optimized join to duplicates.events
+-- Optimized join to clk_strm_sp.events
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE duplicates.elwin_exposures owner to storageloader;
 
+--clk_strm_sp.link_clicks
 
---duplicates.link_clicks
-
-CREATE TABLE duplicates.link_clicks (
+CREATE TABLE clk_strm_sp.link_clicks (
 	-- Parentage of this type
 	root_id         	char(36)      encode raw not null,
 	root_tstamp     	timestamp     encode raw not null,
@@ -225,19 +216,17 @@ CREATE TABLE duplicates.link_clicks (
 	element_classes 	varchar(2048) encode raw, -- Holds a JSON array. TODO: will replace with a ref_ following https://github.com/snowplow/snowplow/issues/647
 	element_target  	varchar(255)  encode text255,
 	target_url      	varchar(4096) encode text32k not null,
-	FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+	FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY
--- Optimized join to duplicates.events
+-- Optimized join to clk_strm_sp.events
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE duplicates.link_clicks owner to storageloader;
 
+--clk_strm_sp.marketing
 
---duplicates.marketing
-
-CREATE TABLE duplicates.marketing (
+CREATE TABLE clk_strm_sp.marketing (
 	-- Parentage of this type
 	root_id				char(36)      encode raw not null,
 	root_tstamp			timestamp     encode raw not null,
@@ -254,19 +243,17 @@ CREATE TABLE duplicates.marketing (
     mkt_rkg_id varchar(255)  encode lzo,
     mkt_linkshare_siteid varchar(255)  encode lzo,
     mkt_cm_em varchar(255)  encode lzo, 
-    FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+    FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY
---Optimized join to duplicates.events
+--Optimized join to clk_strm_sp.events
 DISTKEY(root_id)
 SORTKEY(derived_tstamp);
 
-ALTER TABLE duplicates.marketing owner to storageloader;
 
+--clk_strm_sp.nordstrom_add_item
 
---duplicates.nordstrom_add_item
-
-CREATE TABLE duplicates.nordstrom_add_item (
+CREATE TABLE clk_strm_sp.nordstrom_add_item (
 	-- Parentage of this type
 	root_id					char(36)      	encode lzo not null,
 	root_tstamp				timestamp     	encode raw not null,
@@ -288,19 +275,17 @@ CREATE TABLE duplicates.nordstrom_add_item (
 	experiment_id			varchar(255)	encode lzo,
 	tag_id					varchar(10)		encode lzo,
 	experiment_data			varchar(1000)	encode lzo,
-	FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+	FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY
--- Optimized join to duplicates.events
+-- Optimized join to clk_strm_sp.events
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE duplicates.nordstrom_add_item owner to storageloader;
 
+--clk_strm_sp.nordstrom_remove_item
 
---duplicates.nordstrom_remove_item
-
-CREATE TABLE duplicates.nordstrom_remove_item (
+CREATE TABLE clk_strm_sp.nordstrom_remove_item (
 	-- Parentage of this type
 	root_id					char(36)      	encode raw not null,
 	root_tstamp				timestamp     	encode raw not null,
@@ -322,19 +307,17 @@ CREATE TABLE duplicates.nordstrom_remove_item (
 	tag_id					varchar(10)	    encode lzo,
 	experiment_id			varchar(255)	encode lzo,
 	experiment_data			varchar(1000)	encode lzo,
-	FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+	FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY
--- Optimized join to duplicates.events
+-- Optimized join to clk_strm_sp.events
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE duplicates.nordstrom_remove_item owner to storageloader;
 
+--clk_strm_sp.order_items
 
---duplicates.order_items
-
-CREATE TABLE duplicates.order_items (
+CREATE TABLE clk_strm_sp.order_items (
 	-- Parentage of this type
 	root_id				char(36)      encode raw not null,
 	root_tstamp			timestamp     encode raw not null,
@@ -362,19 +345,17 @@ CREATE TABLE duplicates.order_items (
 	color				varchar(255)  encode text255,
 	is_recognized		varchar(1)	  encode lzo,
 	tag_id 				varchar(10)   encode lzo,
-	FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+	FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY
--- Optimized join to duplicates.events
+-- Optimized join to clk_strm_sp.events
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE duplicates.order_items owner to storageloader;
 
+--clk_strm_sp.page_views
 
---duplicates.page_views
-
-CREATE TABLE duplicates.page_views (
+CREATE TABLE clk_strm_sp.page_views (
 	-- Parentage of this type
 	root_id         		char(36)      	encode raw not null,
 	root_tstamp     		timestamp     	encode raw not null,
@@ -391,19 +372,17 @@ CREATE TABLE duplicates.page_views (
 	tag_id					varchar(10)		encode lzo,
 	experiment_id			varchar(255)	encode lzo,
 	experiment_data			varchar(1000)	encode lzo,
-	FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+	FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY
--- Optimized join to duplicates.events
+-- Optimized join to clk_strm_sp.events
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE duplicates.page_views owner to storageloader;
 
+--clk_strm_sp.product_views
 
---duplicates.product_views
-
-CREATE TABLE duplicates.product_views (
+CREATE TABLE clk_strm_sp.product_views (
 	-- Parentage of this type
 	root_id				char(36)      encode raw not null,
 	root_tstamp			timestamp     encode raw not null,
@@ -421,19 +400,17 @@ CREATE TABLE duplicates.product_views (
 	rack				varchar(255)  encode lzo,
 	available			varchar(255)  encode lzo,
 	tag_id				varchar(10)	  encode lzo,
-	FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+	FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY
--- Optimized join to duplicates.events
+-- Optimized join to clk_strm_sp.events
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE duplicates.product_views owner to storageloader;
 
+--clk_strm_sp.real_estate
 
---duplicates.real_estate
-
-CREATE TABLE duplicates.real_estate (
+CREATE TABLE clk_strm_sp.real_estate (
 	-- Parentage of this type
 	root_id         	char(36)      encode raw not null,
 	root_tstamp     	timestamp     encode raw not null,
@@ -443,19 +420,17 @@ CREATE TABLE duplicates.real_estate (
 	version      		varchar(255) encode raw,
 	page_area         	varchar(255) encode raw,
 	link   				varchar(255) encode raw,
-	FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+	FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY
--- Optimized join to duplicates.events
+-- Optimized join to clk_strm_sp.events
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE duplicates.real_estate owner to storageloader;
 
+--clk_strm_sp.search
 
---duplicates.search
-
-CREATE TABLE duplicates.search (
+CREATE TABLE clk_strm_sp.search (
 	-- Parentage of this type
 	root_id         	char(36)      encode raw not null,
 	root_tstamp     	timestamp     encode raw not null,
@@ -466,19 +441,17 @@ CREATE TABLE duplicates.search (
 	filters         	varchar(2048) encode raw, -- Holds a JSON object. TODO: will replace with a ref_ following https://github.com/snowplow/snowplow/issues/647
 	total_results   	int encode raw,
 	page_results    	int encode runlength,
-	FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+	FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY
--- Optimized join to duplicates.events
+-- Optimized join to clk_strm_sp.events
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE duplicates.search owner to storageloader;
 
+--clk_strm_sp.site_promos
 
---duplicates.site_promos
-
-CREATE TABLE duplicates.site_promos (
+CREATE TABLE clk_strm_sp.site_promos (
 	-- Parentage of this type
 	root_id         	char(36)      encode raw not null,
 	root_tstamp     	timestamp     encode raw not null,
@@ -488,19 +461,17 @@ CREATE TABLE duplicates.site_promos (
 	promotion_type      varchar(255) encode raw,
 	promotion         	varchar(255) encode raw,
 	link   				varchar(255) encode raw,
-	FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+	FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY
--- Optimized join to duplicates.events
+-- Optimized join to clk_strm_sp.events
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE duplicates.site_promos owner to storageloader;
 
+--clk_strm_sp.snowplow_add_to_cart
 
---duplicates.snowplow_add_to_cart
-
-CREATE TABLE duplicates.snowplow_add_to_cart (
+CREATE TABLE clk_strm_sp.snowplow_add_to_cart (
 	-- Parentage of this type
 	root_id         	char(36)      encode raw not null,
 	root_tstamp     	timestamp     encode raw not null,
@@ -513,19 +484,17 @@ CREATE TABLE duplicates.snowplow_add_to_cart (
 	unit_price      	decimal(15,2) encode runlength,
 	quantity        	int           encode runlength not null,
 	currency        	varchar(31)   encode runlength,
-	FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+	FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY
--- Optimized join to duplicates.events
+-- Optimized join to clk_strm_sp.events
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE duplicates.snowplow_add_to_cart owner to storageloader;
 
+--clk_strm_sp.snowplow_remove_from_cart
 
---duplicates.snowplow_remove_from_cart
-
-CREATE TABLE duplicates.snowplow_remove_from_cart (
+CREATE TABLE clk_strm_sp.snowplow_remove_from_cart (
 	-- Parentage of this type
 	root_id         	char(36)      encode raw not null,
 	root_tstamp     	timestamp     encode raw not null,
@@ -538,19 +507,17 @@ CREATE TABLE duplicates.snowplow_remove_from_cart (
 	unit_price      	decimal(15,2) encode runlength,
 	quantity        	int           encode runlength not null,
 	currency        	varchar(31)   encode runlength,
-	FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+	FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY
--- Optimized join to duplicates.events
+-- Optimized join to clk_strm_sp.events
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
-ALTER TABLE duplicates.snowplow_remove_from_cart owner to storageloader;
 
+--clk_strm_sp.timing
 
---duplicates.timing
-
-CREATE TABLE duplicates.timing (
+CREATE TABLE clk_strm_sp.timing (
 	-- Parentage of this type
 	root_id        		char(36)      encode raw not null,
 	root_tstamp    		timestamp     encode raw not null,
@@ -561,11 +528,9 @@ CREATE TABLE duplicates.timing (
 	variable       		varchar(255)  encode text32k not null,
 	timing         		integer       encode raw not null,
 	label          		varchar(255)  encode text32k,
-	FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+	FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY
--- Optimized join to duplicates.events
+-- Optimized join to clk_strm_sp.events
 DISTKEY (root_id)
 SORTKEY (derived_tstamp);
-
-ALTER TABLE duplicates.timing owner to storageloader;
