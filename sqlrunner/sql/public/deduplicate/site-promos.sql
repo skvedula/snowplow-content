@@ -17,7 +17,7 @@ AS (
    root_tstamp,
    T1.derived_tstamp,
    T1.etl_tstamp_local,
-       promoton_type,
+       promotion_type,
        promotion,
        link,
 ROW_NUMBER() OVER (PARTITION BY T1.root_id ORDER BY T1.derived_tstamp) as event_number
@@ -36,7 +36,7 @@ BEGIN;
    root_tstamp,
    derived_tstamp,
    etl_tstamp_local,
-       promoton_type,
+       promotion_type,
        promotion,
        link
  FROM duplicates.tmp_site_promos WHERE event_number = 1
@@ -47,7 +47,7 @@ BEGIN;
    root_tstamp,
    derived_tstamp,
    etl_tstamp_local,
-       promoton_type,
+       promotion_type,
        promotion,
        link
  FROM duplicates.tmp_site_promos WHERE event_number > 1
