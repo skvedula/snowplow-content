@@ -9,6 +9,7 @@ import BeautyBoard_addToBag from '../src/elements/BeautyBoard_addToBag';
 import BeautyBoard_addAllToBag from '../src/elements/BeautyBoard_addAllToBag';
 import Cart_beautyBoardAddToBag from '../src/elements/Cart_beautyBoardAddToBag';
 import Cart_beautyBoardAddAllToBag from '../src/elements/Cart_beautyBoardAddAllToBag';
+import BeautyBoard_productClick from '../src/elements/BeautyBoard_productClick';
 
 window.spCreateElementTag = spCreateElementTag;
 
@@ -29,6 +30,9 @@ function BeautyBoard_Tags() {
 		document.addEventListener('click', '#add-all-bag', function() {
 			BeautyBoard_addAllToBag();
 			Cart_beautyBoardAddAllToBag();
+		});
+		document.addEventListener('click', 'a.product-href', function() {
+			BeautyBoard_productClick();
 		});
 	} catch(e) {
 		spLogError(e);
