@@ -542,6 +542,7 @@ CREATE TABLE public.uids (
 	adobe_id 			varchar(255)  encode lzo,
 	elwin_id 			varchar(255)  encode lzo,
 	maxymiser_id 		varchar(255)  encode lzo,
+	authenticated 		varchar(1) 	  encode raw,
 	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
 )
 DISTSTYLE KEY
