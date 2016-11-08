@@ -1,2 +1,2 @@
-vacuum ca.elwin_exposures;
-analyze ca.elwin_exposures;
+vacuum clk_strm_sp.elwin_exposures;
+analyze clk_strm_sp.elwin_exposures;

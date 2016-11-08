@@ -1,2 +1,2 @@
-vacuum ca.nordstrom_add_item;
-analyze ca.nordstrom_add_item;
+vacuum clk_strm_sp.nordstrom_add_item;
+analyze clk_strm_sp.nordstrom_add_item;

@@ -1,2 +1,2 @@
-vacuum ca.nordstrom_remove_item;
-analyze ca.nordstrom_remove_item;
+vacuum clk_strm_sp.nordstrom_remove_item;
+analyze clk_strm_sp.nordstrom_remove_item;

@@ -1,2 +1,2 @@
-vacuum ca.product_views;
-analyze ca.product_views;
+vacuum clk_strm_sp.product_views;
+analyze clk_strm_sp.product_views;

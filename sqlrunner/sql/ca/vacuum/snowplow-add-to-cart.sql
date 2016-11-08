@@ -1,2 +1,2 @@
-vacuum ca.snowplow_add_to_cart;
-analyze ca.snowplow_add_to_cart;
+vacuum clk_strm_sp.snowplow_add_to_cart;
+analyze clk_strm_sp.snowplow_add_to_cart;

@@ -1,2 +1,2 @@
-vacuum ca.timing;
-analyze ca.timing;
+vacuum clk_strm_sp.timing;
+analyze clk_strm_sp.timing;

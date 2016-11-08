@@ -1,2 +1,2 @@
-vacuum ca.page_views;
-analyze ca.page_views;
+vacuum clk_strm_sp.page_views;
+analyze clk_strm_sp.page_views;
