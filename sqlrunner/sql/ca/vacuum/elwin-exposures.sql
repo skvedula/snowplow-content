@@ -1,0 +1,2 @@
+vacuum clk_strm_sp.elwin_exposures;
+analyze clk_strm_sp.elwin_exposures;

@@ -1,0 +1,57 @@
+:targets:
+  - :name:     cust_analytics_dev  # Insert your own name to identify the database
+    :type:     redshift
+    :host:     a0036-ei-analytics.c9gybgr1jgvx.us-west-2.redshift.amazonaws.com  # Insert Redshfit host
+    :database: cust_analytics_dev  # Insert database name
+    :port:     5439  # Insert database port
+    :username: # Insert username with relevant credentials to run the below queries
+    :password: # Insert user password
+:steps:
+  - :name: events
+    :queries:
+      - :name: events
+        :file: ./ca/vacuum/events.sql
+  - :name: nordstrom-add-item
+    :queries:
+      - :name: nordstrom-add-item
+        :file: ./ca/vacuum/nordstrom-add-item.sql
+  - :name: nordstrom-elwin-exposures
+    :queries:
+      - :name: nordstrom-elwin-exposures
+        :file: ./ca/vacuum/elwin-exposures.sql
+  - :name: nordstrom-order-item
+    :queries:
+      - :name: nordstrom-order-item
+        :file: ./ca/vacuum/order-items.sql
+  - :name: nordstrom-page-view
+    :queries:
+      - :name: nordstrom-page-view
+        :file: ./ca/vacuum/page-views.sql
+  - :name: nordstrom-product-view
+    :queries:
+      - :name: nordstrom-product-view
+        :file: ./ca/vacuum/product-views.sql
+  - :name: nordstrom-remove-item
+    :queries:
+      - :name: nordstrom-remove-item
+        :file: ./ca/vacuum/nordstrom-remove-item.sql
+  - :name: snowplow-add-to-cart
+    :queries:
+      - :name: snowplow-add-to-cart
+        :file: ./ca/vacuum/snowplow-add-to-cart.sql
+  - :name: snowplow-link-click
+    :queries:
+      - :name: snowplow-link-click
+        :file: ./ca/vacuum/link-clicks.sql
+  - :name: snowplow-remove-from-cart
+    :queries:
+      - :name: snowplow-remove-from-cart
+        :file: ./ca/vacuum/snowplow-remove-from-cart.sql
+  - :name: snowplow-site-search
+    :queries:
+      - :name: snowplow-site-search
+        :file: ./ca/vacuum/search.sql
+  - :name: snowplow-timing
+    :queries:
+      - :name: snowplow-timing
+        :file: ./ca/vacuum/timing.sql

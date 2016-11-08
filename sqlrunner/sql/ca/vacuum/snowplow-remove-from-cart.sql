@@ -1,0 +1,2 @@
+vacuum clk_strm_sp.snowplow_remove_from_cart;
+analyze clk_strm_sp.snowplow_remove_from_cart;
