@@ -655,7 +655,6 @@ CREATE TABLE atomic.com_nordstrom_uids_1 (
 	ref_tree			varchar(1500) encode runlength not null,
 	ref_parent			varchar(255)  encode runlength not null,
 	-- Properties of this type
-	shopper_id 			varchar(255)  encode lzo,
 	coremetrics_id 		varchar(255)  encode lzo,
 	adobe_id 			varchar(255)  encode lzo,
 	elwin_id 			varchar(255)  encode lzo,
