@@ -15,12 +15,10 @@
     :queries:
       - :name: orders
         :file: ./ca/deduplicate/orders.sql
-  - :name: 03-nordstrom-children
+  - :name: 03-nordstrom-children-1
     :queries:
       - :name: nordstrom-add-item
         :file: ./ca/deduplicate/nordstrom-add-item.sql
-      - :name: nordstrom-elwin-exposures
-        :file: ./ca/deduplicate/elwin-exposures.sql
       - :name: nordstrom-order-item
         :file: ./ca/deduplicate/order-items.sql
       - :name: nordstrom-page-view
@@ -29,7 +27,11 @@
         :file: ./ca/deduplicate/product-views.sql
       - :name: nordstrom-remove-item
         :file: ./ca/deduplicate/nordstrom-remove-item.sql
-  - :name: 03-snowplow-children
+  - :name: 04-nordstrom-children-2
+    :queries:
+      - :name: nordstrom-elwin-exposures
+        :file: ./ca/deduplicate/elwin-exposures.sql
+  - :name: 05-snowplow-children
     :queries:
       - :name: snowplow-add-to-cart
         :file: ./ca/deduplicate/snowplow-add-to-cart.sql
