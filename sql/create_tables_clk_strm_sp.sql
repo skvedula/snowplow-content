@@ -339,12 +339,12 @@ CREATE TABLE clk_strm_sp.order_items (
 	base_copy_split		varchar(255)  encode lzo,
 	true_fit			varchar(255)  encode lzo,
 	same_day_delivery	varchar(255)  encode lzo,
-	sku 				varchar(255)  encode lzo,
 	size				varchar(255)  encode lzo,
 	width				varchar(255)  encode lzo,
 	color				varchar(255)  encode text255,
 	is_recognized		varchar(1)	  encode lzo,
 	tag_id 				varchar(10)   encode lzo,
+	style_number		varchar(10)   encode lzo,
 	FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY

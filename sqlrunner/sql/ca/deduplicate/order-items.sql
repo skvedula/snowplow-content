@@ -32,12 +32,12 @@ AS (
        base_copy_split,
        true_fit,
        same_day_delivery,
-       sku,
        size,
        width,
        color,
        is_recognized,
        tag_id,
+       style_number,
 ROW_NUMBER() OVER (PARTITION BY T1.root_id ORDER BY T1.derived_tstamp) as event_number
  FROM clk_strm_sp.order_items T1,
  clk_strm_sp.tmp_order_items_ids T2
@@ -69,12 +69,12 @@ BEGIN;
        base_copy_split,
        true_fit,
        same_day_delivery,
-       sku,
        size,
        width,
        color,
        is_recognized,
-       tag_id
+       tag_id,
+       style_number
 FROM clk_strm_sp.tmp_order_items WHERE event_number = 1
 );
 

@@ -17,12 +17,12 @@ UNLOAD ('SELECT root_id,
        base_copy_split,
        true_fit,
        same_day_delivery,
-       sku,
        size,
        width,
        color,
        is_recognized,
-       tag_id
+       tag_id,
+       style_number
 	FROM public.order_items    T1,
 	atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id;') 

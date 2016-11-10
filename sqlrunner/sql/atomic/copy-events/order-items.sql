@@ -26,12 +26,12 @@ INSERT INTO public.order_items (
        base_copy_split,
        true_fit,
        same_day_delivery,
-       sku,
        size,
        width,
        color,
        is_recognized,
-       tag_id
+       tag_id,
+       style_number
 FROM atomic.com_nordstrom_order_item_attrs_0    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
@@ -59,12 +59,12 @@ INSERT INTO public.order_items (
        base_copy_split,
        true_fit,
        same_day_delivery,
-       sku,
        size,
        width,
        color,
        is_recognized,
-       tag_id
+       tag_id,
+       style_number
 FROM atomic.com_nordstrom_order_item_attrs_1    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
