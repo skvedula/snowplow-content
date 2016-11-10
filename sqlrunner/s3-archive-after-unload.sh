@@ -18,9 +18,13 @@ echo "order item archived, moving on to page views..."
 aws s3 mv s3://cxar-ato-bigdata/snowplow-dev/CA/page_views/ s3://cxar-ato-bigdata/snowplow-dev/CA/archive/page_views/$DATE/ --recursive
 echo "page view archived, moving on to product views..."
 aws s3 mv s3://cxar-ato-bigdata/snowplow-dev/CA/product_views/ s3://cxar-ato-bigdata/snowplow-dev/CA/archive/product_views/$DATE/ --recursive
-echo "product views archived, moving on to search..."
+echo "product views archived, moving on to real estate..."
+aws s3 mv s3://cxar-ato-bigdata/snowplow-dev/CA/real_estate/ s3://cxar-ato-bigdata/snowplow-dev/CA/archive/real_estate/$DATE/ --recursive
+echo "real estate archived, moving on to search..."
 aws s3 mv s3://cxar-ato-bigdata/snowplow-dev/CA/search/ s3://cxar-ato-bigdata/snowplow-dev/CA/archive/search/$DATE/ --recursive
-echo "search archived, moving on to snowplow add to cart..."
+echo "search archived, moving on to site promos..."
+aws s3 mv s3://cxar-ato-bigdata/snowplow-dev/CA/site_promos/ s3://cxar-ato-bigdata/snowplow-dev/CA/archive/site_promos/$DATE/ --recursive
+echo "site promos archived, moving on to snowplow add to cart..."
 aws s3 mv s3://cxar-ato-bigdata/snowplow-dev/CA/snowplow_add_to_cart/ s3://cxar-ato-bigdata/snowplow-dev/CA/archive/snowplow_add_to_cart/$DATE/ --recursive
 echo "snowplow add to cart archived, moving on to snowplow remove from cart..."
 aws s3 mv s3://cxar-ato-bigdata/snowplow-dev/CA/snowplow_remove_from_cart/ s3://cxar-ato-bigdata/snowplow-dev/CA/archive/snowplow_remove_from_cart/$DATE/ --recursive
