@@ -417,9 +417,9 @@ CREATE TABLE clk_strm_sp.real_estate (
 	derived_tstamp  	timestamp     encode raw not null,
 	etl_tstamp_local 	timestamp 	  encode raw not null,
 	-- Properties of this type
-	version      		varchar(255) encode raw,
-	page_area         	varchar(255) encode raw,
-	link   				varchar(255) encode raw,
+	version      		varchar(255) encode lzo,
+	page_area         	varchar(255) encode lzo,
+	link   				varchar(255) encode lzo,
 	FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY
@@ -458,9 +458,9 @@ CREATE TABLE clk_strm_sp.site_promos (
 	derived_tstamp  	timestamp     encode raw not null,
 	etl_tstamp_local 	timestamp 	  encode raw not null,
 	-- Properties of this type
-	promotion_type      varchar(255) encode raw,
-	promotion         	varchar(255) encode raw,
-	link   				varchar(255) encode raw,
+	promotion_type      varchar(255) encode lzo,
+	promotion         	varchar(255) encode lzo,
+	link   				varchar(255) encode lzo,
 	FOREIGN KEY(root_id) REFERENCES clk_strm_sp.events(event_id)
 )
 DISTSTYLE KEY
