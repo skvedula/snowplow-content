@@ -72,10 +72,6 @@
 			"type": ["string", "null"]
 		},
 
-		"sku": {
-			"type": ["string", "null"]
-		},
-
 		"size": {
 			"type": ["string", "null"]
 		},
