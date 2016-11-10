@@ -10,6 +10,7 @@ INSERT INTO public.page_views (
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
        convert_timezone('US/Pacific', derived_tstamp),
+       convert_timezone('US/Pacific', etl_tstamp),
        T1.page_url,
        page_category,
        page_template,
@@ -23,7 +24,6 @@ INSERT INTO public.page_views (
 FROM atomic.com_nordstrom_page_view_attrs_0    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
-      AND T1.root_tstamp = T2.collector_tstamp
 
 );
 
@@ -32,6 +32,7 @@ INSERT INTO public.page_views (
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
        convert_timezone('US/Pacific', derived_tstamp),
+       convert_timezone('US/Pacific', etl_tstamp),
        T1.page_url,
        page_category,
        page_template,
@@ -45,6 +46,5 @@ INSERT INTO public.page_views (
 FROM atomic.com_nordstrom_page_view_attrs_1    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
-      AND T1.root_tstamp = T2.collector_tstamp
 
 );

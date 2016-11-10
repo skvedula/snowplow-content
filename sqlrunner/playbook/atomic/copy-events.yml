@@ -35,6 +35,10 @@
     :queries:
       - :name: marketing
         :file: ./atomic/copy-events/marketing.sql
+      - :name: site-promos
+        :file: ./atomic/copy-events/site-promos.sql
+      - :name: real-estate
+        :file: ./atomic/copy-events/real-estate.sql
       - :name: elwin-exposures
         :file: ./atomic/copy-events/elwin-exposures.sql
   - :name: copy-snowplow-child-tables
@@ -49,7 +53,3 @@
         :file: ./atomic/copy-events/search.sql
       - :name: timing
         :file: ./atomic/copy-events/timing.sql
-  - :name: update-etl-manifest
-    :queries:
-      - :name: update-etl-manifest
-        :file: ./atomic/copy-events/log-etl-manifest.sql
