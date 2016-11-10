@@ -356,7 +356,6 @@ CREATE TABLE duplicates.order_items (
 	base_copy_split		varchar(255)  encode lzo,
 	true_fit			varchar(255)  encode lzo,
 	same_day_delivery	varchar(255)  encode lzo,
-	sku 				varchar(255)  encode lzo,
 	size				varchar(255)  encode lzo,
 	width				varchar(255)  encode lzo,
 	color				varchar(255)  encode text255,

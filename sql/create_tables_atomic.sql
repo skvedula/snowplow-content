@@ -457,7 +457,6 @@ CREATE TABLE atomic.com_nordstrom_order_item_attrs_1 (
 	base_copy_split		varchar(255)  encode lzo,
 	true_fit			varchar(255)  encode lzo,
 	same_day_delivery	varchar(255)  encode lzo,
-	sku 				varchar(255)  encode lzo,
 	size				varchar(255)  encode lzo,
 	width				varchar(255)  encode lzo,
 	color				varchar(255)  encode text255,
