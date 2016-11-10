@@ -33,5 +33,6 @@
     , "$.data.color"
     , "$.data.is_recognized"
     , "$.data.tag_id"
+    , "$.data.style_number"
     ]
 }

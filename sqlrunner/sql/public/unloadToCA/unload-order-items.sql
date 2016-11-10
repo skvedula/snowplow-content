@@ -22,7 +22,8 @@ UNLOAD ('SELECT root_id,
        width,
        color,
        is_recognized,
-       tag_id
+       tag_id,
+       style_number
 	FROM public.order_items    T1,
 	atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id;') 

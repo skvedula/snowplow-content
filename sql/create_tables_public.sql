@@ -363,6 +363,7 @@ CREATE TABLE public.order_items (
 	color				varchar(255)  encode text255,
 	is_recognized		varchar(1)	  encode lzo,
 	tag_id 				varchar(10)   encode lzo,
+	style_number		varchar(10)   encode lzo,
 	FOREIGN KEY(root_id) REFERENCES public.events(event_id)
 )
 DISTSTYLE KEY

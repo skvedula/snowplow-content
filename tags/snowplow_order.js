@@ -11,6 +11,7 @@ function sp_order() {
 			oi.orderId,													// orderID
 			null,														// affiliation or store name
 			parseFloat(oi.merchandiseTotal.replace(/[,$]/g, '')),		// order subtotal
+			parseFloat(oi.taxAmount.replace(/[,$]/g, '')),				// tax
 			parseFloat(oi.shippingTotal.replace(/[,$]/g, '')),			// shipping total
 			null,														// city
 			null,														// state/province
@@ -21,13 +22,13 @@ function sp_order() {
 		if (oi.items && oi.items.length > 0) {
 			oii = oi.items;
 			for (i=0;i<oii.length;i++) {
-				if (oii[i].orderItemsPrice !== '0.00') {
+				if (oii[i].orderItemsPrice !== '$0.00') {
 					siteLocationId = oii[i].siteLocationId.split('*');
 					// order item tags
 					snowplow(
 						'addItem',
 						oi.orderId,														// orderID
-						oii[i].styleNumber,											// SKU / product code
+						oii[i].SKU.toString(),											// SKU / product code
 						oii[i].productName.replace(/·/g, '').replace(/®/g, ''),		// product name
 						oii[i].productCategory,										// category
 						parseFloat(oii[i].orderItemsPrice.replace(/[,$]/g, '')),	// unit price
@@ -35,7 +36,7 @@ function sp_order() {
 						null,														// currency
 						[
 							{
-								schema: 'iglu:com.nordstrom/order_item_attrs/jsonschema/0-0-1',
+								schema: 'iglu:com.nordstrom/order_item_attrs/jsonschema/1-0-0',
 								data: {
 									outfit_id: oii[i].outfitId.toString(),
 									gift_services: oii[i].GiftServices,
@@ -52,7 +53,7 @@ function sp_order() {
 									base_copy_split: siteLocationId[13],
 									true_fit: siteLocationId[14],
 									same_day_delivery: siteLocationId[15],
-									SKU: oii[i].SKU.toString(),
+									style_number: oii[i].styleNumber,
 									size: oii[i].Size || null,
 									width: siteLocationId[33],
 									color: oii[i].Color || null,
@@ -68,5 +69,5 @@ function sp_order() {
 		snowplow('trackTrans');
 	}
 }
-if (window.sp_pv) sp_order();
-else document.addEventListener('sp_pv', sp_order, true);
+if (window.spPV) sp_order();
+else document.addEventListener('spPV', sp_order, true);
