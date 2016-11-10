@@ -36,7 +36,7 @@ function sp_order() {
 						null,														// currency
 						[
 							{
-								schema: 'iglu:com.nordstrom/order_item_attrs/jsonschema/1-0-0',
+								schema: 'iglu:com.nordstrom/order_item_attrs/jsonschema/1-1-0',
 								data: {
 									outfit_id: oii[i].outfitId.toString(),
 									gift_services: oii[i].GiftServices,
@@ -53,12 +53,12 @@ function sp_order() {
 									base_copy_split: siteLocationId[13],
 									true_fit: siteLocationId[14],
 									same_day_delivery: siteLocationId[15],
-									style_number: oii[i].styleNumber,
 									size: oii[i].Size || null,
 									width: siteLocationId[33],
 									color: oii[i].Color || null,
 									is_recognized: (PageParameters.shopper && PageParameters.shopper.firstName && PageParameters.shopper.firstName !== '' ? 'Y' : 'N'),
-									tag_id: tag_id
+									tag_id: tag_id,
+									style_number: oii[i].styleNumber
 								}
 							}
 						]
