@@ -36,6 +36,18 @@ var prod = (['shop.nordstrom.com', 'secure.nordstrom.com', 'm.shop.nordstrom.com
 	}
 ;
 
+var get_errors = function(e) {
+    console.warn(e);
+    snowplow('trackUnstructEvent', {
+        schema: 'iglu:com.nordstrom/errors/jsonschema/1-0-0',
+        data: {
+            error: e.toString() + ': ' + navigator.userAgent,
+            tag_id: tag_id,
+            page_url: document.location.href
+        }
+    });
+};
+
 function parse_mkt_params() {
 	var cleanurl = decodeURIComponent(window.location.search.replace('?', '') + window.location.hash).replace(/[?,#]/g, '&');
 
@@ -90,7 +102,7 @@ function parse_mkt_params() {
             }
         }
     } catch(e) { 
-    	console.log(e);
+    	get_errors(e);
     	return false; 
     }
     if (Object.getOwnPropertyNames(params).length) return params;
