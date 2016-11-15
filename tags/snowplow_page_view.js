@@ -331,15 +331,12 @@ function loadSP() {
 
 function MMPloaded() {
 	mustExecute(function() {
-		if (typeof window.digitalData === "undefined") throw 'no digitalData';
-		else {
-			if (window.digitalData && digitalData.page && digitalData.page.category && digitalData.page.category.pageType && digitalData.page.category.pageType.indexOf('mcp') === -1) {
-				ato_MMP = true;
-				getPage();
-				return true;
-			}
-			else throw 'no MMP';
+		if (window.digitalData && digitalData.page && digitalData.page.category && digitalData.page.category.pageType && digitalData.page.category.pageType.indexOf('mcp') === -1) {
+			ato_MMP = true;
+			getPage();
+			return true;
 		}
+		else throw 'no MMP';
 	}, 10)();
 }
 
