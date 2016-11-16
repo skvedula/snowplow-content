@@ -19,27 +19,33 @@
     :queries:
       - :name: nordstrom-add-item
         :file: ./ca/deduplicate/nordstrom-add-item.sql
-      - :name: nordstrom-order-item
+      - :name: order-items
         :file: ./ca/deduplicate/order-items.sql
-      - :name: nordstrom-page-view
+      - :name: page-views
         :file: ./ca/deduplicate/page-views.sql
-      - :name: nordstrom-product-view
+      - :name: product-views
         :file: ./ca/deduplicate/product-views.sql
       - :name: nordstrom-remove-item
         :file: ./ca/deduplicate/nordstrom-remove-item.sql
   - :name: 04-nordstrom-children-2
     :queries:
-      - :name: nordstrom-elwin-exposures
+      - :name: elwin-exposures
         :file: ./ca/deduplicate/elwin-exposures.sql
+    :queries:
+      - :name: real-estate
+        :file: ./ca/deduplicate/real-estate.sql
+    :queries:
+      - :name: site-promos
+        :file: ./ca/deduplicate/site-promos.sql
   - :name: 05-snowplow-children
     :queries:
       - :name: snowplow-add-to-cart
         :file: ./ca/deduplicate/snowplow-add-to-cart.sql
-      - :name: snowplow-link-click
+      - :name: link-clicks
         :file: ./ca/deduplicate/link-clicks.sql
       - :name: snowplow-remove-from-cart
         :file: ./ca/deduplicate/snowplow-remove-from-cart.sql
-      - :name: snowplow-site-search
+      - :name: search
         :file: ./ca/deduplicate/search.sql
-      - :name: snowplow-timing
+      - :name: timing
         :file: ./ca/deduplicate/timing.sql
