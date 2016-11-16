@@ -569,3 +569,29 @@ DISTKEY (root_id)
 SORTKEY (derived_tstamp);
 
 ALTER TABLE duplicates.timing owner to storageloader;
+
+
+--duplicates.uids
+
+CREATE TABLE duplicates.uids (
+	-- Parentage of this type
+	root_id        		char(36)      encode raw not null,
+	root_tstamp    		timestamp     encode raw not null,
+	derived_tstamp 		timestamp     encode raw not null,
+	etl_tstamp_local 	timestamp 	  encode raw not null,
+	-- Properties of this type
+	domain_userid  		varchar(255)  encode lzo,
+	shopper_id 			varchar(255)  encode lzo,
+	coremetrics_id 		varchar(255)  encode lzo,
+	adobe_id 			varchar(255)  encode lzo,
+	elwin_id 			varchar(255)  encode lzo,
+	maxymiser_id 		varchar(255)  encode lzo,
+	authenticated 		varchar(1) 	  encode raw,
+	FOREIGN KEY(root_id) REFERENCES duplicates.events(event_id)
+)
+DISTSTYLE KEY
+-- Optimized join to duplicates.events
+DISTKEY (root_id)
+SORTKEY (derived_tstamp);
+
+ALTER TABLE duplicates.uids owner to storageloader;
