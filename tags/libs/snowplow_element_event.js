@@ -1,9 +1,24 @@
-export default function spCreateElementTag(element_id, category, attrs) {
+export default function spCreateElementTag(a, b, c, d, e) { 	// element: eid, cat, attrs; conv: eid, pts, cat, attrs
+	var element_id, pts, category, attrs;
+	if (!isNaN(b)) {
+		pts = b;
+		category = c;
+		attrs = e;
+	}
+	else {
+		category = b;
+		attrs = c;
+	}
+
 	var split = attrs.split('-_-');
 
 	var element_data = {
 		schema: 'iglu:com.nordstrom/element_attrs/jsonschema/1-0-0',
 		data: {
+			category: category,
+			action: element_id,
+			label: label || null,
+			value: parseInt(pts, 10) || null,
 			wish_list: split[0],
 			video_name: split[1],
 			video_product_name: split[2],

@@ -1,7 +1,7 @@
 import spCreateElementTag from '../../libs/spCreateElementTag';
 import spLogError from '../../libs/spLogError';
 
-import { wishListSearch, wishListFound, wishListNoneFound } from '../src/elements/wishListSearch';
+import { WishList_search, WishList_found, WishList_noneFound } from '../src/elements/WishList_search';
 
 window.spCreateElementTag = spCreateElementTag;
 
