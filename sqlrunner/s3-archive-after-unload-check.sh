@@ -7,7 +7,9 @@ s3://cxar-ato-bigdata/snowplow-dev/CA/nordstrom_remove_item/
 s3://cxar-ato-bigdata/snowplow-dev/CA/order_items/ 
 s3://cxar-ato-bigdata/snowplow-dev/CA/page_views/ 
 s3://cxar-ato-bigdata/snowplow-dev/CA/product_views/ 
+s3://cxar-ato-bigdata/snowplow-dev/CA/real_estate/ 
 s3://cxar-ato-bigdata/snowplow-dev/CA/search/ 
+s3://cxar-ato-bigdata/snowplow-dev/CA/site_promos/ 
 s3://cxar-ato-bigdata/snowplow-dev/CA/snowplow_add_to_cart/ 
 s3://cxar-ato-bigdata/snowplow-dev/CA/snowplow_remove_from_cart/ 
 s3://cxar-ato-bigdata/snowplow-dev/CA/timing/"

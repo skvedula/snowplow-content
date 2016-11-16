@@ -4,8 +4,8 @@
     :host:     a0007-cxar-ato-clickstream-jwn.c9gybgr1jgvx.us-west-2.redshift.amazonaws.com  # Insert Redshfit host
     :database: snowplowdev  # Insert database name
     :port:     5439  # Insert database port
-    :username: storageloader # Insert username with relevant credentials to run the below queries
-    :password: 4T26ndLthfwR # Insert user password
+    :username:  # Insert username with relevant credentials to run the below queries
+    :password:  # Insert user password
 :steps:
   - :name: get-last-etls
     :queries:
@@ -35,6 +35,10 @@
     :queries:
       - :name: marketing
         :file: ./atomic/copy-events/marketing.sql
+      - :name: site-promos
+        :file: ./atomic/copy-events/site-promos.sql
+      - :name: real-estate
+        :file: ./atomic/copy-events/real-estate.sql
       - :name: elwin-exposures
         :file: ./atomic/copy-events/elwin-exposures.sql
   - :name: copy-snowplow-child-tables
