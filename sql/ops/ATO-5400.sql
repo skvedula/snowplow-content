@@ -318,7 +318,7 @@ INSERT INTO atomic.com_nordstrom_order_item_attrs_0_style (
        color,
        is_recognized,
        tag_id,
-       T1.ti_sku
+       T2.ti_sku
     FROM atomic.com_nordstrom_order_item_attrs_0 T1
     left outer join atomic.events T2
     on T1.root_id = T2.event_id
@@ -356,7 +356,7 @@ INSERT INTO atomic.com_nordstrom_order_item_attrs_1_style (
        color,
        is_recognized,
        tag_id,
-       T1.ti_sku
+       T2.ti_sku
     FROM atomic.com_nordstrom_order_item_attrs_1 T1
     left outer join atomic.events T2
     on T1.root_id = T2.event_id
@@ -552,7 +552,7 @@ INSERT INTO public.order_items_style (
        color,
        is_recognized,
        tag_id,
-       T1.ti_sku
+       T2.ti_sku
     FROM public.order_items T1
     left outer join public.events T2
     on T1.root_id = T2.event_id
@@ -744,7 +744,7 @@ INSERT INTO clk_strm_sp.order_items_style (
        color,
        is_recognized,
        tag_id,
-       T1.ti_sku
+       T2.ti_sku
     FROM clk_strm_sp.order_items T1
     left outer join clk_strm_sp.events T2
     on T1.root_id = T2.event_id
