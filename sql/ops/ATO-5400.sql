@@ -143,11 +143,11 @@ INSERT INTO atomic.events_sku (
        event_version,
        event_fingerprint,
        true_tstamp
-    FROM atomic.events T1,
-    atomic.com_nordstrom_order_item_attrs_0 T2
-    WHERE T1.event = 'transaction_item'
-    AND T1.event_id = T2.root_id
+    FROM atomic.events T1
+    left outer join atomic.com_nordstrom_order_item_attrs_0 T2
+    on T1.event_id = T2.root_id
     AND date(T1.collector_tstamp) = date(T2.root_tstamp)
+    WHERE T1.event = 'transaction_item'
 );
 
 INSERT INTO atomic.events_sku (
@@ -281,11 +281,11 @@ INSERT INTO atomic.events_sku (
        event_version,
        event_fingerprint,
        true_tstamp
-    FROM atomic.events T1,
-    atomic.com_nordstrom_order_item_attrs_1 T2
-    WHERE T1.event = 'transaction_item'
-    AND T1.event_id = T2.root_id
+    FROM atomic.events T1
+    left outer join atomic.com_nordstrom_order_item_attrs_1 T2
+    on T1.event_id = T2.root_id
     AND date(T1.collector_tstamp) = date(T2.root_tstamp)
+    WHERE T1.event = 'transaction_item'
 );
 
 INSERT INTO atomic.com_nordstrom_order_item_attrs_0_style (
@@ -319,11 +319,11 @@ INSERT INTO atomic.com_nordstrom_order_item_attrs_0_style (
        is_recognized,
        tag_id,
        T1.ti_sku
-    FROM atomic.events T1,
-    atomic.com_nordstrom_order_item_attrs_0 T2
-    WHERE T1.event = 'transaction_item'
-    AND T1.event_id = T2.root_id
-    AND date(T1.collector_tstamp) = date(T2.root_tstamp)
+    FROM atomic.com_nordstrom_order_item_attrs_0 T1
+    left outer join atomic.events T2
+    on T1.root_id = T2.event_id
+    AND date(T1.root_tstamp) = date(T2.collector_tstamp)
+    on T2.event = 'transaction_item'
 );
 
 INSERT INTO atomic.com_nordstrom_order_item_attrs_1_style (
@@ -357,11 +357,11 @@ INSERT INTO atomic.com_nordstrom_order_item_attrs_1_style (
        is_recognized,
        tag_id,
        T1.ti_sku
-    FROM atomic.events T1,
-    atomic.com_nordstrom_order_item_attrs_1 T2
-    WHERE T1.event = 'transaction_item'
-    AND T1.event_id = T2.root_id
-    AND date(T1.collector_tstamp) = date(T2.root_tstamp)
+    FROM atomic.com_nordstrom_order_item_attrs_1 T1
+    left outer join atomic.events T2
+    on T1.root_id = T2.event_id
+    AND date(T1.root_tstamp) = date(T2.collector_tstamp)
+    on T2.event = 'transaction_item'
 );
 
 --pending successful transfer and QA:
@@ -520,11 +520,11 @@ INSERT INTO public.events_sku (
        event_fingerprint,
        true_tstamp,
        T1.etl_tstamp_local
-    FROM public.events T1,
-    public.order_items T2
-    WHERE T1.event = 'transaction_item'
-    AND T1.event_id = T2.root_id
+    FROM public.events T1
+    left outer join public.order_items T2
+    on T1.event_id = T2.root_id
     AND date(T1.collector_tstamp) = date(T2.root_tstamp)
+    WHERE T1.event = 'transaction_item'
 );
 
 INSERT INTO public.order_items_style (
@@ -553,11 +553,11 @@ INSERT INTO public.order_items_style (
        is_recognized,
        tag_id,
        T1.ti_sku
-    FROM public.events T1,
-    public.order_items T2
-    WHERE T1.event = 'transaction_item'
-    AND T1.event_id = T2.root_id
-    AND date(T1.collector_tstamp) = date(T2.root_tstamp)
+    FROM public.order_items T1
+    left outer join public.events T2
+    on T1.root_id = T2.event_id
+    AND date(T1.root_tstamp) = date(T2.collector_tstamp)
+    on T2.event = 'transaction_item'
 );
 
 --pending successful transfer and QA:
@@ -712,11 +712,11 @@ INSERT INTO clk_strm_sp.events_sku (
        event_fingerprint,
        true_tstamp,
        T1.etl_tstamp_local
-    FROM clk_strm_sp.events T1,
-    clk_strm_sp.order_items T2
-    WHERE T1.event = 'transaction_item'
-    AND T1.event_id = T2.root_id
+    FROM clk_strm_sp.events T1
+    left outer join clk_strm_sp.order_items T2
+    on T1.event_id = T2.root_id
     AND date(T1.collector_tstamp) = date(T2.root_tstamp)
+    WHERE T1.event = 'transaction_item'
 );
 
 INSERT INTO clk_strm_sp.order_items_style (
@@ -745,11 +745,11 @@ INSERT INTO clk_strm_sp.order_items_style (
        is_recognized,
        tag_id,
        T1.ti_sku
-    FROM clk_strm_sp.events T1,
-    clk_strm_sp.order_items T2
-    WHERE T1.event = 'transaction_item'
-    AND T1.event_id = T2.root_id
-    AND date(T1.collector_tstamp) = date(T2.root_tstamp)
+    FROM clk_strm_sp.order_items T1
+    left outer join clk_strm_sp.events T2
+    on T1.root_id = T2.event_id
+    AND date(T1.root_tstamp) = date(T2.collector_tstamp)
+    on T2.event = 'transaction_item'
 );
 
 --pending successful transfer and QA:
