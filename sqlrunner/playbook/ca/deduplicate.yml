@@ -31,10 +31,8 @@
     :queries:
       - :name: elwin-exposures
         :file: ./ca/deduplicate/elwin-exposures.sql
-    :queries:
       - :name: real-estate
         :file: ./ca/deduplicate/real-estate.sql
-    :queries:
       - :name: site-promos
         :file: ./ca/deduplicate/site-promos.sql
   - :name: 05-snowplow-children
