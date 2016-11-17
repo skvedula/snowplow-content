@@ -1,6 +1,3 @@
-import spCreateElementTag from '../../libs/spCreateElementTag';
-import spLogError from '../../libs/spLogError';
-
 import Careers_createProfile from '../src/elements/Careers_createProfile';
 import Careers_fullNavLink from '../src/elements/Careers_fullNavLink';
 import Careers_employees from '../src/elements/Careers_employees';
@@ -8,26 +5,24 @@ import Careers_responsiveNavOpened from '../src/elements/Careers_responsiveNavOp
 import Careers_responsiveNavLink from '../src/elements/Careers_responsiveNavLink';
 import Careers_searchJobs from '../src/elements/Careers_searchJobs';
 
-window.spCreateElementTag = spCreateElementTag;
-
 function Careers_Tags() {
 	try {
-		document.addEventListener('click', '.profile a', function() {
+		document.querySelector('.profile a').addEventListener('click', function() {
 			Careers_createProfile();
 		});
-		document.addEventListener('click', 'ul.breadcrumbs a', function() {
+		document.querySelector('ul.breadcrumbs a').addEventListener('click', function() {
 			Careers_fullNavLink(this);
 		});
-		document.addEventListener('click', '.employees a', function() {
+		document.querySelector('.employees a').addEventListener('click', function() {
 			Careers_employees();
 		});
-		document.addEventListener('click', '.menu-signal', function() {
+		document.querySelector('.menu-signal').addEventListener('click', function() {
 			Careers_responsiveNavOpened();
 		});
-		document.addEventListener('click', '.slide a', function() {
+		document.querySelector('.slide a').addEventListener('click', function() {
 			Careers_responsiveNavLink(this);
 		});
-		document.addEventListener('click', '.search a', function() {
+		document.querySelector('.search a').addEventListener('click', function() {
 			Careers_searchJobs();
 		});
 	} catch(e) {

@@ -1,17 +1,12 @@
-import spCreateElementTag from '../../libs/spCreateElementTag';
-import spLogError from '../../libs/spLogError';
-
 import MyAccount_beautyBoard from '../src/elements/MyAccount_beautyBoard';
 
-window.spCreateElementTag = spCreateElementTag;
-
-function Product_Tags() {
+function MyAccount_BeautyBoard_Tags() {
 	try {
-		document.addEventListener('click', '#ctl00_mainContentPlaceHolder_leftMenu_BeautyBoardLink', function() {
+		document.querySelector('#ctl00_mainContentPlaceHolder_leftMenu_BeautyBoardLink').addEventListener('click', function() {
 			MyAccount_beautyBoard();
 		});
 	} catch(e) {
 		spLogError(e);
 	}
 }
-Product_Tags();
+MyAccount_BeautyBoard_Tags();

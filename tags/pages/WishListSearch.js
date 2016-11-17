@@ -1,13 +1,8 @@
-import spCreateElementTag from '../../libs/spCreateElementTag';
-import spLogError from '../../libs/spLogError';
-
 import { WishList_search, WishList_found, WishList_noneFound } from '../src/elements/WishList_search';
-
-window.spCreateElementTag = spCreateElementTag;
 
 function WishListSearch_Tags() {
 	try {
-		document.addEventListener('click', '#ctl00_mainContentPlaceHolder_submitSearchByInfoButton,#ctl00_mainContentPlaceHolder_submitSearchByEmailButton', function() {
+		document.querySelector('#ctl00_mainContentPlaceHolder_submitSearchByInfoButton,#ctl00_mainContentPlaceHolder_submitSearchByEmailButton').addEventListener('click', function() {
 			wishListSearch();
 
 			setTimeout(function() {

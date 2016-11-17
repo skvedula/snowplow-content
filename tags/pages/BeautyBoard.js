@@ -1,6 +1,3 @@
-import spCreateElementTag from '../../libs/spCreateElementTag';
-import spLogError from '../../libs/spLogError';
-
 import BeautyBoard_addBackToBoard from '../src/elements/BeautyBoard_addBackToBoard';
 import BeautyBoard_removeItem from '../src/elements/BeautyBoard_removeItem';
 import BeautyBoard_signInClick from '../src/elements/BeautyBoard_signInClick';
@@ -11,27 +8,25 @@ import Cart_beautyBoardAddToBag from '../src/elements/Cart_beautyBoardAddToBag';
 import Cart_beautyBoardAddAllToBag from '../src/elements/Cart_beautyBoardAddAllToBag';
 import BeautyBoard_productClick from '../src/elements/BeautyBoard_productClick';
 
-window.spCreateElementTag = spCreateElementTag;
-
 function BeautyBoard_Tags() {
 	try {
-		document.addEventListener('click', 'a:contains("Add Back")', function() {
+		document.querySelector('a:contains("Add Back")').addEventListener('click', function() {
 			BeautyBoard_addBackToBoard();
 		});
-		document.addEventListener('click', 'a:contains("Remove This Item")', function() {
+		document.querySelector('a:contains("Remove This Item")').addEventListener('click', function() {
 			BeautyBoard_removeItem();
 		});
 		if (/beautyboard/.test(document.referrer)) BeautyBoard_signInClick();
 		if (/\/c\/recommendations/.test(document.referrer)) BeautyBoard_myRecsBeautyBoardRecsClick();
-		document.addEventListener('click', '.board-add-to-bag', function() {
+		document.querySelector('.board-add-to-bag').addEventListener('click', function() {
 			BeautyBoard_addToBag();
 			Cart_beautyBoardAddToBag(this);
 		});
-		document.addEventListener('click', '#add-all-bag', function() {
+		document.querySelector('#add-all-bag').addEventListener('click', function() {
 			BeautyBoard_addAllToBag();
 			Cart_beautyBoardAddAllToBag();
 		});
-		document.addEventListener('click', 'a.product-href', function() {
+		document.querySelector('a.product-href').addEventListener('click', function() {
 			BeautyBoard_productClick();
 		});
 	} catch(e) {

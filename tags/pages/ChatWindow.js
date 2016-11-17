@@ -1,10 +1,5 @@
-import spCreateElementTag from '../../libs/spCreateElementTag';
-import spLogError from '../../libs/spLogError';
-
 import Chat_accepted from '../src/elements/Chat_accepted';
 import Chat_ended from '../src/elements/Chat_ended';
-
-window.spCreateElementTag = spCreateElementTag;
 
 function Chat_Tags() {
 	try {

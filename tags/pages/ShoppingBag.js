@@ -1,6 +1,3 @@
-import spCreateElementTag from '../../libs/spCreateElementTag';
-import spLogError from '../../libs/spLogError';
-
 import ShoppingBag_continueShopping from '../src/elements/ShoppingBag_continueShopping';
 import ShoppingBag_editItem from '../src/elements/ShoppingBag_editItem';
 import ShoppingBag_inlineEditQuantity from '../src/elements/ShoppingBag_inlineEditQuantity';
@@ -10,29 +7,27 @@ import ShoppingBag_pickItUpInstead from '../src/elements/ShoppingBag_pickItUpIns
 import ShoppingBag_removeItem from '../src/elements/ShoppingBag_removeItem';
 import ShoppingBag_StoreMode_shoppingBagClicks from '../src/elements/ShoppingBag_StoreMode_shoppingBagClicks';
 
-window.spCreateElementTag = spCreateElementTag;
-
 function ShoppingBag_Tags() {
 	try {
-		document.addEventListener('click', 'a[id$="continueShopping"]', function() {
+		document.querySelector('a[id$="continueShopping"]').addEventListener('click', function() {
 			ShoppingBag_continueShopping();
 		});
-		document.addEventListener('click', '[id$="editItemImageButton"]', function() {
+		document.querySelector('[id$="editItemImageButton"]').addEventListener('click', function() {
 			ShoppingBag_editItem();
 		});
-		document.addEventListener('click', 'a[id*="ctl00_mainContentPlaceHolder_shoppingBagList_orderItemRepeater"][id$="editqtylink"]', function() {
+		document.querySelector('a[id*="ctl00_mainContentPlaceHolder_shoppingBagList_orderItemRepeater"][id$="editqtylink"]').addEventListener('click', function() {
 			ShoppingBag_inlineEditQuantity();
 		});
-		document.addEventListener('click', 'a:contains("Make it a gift.")', function() {
+		document.querySelector('a:contains("Make it a gift.")').addEventListener('click', function() {
 			ShoppingBag_makeItAGift();
 		});
-		document.addEventListener('click', 'a[id$="changeStoreLink"]', function() {
+		document.querySelector('a[id$="changeStoreLink"]').addEventListener('click', function() {
 			ShoppingBag_changeStore();
 		});
-		document.addEventListener('click', '[id$="PickupInsteadLink"]', function() {
+		document.querySelector('[id$="PickupInsteadLink"]').addEventListener('click', function() {
 			ShoppingBag_pickItUpInstead();
 		});
-		document.addEventListener('click', '[id$="removeItemImageButton"]', function() {
+		document.querySelector('[id$="removeItemImageButton"]').addEventListener('click', function() {
 			ShoppingBag_removeItem();
 		});
 		ShoppingBag_StoreMode_shoppingBagClicks();

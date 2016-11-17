@@ -1,9 +1,4 @@
-import spCreateElementTag from '../../libs/spCreateElementTag';
-import spLogError from '../../libs/spLogError';
-
 import IntlShipping_checkoutClick from '../src/elements/IntlShipping_checkoutClick';
-
-window.spCreateElementTag = spCreateElementTag;
 
 function IntlShopping_Tags() {
 	try {

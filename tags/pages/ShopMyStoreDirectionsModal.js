@@ -1,9 +1,4 @@
-import spCreateElementTag from '../../libs/spCreateElementTag';
-import spLogError from '../../libs/spLogError';
-
 import ShopMyStore_getDirections from '../src/elements/ShopMyStore_getDirections';
-
-window.spCreateElementTag = spCreateElementTag;
 
 function ShopMyStoreDirectionsModal_Tags() {
 	try {

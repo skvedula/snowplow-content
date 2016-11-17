@@ -1,6 +1,3 @@
-import spCreateElementTag from '../../libs/spCreateElementTag';
-import spLogError from '../../libs/spLogError';
-
 import Checkout_applySystemNoteSave from '../src/elements/Checkout_applySystemNoteSave';
 import Checkout_applyManualNoteClick from '../src/elements/Checkout_applyManualNoteClick';
 import Checkout_applyManualNoteSave from '../src/elements/Checkout_applyManualNoteSave';
@@ -26,99 +23,97 @@ import Checkout_selectMultiship from '../src/elements/Checkout_selectMultiship';
 import Checkout_miscElements from '../src/elements/Checkout_miscElements';
 import Checkout_loyaltyClicksAndErrors from '../src/elements/Checkout_loyaltyClicksAndErrors';
 
-window.spCreateElementTag = spCreateElementTag;
-
 function Checkout_Tags() {
 	try {
-	    document.addEventListener('click', '#payment > form > div.payment-method.nord-note.ng-scope > div.payment-information.subsection.ng-scope > input', function() { 
+	    document.querySelector('#payment > form > div.payment-method.nord-note.ng-scope > div.payment-information.subsection.ng-scope > input').addEventListener('click', function() { 
 	    	Checkout_addNote(); 
 	    });
 
-	    document.addEventListener('click', 'input[data-ng-click*="applySystematicNordstromNote"', function() { 
+	    document.querySelector('input[data-ng-click*="applySystematicNordstromNote"').addEventListener('click', function() { 
 	    	Checkout_applySystemNoteSave(); 
 	    });
 
-	    document.addEventListener('click', '[data-ng-click*="showNordNoteFields"]', function() { 
+	    document.querySelector('[data-ng-click*="showNordNoteFields"]').addEventListener('click', function() { 
 	    	Checkout_applyManualNoteClick(); 
 	    });
 
-	    document.addEventListener('click', 'input[data-ng-click*="applyManualNordstromNote"', function() { 
+	    document.querySelector('input[data-ng-click*="applyManualNordstromNote"').addEventListener('click', function() { 
 	    	Checkout_applyManualNoteSave(); 
 	    });
 
 	    Checkout_availableNote();
 
-	    document.addEventListener('click', '[data-ng-click="payPalExpressCheckout($event)"]', function() { 
+	    document.querySelector('[data-ng-click="payPalExpressCheckout($event)"]').addEventListener('click', function() { 
 	    	Checkout_checkOutWithPayPal(); 
 	    });
 
-	    document.addEventListener('click', 'section#payment a.edit.button', function() {
+	    document.querySelector('section#payment a.edit.button').addEventListener('click', function() {
 	    	Checkout_editPayment();
 	    });
 
-	    document.addEventListener('click', 'input[data-ng-model="giftOption"]', function() {
+	    document.querySelector('input[data-ng-model="giftOption"]').addEventListener('click', function() {
 	    	Checkout_selectGiftOption();
 	    });
 
-	    document.addEventListener('click', 'a#addItemLevelNewAddress[data-ng-show="!hasSavedAddress"]', function() {
+	    document.querySelector('a#addItemLevelNewAddress[data-ng-show="!hasSavedAddress"]').addEventListener('click', function() {
 	    	Checkout_multishipAddNewAddress();
 	    });
 
-	    document.addEventListener('click', '#shipping-address-modal a.save.button', function() {
+	    document.querySelector('#shipping-address-modal a.save.button').addEventListener('click', function() {
 	    	Checkout_multishipItemAddressSave();
 	    });
 
-	    document.addEventListener('click', '#selectItemLevelSavedAddress.edit.button', function() {
+	    document.querySelector('#selectItemLevelSavedAddress.edit.button').addEventListener('click', function() {
 			var itemStyleNumber = $(this).parents('.bag-item').find('.item-details .item-number').next('.ng-binding').text().replace(/[#,\s{1,}]/g, '');
 			var itemStyleNumber = this....textContent.replace(/[#,\s{1,}]/g, '');
 	    	Checkout_multishipItemEditAddress(itemStyleNumber);
 	    });
 
-	    document.addEventListener('click', '[data-ng-model="currentlySelectedItemAddressEntries[$index]"]', function() {
+	    document.querySelector('[data-ng-model="currentlySelectedItemAddressEntries[$index]"]').addEventListener('click', function() {
 			var itemStyleNumber = this.parents('.bag-item').find('.item-details .item-number').next('.ng-binding').text().replace(/[#,\s{1,}]/g, '');
 	    	Checkout_multishipItemEditAddress(itemStyleNumber);
 	    });
 
-	    document.addEventListener('click', '#shipping-method-modal input[type=radio]', function() {
+	    document.querySelector('#shipping-method-modal input[type=radio]').addEventListener('click', function() {
 	    	var shipMethod = this.textContent;
 	    	Checkout_multishipItemShipMethodSelect(shipMethod);
 	    });
 
-	    document.addEventListener('click', '[data-ng-click="toShippMethodInfoState($event)"]', function() {
+	    document.querySelector('[data-ng-click="toShippMethodInfoState($event)"]').addEventListener('click', function() {
 	    	Checkout_shipMethodSave();
 	    });
 
-	    $(document).on('UNKNOWN_ERROR', function(event, data) {
-			cmCreateElementTag(data,'FAST AND EASY CHECKOUT');
-		});
-
-		document.addEventListener('click', 'input[data-ng-model*="subscribeForEmailUpdates"]:not(:checked)', function() {
+		document.querySelector('input[data-ng-model*="subscribeForEmailUpdates"]:not(:checked)').addEventListener('click', function() {
 			Checkout_emailOptOut();
 		});
 
-		document.addEventListener('click', '[data-ng-show^="giftOptionAvailable"] .radioActions input[type=button].save:lt(3)', function() {
+		document.querySelector('[data-ng-show^="giftOptionAvailable"] .radioActions input[type=button].save:lt(3)').addEventListener('click', function() {
 			Checkout_giftOptionSave();
 		});
 
-		document.addEventListener('click', '[client-validation="onSubmit, saveYourInfo"], [data-ng-click="saveNewEmail($event)"]', function() {
+		document.querySelector('[client-validation="onSubmit, saveYourInfo"], [data-ng-click="saveNewEmail($event)"]').addEventListener('click', function() {
 			Checkout_saveYourInfo();
 		});
 
-		document.addEventListener('click', '[data-ng-model="addressTypes[\'shippingAddr\'].isSameAsBilling"]', function() {
+		document.querySelector('[data-ng-model="addressTypes[\'shippingAddr\'].isSameAsBilling"]').addEventListener('click', function() {
 			Checkout_uncheckAddressSameAsShipping();
 		});
 
-		document.addEventListener('click', '#payment > form > div.payment-method.nord-note.ng-scope > div.applied-nord-notes.ng-scope > ul > li > span.buttons > a', function() {
+		document.querySelector('#payment > form > div.payment-method.nord-note.ng-scope > div.applied-nord-notes.ng-scope > ul > li > span.buttons > a').addEventListener('click', function() {
 			Checkout_undoNoteClick();
 		});
 
-		document.addEventListener('click', '[data-ng-model="multipleAddrMode"], input[name=multiple-address]', function() {
+		document.querySelector('[data-ng-model="multipleAddrMode"], input[name=multiple-address]').addEventListener('click', function() {
 			Checkout_selectMultiship(this.getAttribute('data-ng-value'));
 		});
 
 		Checkout_miscElements();
 
-		document.addEventListener('CheckoutError', function(detail) {
+	    $(document).on('UNKNOWN_ERROR', function(event, data) {
+			cmCreateElementTag(data,'FAST AND EASY CHECKOUT');
+		});
+
+		$(document).on('CheckoutError', function(detail) {
 			Checkout_loyaltyClicksAndErrors(detail);
 		});
 	} catch(e) {

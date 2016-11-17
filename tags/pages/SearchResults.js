@@ -1,11 +1,6 @@
-import spCreateElementTag from '../../libs/spCreateElementTag';
-import spLogError from '../../libs/spLogError';
-
 import SearchResults_selectItemFilter from '../src/elements/SearchResults_selectItemFilter';
 import SearchResults_pagination from '../src/elements/SearchResults_pagination';
 import SearchResults_sort from '../src/elements/SearchResults_sort';
-
-window.spCreateElementTag = spCreateElementTag;
 
 function SearchResults_Tags() {
 	try {
