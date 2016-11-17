@@ -524,7 +524,7 @@ INSERT INTO public.events_sku (
     public.order_items T2
     WHERE T1.event = 'transaction_item'
     AND T1.event_id = T2.root_id
-    AND T1.collector_tstamp = T2.root_tstamp
+    AND date(T1.collector_tstamp) = date(T2.root_tstamp)
 );
 
 INSERT INTO public.order_items_style (
@@ -557,7 +557,7 @@ INSERT INTO public.order_items_style (
     public.order_items T2
     WHERE T1.event = 'transaction_item'
     AND T1.event_id = T2.root_id
-    AND T1.collector_tstamp = T2.root_tstamp
+    AND date(T1.collector_tstamp) = date(T2.root_tstamp)
 );
 
 --pending successful transfer and QA:
@@ -716,7 +716,7 @@ INSERT INTO clk_strm_sp.events_sku (
     clk_strm_sp.order_items T2
     WHERE T1.event = 'transaction_item'
     AND T1.event_id = T2.root_id
-    AND T1.collector_tstamp = T2.root_tstamp
+    AND date(T1.collector_tstamp) = date(T2.root_tstamp)
 );
 
 INSERT INTO clk_strm_sp.order_items_style (
@@ -749,7 +749,7 @@ INSERT INTO clk_strm_sp.order_items_style (
     clk_strm_sp.order_items T2
     WHERE T1.event = 'transaction_item'
     AND T1.event_id = T2.root_id
-    AND T1.collector_tstamp = T2.root_tstamp
+    AND date(T1.collector_tstamp) = date(T2.root_tstamp)
 );
 
 --pending successful transfer and QA:
