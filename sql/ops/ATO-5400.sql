@@ -323,7 +323,7 @@ INSERT INTO atomic.com_nordstrom_order_item_attrs_0_style (
     left outer join atomic.events T2
     on T1.root_id = T2.event_id
     AND date(T1.root_tstamp) = date(T2.collector_tstamp)
-    on T2.event = 'transaction_item'
+    WHERE T2.event = 'transaction_item'
 );
 
 INSERT INTO atomic.com_nordstrom_order_item_attrs_1_style (
@@ -361,7 +361,7 @@ INSERT INTO atomic.com_nordstrom_order_item_attrs_1_style (
     left outer join atomic.events T2
     on T1.root_id = T2.event_id
     AND date(T1.root_tstamp) = date(T2.collector_tstamp)
-    on T2.event = 'transaction_item'
+    WHERE T2.event = 'transaction_item'
 );
 
 --pending successful transfer and QA:
@@ -557,7 +557,7 @@ INSERT INTO public.order_items_style (
     left outer join public.events T2
     on T1.root_id = T2.event_id
     AND date(T1.root_tstamp) = date(T2.collector_tstamp)
-    on T2.event = 'transaction_item'
+    WHERE T2.event = 'transaction_item'
 );
 
 --pending successful transfer and QA:
@@ -749,7 +749,7 @@ INSERT INTO clk_strm_sp.order_items_style (
     left outer join clk_strm_sp.events T2
     on T1.root_id = T2.event_id
     AND date(T1.root_tstamp) = date(T2.collector_tstamp)
-    on T2.event = 'transaction_item'
+    WHERE T2.event = 'transaction_item'
 );
 
 --pending successful transfer and QA:
