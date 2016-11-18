@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
-    "build": "npm run outfits && npm run checkout",
+    "build": "npm run allnordstrom && npm run outfits && npm run checkout",
+    "allnordstrom": "browserify -t [ babelify --presets [ es2015 ] ] pages/AllNordstrom.js | uglifyjs -o dist/AllNordstrom.js",
     "beautyboard": "browserify -t [ babelify --presets [ es2015 ] ] pages/BeautyBoard.js | uglifyjs -o dist/BeautyBoard.js",
     "beautystylist": "browserify -t [ babelify --presets [ es2015 ] ] pages/BeautyStylist.js | uglifyjs -o dist/BeautyStylist.js",
     "careers": "browserify -t [ babelify --presets [ es2015 ] ] pages/Careers.js | uglifyjs -o dist/Careers.js",
