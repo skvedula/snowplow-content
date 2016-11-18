@@ -19,6 +19,10 @@
     :queries:
       - :name: nordstrom-elwin-exposures
         :file: ./ca/vacuum/elwin-exposures.sql
+  - :name: marketing
+    :queries:
+      - :name: marketing
+        :file: ./ca/vacuum/marketing.sql
   - :name: nordstrom-order-item
     :queries:
       - :name: nordstrom-order-item
@@ -35,6 +39,14 @@
     :queries:
       - :name: nordstrom-remove-item
         :file: ./ca/vacuum/nordstrom-remove-item.sql
+  - :name: real-estate
+    :queries:
+      - :name: real-estate
+        :file: ./ca/vacuum/real-estate.sql
+  - :name: site-promos
+    :queries:
+      - :name: site-promos
+        :file: ./ca/vacuum/site-promos.sql
   - :name: snowplow-add-to-cart
     :queries:
       - :name: snowplow-add-to-cart
