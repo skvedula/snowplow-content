@@ -530,8 +530,8 @@ INSERT INTO public.events_sku (
 INSERT INTO public.order_items_style (
 	SELECT root_id,
        root_tstamp,
-       T2.derived_tstamp,
-       T2.etl_tstamp_local,
+       T1.derived_tstamp,
+       T1.etl_tstamp_local,
        outfit_id,
        gift_services,
        saved_for_later,
