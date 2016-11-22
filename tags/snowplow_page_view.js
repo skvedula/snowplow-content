@@ -385,7 +385,7 @@ mustExecute(function() {
 			snowplow('trackUnstructEvent', {
 				schema: 'iglu:com.nordstrom/uids/jsonschema/1-0-0',
 				data: {
-					'coremetrics_id': window._$cV1 || null,
+					'coremetrics_id': window._$cV1.substr(0,23) || null,
 					'adobe_id': bt_cookie('aam_uuid') || null,
 					'elwin_id': bt_cookie('experiments').split('=')[1] || null,
 					'maxymiser_id': null,
