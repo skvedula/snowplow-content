@@ -30,8 +30,7 @@ INSERT INTO public.order_items (
        width,
        color,
        is_recognized,
-       tag_id,
-       style_number
+       tag_id
 FROM atomic.com_nordstrom_order_item_attrs_0    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id

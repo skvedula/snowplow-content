@@ -27,7 +27,6 @@
     , "$.data.base_copy_split"
     , "$.data.true_fit"
     , "$.data.same_day_delivery"
-    , "$.data.sku"
     , "$.data.size"
     , "$.data.width"
     , "$.data.color"
