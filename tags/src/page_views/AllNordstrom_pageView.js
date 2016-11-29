@@ -30,7 +30,7 @@ export default function AllNordstrom_pageView() {
 		experiment = {}		
 	;
 
-	var prod = (['shop.nordstrom.com', 'secure.nordstrom.com', 'm.shop.nordstrom.com', 'm.secure.nordstrom.com', 'about.nordstrom.com'].indexOf(window.location.hostname) > -1 ? 1 : 0)
+	var prod = (['shop.nordstrom.com', 'secure.nordstrom.com', 'm.shop.nordstrom.com', 'm.secure.nordstrom.com', 'about.nordstrom.com', 'restaurants.nordstrom.com'].indexOf(window.location.hostname) > -1 ? 1 : 0)
 		, mobile = (/^m/.test(window.location.hostname) ? 1 : 0)
 		, env_vars = {
 			collector: (prod ? 'p.nordstromdata.com' : 't.nordstromdata.com')
@@ -339,17 +339,18 @@ export default function AllNordstrom_pageView() {
 				return true;
 			}
 			else throw 'no MMP';
-		}, 10)();
+		}, 10, getPage())();
 	}
 
-	function mustExecute(func, numTrys) {
+	function mustExecute(func, numTrys, callback) {
 	  return function () {
 	    try {
 	      func();
 	    } catch (e) {
 	      if (numTrys === 0) {
 	        // startSP();
-	        loadSP();
+	        // loadSP();
+	        if (callback) callback();
 	      }
 	      setTimeout(mustExecute(func, numTrys - 1), 250);
 	    }
@@ -365,7 +366,7 @@ export default function AllNordstrom_pageView() {
 	if (ato_MCP || ato_WCM || ato_legacy) getPage();
 	else MMPloaded();
 
-	mustExecute(function() {
+	/*mustExecute(function() {
 		if (window.nord && window.nord.core && window.nord.core.dispatcher && window.nord.core.dispatcher.register) {
 			window.nord.core.dispatcher.register(function(d) {
 				if (d.action === window.nord.core.actions.ShoppingBagAdded) {
@@ -378,7 +379,7 @@ export default function AllNordstrom_pageView() {
 			});
 		}
 		else throw 'no dispatcher';
-	}, 10)();
+	}, 10)();*/
 
 	mustExecute(function() {
 		if (typeof cmSetClientID === 'function') {
@@ -397,5 +398,16 @@ export default function AllNordstrom_pageView() {
 			}
 		}
 		else throw 'no CM set';
-	}, 10)();
+	}, 10, function() {
+		snowplow('trackUnstructEvent', {
+			schema: 'iglu:com.nordstrom/uids/jsonschema/1-0-0',
+			data: {
+				'coremetrics_id': null,
+				'adobe_id': bt_cookie('aam_uuid') || null,
+				'elwin_id': bt_cookie('experiments').split('=')[1] || null,
+				'maxymiser_id': null,
+				'authenticated': authenticated_state
+			}
+		});
+	})();
 }
