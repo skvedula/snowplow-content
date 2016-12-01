@@ -7,6 +7,10 @@ import StoreMode_setStore from "../src/elements/StoreMode_setStore";
 import StoreMode_changeStore from "../src/elements/StoreMode_changeStore";
 import Results_interactiveHeader from "../src/elements/Results_interactiveHeader";
 import Results_filter from "../src/elements/Results_filter";
+import Results_pagination from "../src/elements/Results_pagination";
+import Results_sort from "../src/elements/Results_sort";
+import Results_videoPresented from "../src/elements/Results_videoPresented";
+import Results_wcmVideoClick from "../src/link_clicks/Results_wcmVideoClick";
     	
 var storeNumber = StoreMode_checkIfStoreSet();
 var attrArray = null;
@@ -16,7 +20,8 @@ if (storeNumber) {
 	attrArray = attrArray.join('-_-');
 }
 
-if('digitalData' in window && 'page' in digitalData && 'category' in window.digitalData.page &&'pageType' in window.digitalData.page.category){
+if(window.digitalData && digitalData.page && digitalData.page.category && digitalData.page.category.pageType){
+	// Results_filter
 	(function() {
 	    try {
 	        var form = document.querySelector('div.nui-filters > form, div.filters-popup > form');
@@ -38,8 +43,49 @@ if('digitalData' in window && 'page' in digitalData && 'category' in window.digi
 		        }
 		    }
 	    } catch (e) {
-	         bt_log(e);
+	         spLogError(e);
 	    }
+	})();
+	// Results_pagination and Results_sort
+	(function() {
+	    try {
+	        if (window.digitalData.page.category.pageType.toLowerCase() === 'search' || window.digitalData.page.category.pageType.toLowerCase() === 'browse') {
+	            window.nord.core.dispatcher.register(function(payload) {
+	                if (payload.action === window.nord.core.actions.ChangePage) {
+	                    var attrArray=[];
+					    attrArray[9] = digitalData.page.category.category;
+					    attrArray[37] = digitalData.page.pageInfo.onsiteSearchTerm;
+					    attrArray = attrArray.join('-_-');
+	                    Results_pagination(payload.newPage, 'Results Pagination', attrArray);
+	                }
+	                if (payload.action === window.nord.core.actions.ChangeSort) {
+	                    Results_sort(""+payload.newSort, 'Results Sort', '-_--_--_--_--_--_--_--_--_-' + digitalData.page.category.category);
+	                }
+	            });
+	        }
+	    }
+	    catch(e) {
+	        spLogError(e);
+	    }
+	})();
+	(function() {
+		setTimeout(function(){
+		    try {
+		    	var videos = document.querySelectorAll('#product-results-page > div > section > div > article:nth-child(n) > div.product-video-container').length;
+		    	if(videos) Results_videoPresented(videos);
+			}
+			catch(e) { console.log(e); }
+		}, 3000);
+	})();
+	(function() {
+	  [].forEach.call(document.querySelectorAll('#main-content section.video-html5'), function(i) {
+	    var v = i.querySelector('video');
+	    v.addEventListener('play', function cmTag(){
+	      var data = JSON.parse(i.getAttribute('data-cm-tags'));
+	      Results_wcmVideoClick(window.location.href + (window.location.search ? '&' : '?') + "cm_sp=" + data.manual_cm_sp + '&cm_re=' + data.manual_cm_re);
+	      v.removeEventListener('play', cmTag, false);
+	    }, false);
+	  });
 	})();
 }
 
