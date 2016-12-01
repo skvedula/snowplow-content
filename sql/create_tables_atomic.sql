@@ -659,7 +659,7 @@ CREATE TABLE atomic.com_nordstrom_uids_1 (
 	adobe_id 			varchar(255)  encode lzo,
 	elwin_id 			varchar(255)  encode lzo,
 	maxymiser_id 		varchar(255)  encode lzo,
-	authenticated 		varchar(1) 	  encode raw,
+	authenticated 		varchar(255)  encode raw,
 	FOREIGN KEY(root_id) REFERENCES atomic.events(event_id)
 )
 DISTSTYLE KEY
