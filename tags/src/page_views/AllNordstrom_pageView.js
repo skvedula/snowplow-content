@@ -8,8 +8,10 @@ export default function AllNordstrom_pageView() {
 		mkt_params = parse_mkt_params(), 
 		contexts = [], 
 		page = {}, 
-		product, 
-		mkt,
+		product = null, 
+		mkt = null,
+		promos = null,
+		real_estate = null,
 		page_url = window.location.href,
 		page_id = null,
 		page_category = null,
@@ -114,13 +116,12 @@ export default function AllNordstrom_pageView() {
 	    else return false;
 	}
 
-	function getPage() {console.log('getPage');
+	function getPage() {
 	    if (ato_MCP) {//console.log('mcp');
 	    	sp_uid = (digitalData.shopper && digitalData.shopper.shopperId ? digitalData.shopper.shopperId : '');
 	        page_category = (digitalData && digitalData.page && digitalData.page.category && digitalData.page.category.category ? digitalData.page.category.category : '');
 	        page_category2 = (page_category ? page_category.split('~')[page_category.split('~').length-1] : '');
 	        page_id = (function(page_category2) {
-	        	console.log(page_category2);
 	        	if (window.digitalData.page && digitalData.page.category && digitalData.page.category.pageType && digitalData.page.category.pageType === 'mcp-BoutiqueCustom') return 'BRAND BOUTIQUE SPLASH: Brands > ' + window.location.pathname.replace('\/c\/', '').replace(/-/g, ' ') + ' > \(' + page_category2 + '\)';
 	        	else return document.title.replace(' | Nordstrom', '');
 	        })(page_category2);
@@ -207,7 +208,6 @@ export default function AllNordstrom_pageView() {
 		else {
 			sp_uid = (['shop.nordstrom.com', 'secure.nordstrom.com'].indexOf(window.location.hostname) > -1 ? bt_cookie('nordstrom').replace(/^shopperid\=/, '').replace(/\&.*$/, '') : bt_cookie('nordstromdev').replace(/^shopperid\=/, '').replace(/\&.*$/, ''));
 			if (document.location.pathname === '/os') {
-				snowplow('setCustomUrl', window.location.href.replace(/#+/g, '#'));
 				page_id = 'Fast and Easy';
 				page_category = 'Fast and Easy';
 				page_template = 'Fast and Easy';
@@ -218,7 +218,7 @@ export default function AllNordstrom_pageView() {
 	    loadSP();
 	}
 
-	function loadSP() {console.log('loadSP');
+	function loadSP() {
 		// sp.js
 		(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 		p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments);
@@ -270,9 +270,6 @@ export default function AllNordstrom_pageView() {
 						, fit_value: fit_value
 						, rack: rack
 						, available: available
-						, percentage_off: percentage_off
-						, price_match: price_match
-						, preorder: preorder
 						, tag_id: tag_id
 					}
 				};
@@ -320,18 +317,19 @@ export default function AllNordstrom_pageView() {
 					contexts.push(real_estate);
 				}
 			}
+			if (document.location.pathname === '/os') snowplow('setCustomUrl', window.location.href.replace(/#+/g, '#'));
 			snowplow('trackPageView', page_id, contexts);
 			
-			/*window.spPV = true;
+			window.spPV = true;
 			if (typeof CustomEvent === 'object') {
-				event = document.createEvent('Event');
+				var event = document.createEvent('Event');
 				event.initEvent('spPV', false, false);
 				document.dispatchEvent(event);
 			}
 			else {
-				event = new Event('spPV');
+				var event = new Event('spPV');
 				document.dispatchEvent(event);
-			}*/
+			}
 		}
 	}
 
@@ -353,21 +351,24 @@ export default function AllNordstrom_pageView() {
 
 	function MMPloaded() {
 		mustExecute(function() {
-			if (window.digitalData && digitalData.page && digitalData.page.category && digitalData.page.category.pageType && digitalData.page.category.pageType.indexOf('mcp') === -1) {console.log('mmp');
+			if (window.digitalData && digitalData.page && digitalData.page.category && digitalData.page.category.pageType && digitalData.page.category.pageType.indexOf('mcp') === -1) {
 				ato_MMP = true;
 				getPage();
 				return true;
 			}
 			else throw 'no MMP';
 		}, 10, getPage)();
+		return false;
 	}
 
 	var ato_MCP = (window.digitalData && digitalData.page && digitalData.page.pageInfo && digitalData.page.pageInfo.applicationName === 'mcp'),
-	    ato_WCM = ('nord' in window && 'config' in nord && 'settings' in nord.config && typeof nord.config.settings !== 'undefined' && nord.config.settings !== undefined),
+	    ato_WCM = (window.nord && nord.config && nord.config.settings && nord.config.settings.shopper),
 	    ato_legacy = 'PageParameters' in window,
 	    ato_MMP;
 
-	if (ato_MCP || ato_WCM || ato_legacy) getPage();
+	if (ato_MCP || ato_WCM || ato_legacy) {
+		getPage();
+	}
 	else MMPloaded();
 
 	/*mustExecute(function() {
@@ -386,20 +387,23 @@ export default function AllNordstrom_pageView() {
 	}, 10)();*/
 
 	var get_uids = function() {
-		snowplow('trackUnstructEvent', {
-			schema: 'iglu:com.nordstrom/uids/jsonschema/1-0-0',
-			data: {
-				'coremetrics_id': (window._$cV1 ? window._$cV1.substring(0,23) : null),
-				'adobe_id': bt_cookie('aam_uuid') || null,
-				'elwin_id': bt_cookie('experiments').split('=')[1] || null,
-				'maxymiser_id': null,
-				'authenticated': authenticated_state
-			}
-		});
+		if (snowplow) {
+			snowplow('trackUnstructEvent', {
+				schema: 'iglu:com.nordstrom/uids/jsonschema/1-0-0',
+				data: {
+					'coremetrics_id': (window._$cV1 ? window._$cV1.substring(0,23) : null),
+					'adobe_id': bt_cookie('aam_uuid') || null,
+					'elwin_id': bt_cookie('experiments').split('=')[1] || null,
+					'maxymiser_id': null,
+					'authenticated': authenticated_state
+				}
+			});
+		}
+		else throw 'no snowplow';
 	};
 
-	/*mustExecute(function() {
-		if (window._$cV1) get_uids();
+	mustExecute(function() {
+		if (window._$cV1 && snowplow) get_uids();
 		else throw 'no coreID6';
-	}, 10, get_uids)();*/
+	}, 10, get_uids)();
 }
