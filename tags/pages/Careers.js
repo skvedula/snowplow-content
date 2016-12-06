@@ -5,6 +5,10 @@ import Careers_responsiveNavOpened from '../src/elements/Careers_responsiveNavOp
 import Careers_responsiveNavLink from '../src/elements/Careers_responsiveNavLink';
 import Careers_searchJobs from '../src/elements/Careers_searchJobs';
 
+import Careers from '../src/page_views/cm/Careers';
+
+Careers();
+
 function Careers_Tags() {
 	try {
 		document.querySelector('.profile a').addEventListener('click', function() {

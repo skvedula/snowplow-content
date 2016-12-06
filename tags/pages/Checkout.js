@@ -6,7 +6,6 @@ import Checkout_checkOutWithPayPal from '../src/elements/Checkout_checkOutWithPa
 import Checkout_editPayment from '../src/elements/Checkout_editPayment';
 import Checkout_selectGiftOption from '../src/elements/Checkout_selectGiftOption';
 import Checkout_multishipAddNewAddress from '../src/elements/Checkout_multishipAddNewAddress';
-import Checkout_multishipAddNewAddress from '../src/elements/Checkout_multishipAddNewAddress';
 import Checkout_multishipItemAddressSave from '../src/elements/Checkout_multishipItemAddressSave';
 import Checkout_multishipItemEditAddress from '../src/elements/Checkout_multishipItemEditAddress';
 import Checkout_multishipItemSelectOrAddNewAddress from '../src/elements/Checkout_multishipItemSelectOrAddNewAddress';
@@ -22,6 +21,10 @@ import Checkout_undoNoteClick from '../src/elements/Checkout_undoNoteClick';
 import Checkout_selectMultiship from '../src/elements/Checkout_selectMultiship';
 import Checkout_miscElements from '../src/elements/Checkout_miscElements';
 import Checkout_loyaltyClicksAndErrors from '../src/elements/Checkout_loyaltyClicksAndErrors';
+
+import Checkout from '../src/page_views/cm/Checkout';
+
+Checkout();
 
 function Checkout_Tags() {
 	try {
@@ -65,7 +68,7 @@ function Checkout_Tags() {
 
 	    document.querySelector('#selectItemLevelSavedAddress.edit.button').addEventListener('click', function() {
 			var itemStyleNumber = $(this).parents('.bag-item').find('.item-details .item-number').next('.ng-binding').text().replace(/[#,\s{1,}]/g, '');
-			var itemStyleNumber = this....textContent.replace(/[#,\s{1,}]/g, '');
+			// var itemStyleNumber = this.textContent.replace(/[#,\s{1,}]/g, '');
 	    	Checkout_multishipItemEditAddress(itemStyleNumber);
 	    });
 

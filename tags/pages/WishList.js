@@ -1,11 +1,22 @@
 import WishList_addAddress from '../src/conversions/WishList_addAddress';
-import WishList_learnMore from '../src/conversions/WishList_learnMore';
+import WishList_learnMore from '../src/elements/WishList_learnMore';
+
+import WishList from '../src/page_views/cm/WishList';
+
+var owner;
+
+if (document.querySelector('input[name="ctl00$mainContentPlaceHolder$wishListOwner"]')) owner = document.querySelector('input[name="ctl00$mainContentPlaceHolder$wishListOwner"]').value;
+
+WishList(owner);
 
 function WishList_Tags() {
-	document.querySelector('a#ctl00_mainContentPlaceHolder_addShippingAddress').addEventListener('click', function() {
-		WishList_addAddress(document.querySelector('input[name="ctl00$mainContentPlaceHolder$wishListOwner"]').value);
-	});
-	document.querySelector('.wl_HeadBox_HelpDiv span#ctl00_mainContentPlaceHolder_wishListHeader_helpText a').addEventListener('click', function() {
-		WishList_learnMore();
-	});
+	try {
+		document.querySelector('a#ctl00_mainContentPlaceHolder_addShippingAddress').addEventListener('click', function() {
+			WishList_addAddress(owner);
+		});
+		document.querySelector('.wl_HeadBox_HelpDiv span#ctl00_mainContentPlaceHolder_wishListHeader_helpText a').addEventListener('click', function() {
+			WishList_learnMore();
+		});
+	}
+	catch(e) { console.log(e); }
 }

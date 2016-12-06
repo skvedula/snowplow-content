@@ -2,6 +2,10 @@ import SearchResults_selectItemFilter from '../src/elements/SearchResults_select
 import SearchResults_pagination from '../src/elements/SearchResults_pagination';
 import SearchResults_sort from '../src/elements/SearchResults_sort';
 
+import Search from '../src/page_views/cm/Search';
+
+Search();
+
 function SearchResults_Tags() {
 	try {
 		(function () {

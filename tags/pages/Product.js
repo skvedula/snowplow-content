@@ -1,9 +1,8 @@
-import spCreateElementTag from '../../libs/spCreateElementTag';
-import spLogError from '../../libs/spLogError';
+import Product from '../src/page_views/cm/Product';
 
 // import SearchResults_selectItemFilter from '../src/elements/SearchResults_selectItemFilter';
 
-window.spCreateElementTag = spCreateElementTag;
+Product();
 
 function Product_Tags() {
 	try {
@@ -12,4 +11,4 @@ function Product_Tags() {
 		spLogError(e);
 	}
 }
-Product_Tags();
+// Product_Tags();

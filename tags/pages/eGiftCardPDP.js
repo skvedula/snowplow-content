@@ -8,6 +8,10 @@ import eGiftCardPDP_date from '../src/elements/eGiftCardPDP_date';
 import eGiftCardPDP_designCategory from '../src/elements/eGiftCardPDP_designCategory';
 import eGiftCardPDP_value from '../src/elements/eGiftCardPDP_value';
 
+import eGiftCardPDP from '../src/page_views/cm/eGiftCardPDP';
+
+eGiftCardPDP();
+
 document.querySelector('#cart-content > div > div.cart-item-actions > ul > li:nth-child(1) > a').addEventListener('click', eGiftCardCheckout_edit);
 
 document.querySelector('#cart-content > div > div.cart-item-actions > ul > li:nth-child(2) > a').addEventListener('click', eGiftCardCheckout_remove);

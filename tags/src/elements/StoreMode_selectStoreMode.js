@@ -1,4 +1,4 @@
-import StoreMode_checkPages from "../src/elements/StoreMode_checkPages";
+import StoreMode_checkPages from "./StoreMode_checkPages";
 
 export default function StoreMode_selectStoreMode(attrArray) {
 	StoreMode_checkPages(attrArray);

@@ -6,7 +6,9 @@ export default function Checkout_miscElements() {
                 spCreateElementTag('shipMethod: ' + document.querySelector('input[name="ship-method"]:checked').value + (document.referrer.indexOf('paypal.com') > -1 && window.location.search.indexOf('token=') === -1 ? ' - PayPal' : ''),'FAST AND EASY CHECKOUT'); 
             }, 1000);
         }
-        else cmCreateElementTag(data + (document.referrer.indexOf('paypal.com') > -1 ? ' - PayPal' : ''),'FAST AND EASY CHECKOUT');
-        else spCreateElementTag(data + (document.referrer.indexOf('paypal.com') > -1 ? ' - PayPal' : ''),'FAST AND EASY CHECKOUT');
+        else {
+            cmCreateElementTag(data + (document.referrer.indexOf('paypal.com') > -1 ? ' - PayPal' : ''),'FAST AND EASY CHECKOUT');
+            spCreateElementTag(data + (document.referrer.indexOf('paypal.com') > -1 ? ' - PayPal' : ''),'FAST AND EASY CHECKOUT');
+        }
     });
 }

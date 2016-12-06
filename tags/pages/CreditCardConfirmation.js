@@ -12,7 +12,7 @@ CreditCardConfirmation_debitHardDeclineBackToShopping();
 
 if(document.querySelector('#ICA_Confirmation_CardImage img')) {
 	var src = document.querySelector('#ICA_Confirmation_CardImage img').getAttribute('src');
-	if (/Visa/.test(src) CreditCardConfirmation_visaApproved();
+	if (/Visa/.test(src)) CreditCardConfirmation_visaApproved();
 	else if (/Retail/.test(src)) CreditCardConfirmation_retailApproved();
 }
 

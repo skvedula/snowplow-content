@@ -7,6 +7,10 @@ import ShoppingBag_pickItUpInstead from '../src/elements/ShoppingBag_pickItUpIns
 import ShoppingBag_removeItem from '../src/elements/ShoppingBag_removeItem';
 import ShoppingBag_StoreMode_shoppingBagClicks from '../src/elements/ShoppingBag_StoreMode_shoppingBagClicks';
 
+import ShoppingBag from '../src/page_views/cm/ShoppingBag';
+
+ShoppingBag();
+
 function ShoppingBag_Tags() {
 	try {
 		document.querySelector('a[id$="continueShopping"]').addEventListener('click', function() {

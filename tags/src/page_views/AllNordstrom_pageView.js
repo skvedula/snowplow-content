@@ -1,3 +1,10 @@
+import mustExecute from '../../utils/mustExecute';
+import parse_mkt_params from '../../utils/parse_mkt_params';
+import get_MCP from '../../utils/get_MCP';
+import get_MMP from '../../utils/get_MMP';
+import get_WCM from '../../utils/get_WCM';
+import get_legacy from '../../utils/get_legacy';
+
 export default function AllNordstrom_pageView() {
 	var tag_id = '4462227',
 		MCP, 
@@ -35,176 +42,11 @@ export default function AllNordstrom_pageView() {
 		experiment = {}
 	;
 
-	var prod = (['shop.nordstrom.com', 'secure.nordstrom.com', 'm.shop.nordstrom.com', 'm.secure.nordstrom.com', 'about.nordstrom.com', 'restaurants.nordstrom.com'].indexOf(window.location.hostname) > -1 ? 1 : 0)
-		, mobile = (/^m/.test(window.location.hostname) ? 1 : 0)
-		, env_vars = {
-			collector: (prod ? 'p.nordstromdata.com' : 't.nordstromdata.com')
-			, appId: (mobile ? 'nord.mow' : 'nord.com')
-		}
-	;
-
-	var get_errors = function(e) {
-	    console.warn(e);
-	    snowplow('trackUnstructEvent', {
-	        schema: 'iglu:com.nordstrom/errors/jsonschema/1-0-0',
-	        data: {
-	            error: e.toString() + ': ' + navigator.userAgent,
-	            tag_id: tag_id,
-	            page_url: document.location.href
-	        }
-	    });
-	};
-
-	function parse_mkt_params() {
-		var cleanurl = decodeURIComponent(window.location.search.replace('?', '') + window.location.hash).replace(/[?,#]/g, '&');
-
-	    var params = {},
-	        split_query = cleanurl.split('&');
-
-	    try {
-	        for (var query in split_query) {
-	            var key = split_query[query].split('=')[0].toLowerCase(),
-	            	val = split_query[query].split('=')[1];
-
-	            if (cleanurl.indexOf('cm_mmc') > -1 && key === 'cm_mmc') {
-	                var mmc_split = val.split('-_-');
-	                params.mkt_source = mmc_split[0];
-	                params.mkt_medium = mmc_split[1] || null;
-	                params.mkt_campaign = mmc_split[2] || null;
-	                params.mkt_term = mmc_split[3] || null;
-	            }
-	            else if ((key === 'cm_ven' || key === 'cm_cat' || key === 'cm_pla' || key === 'cm_ite') && cleanurl.indexOf('cm_mmc') == -1) {
-	                if (key === 'cm_ven') {
-	                    params.mkt_source = val;
-	                } if (key === 'cm_cat') {
-	                    params.mkt_medium = val;
-	                } if (key === 'cm_pla') {
-	                    params.mkt_campaign = val;
-	                } if (key === 'cm_ite') {
-	                    params.mkt_term = val;
-	                }
-	            }
-	            if (key === 'cm_re') {
-	                var sp_split = val.split('-_-');
-	                params.real_estate_version = sp_split[0],
-	                params.real_estate_page_area = sp_split[1] || null,
-	                params.real_estate_link = sp_split[2] || null;
-	            }
-	            if (key === 'cm_sp') {
-	                var sp_split = val.split('-_-');
-	                params.promotion_type = sp_split[0],
-	                params.promotion = sp_split[1] || null,
-	                params.promotion_link = sp_split[2] || null;
-	            }
-	            if (key === 'cm_em') {
-	                params.mkt_cm_em = val;
-	            } if (key === 'campaign') {
-	                params.mkt_cm_camp_name = val;
-	            } if (key === 'mcamp') {
-	                params.mkt_cm_camp_uid = val;
-	            } if (key === 'rkg_id') {
-	                params.mkt_rkg_id = val;
-	            } if (key === 'siteid') {
-	                params.mkt_linkshare_siteid = val;
-	            }
-	        }
-	    } catch(e) { 
-	    	get_errors(e);
-	    	return false; 
-	    }
-	    if (Object.getOwnPropertyNames(params).length) return params;
-	    else return false;
-	}
-
 	function getPage() {
-	    if (ato_MCP) {//console.log('mcp');
-	    	sp_uid = (digitalData.shopper && digitalData.shopper.shopperId ? digitalData.shopper.shopperId : '');
-	        page_category = (digitalData && digitalData.page && digitalData.page.category && digitalData.page.category.category ? digitalData.page.category.category : '');
-	        page_category2 = (page_category ? page_category.split('~')[page_category.split('~').length-1] : '');
-	        page_id = (function(page_category2) {
-	        	if (window.digitalData.page && digitalData.page.category && digitalData.page.category.pageType && digitalData.page.category.pageType === 'mcp-BoutiqueCustom') return 'BRAND BOUTIQUE SPLASH: Brands > ' + window.location.pathname.replace('\/c\/', '').replace(/-/g, ' ') + ' > \(' + page_category2 + '\)';
-	        	else return document.title.replace(' | Nordstrom', '');
-	        })(page_category2);
-	        authenticated_state = (digitalData && digitalData.shopper && digitalData.shopper.authenticatedState ? digitalData.shopper.authenticatedState : null);
-	        page_template = 'MCP';
-			is_recognized = (authenticated_state !== 'anonymous' ? 'Y' : 'N');
-
-	        // if (window.location.pathname === '/c/kate-spade-new-york') {    // until https://jira.nordstrom.net/browse/MCP-229 is complete
-	        //     page_type = 'BRAND BOUTIQUE SPLASH';
-	        //     page_id = page_type + ': Brands > ' + window.location.pathname.replace('\/c\/', '').replace(/-/g, ' ') + ' > \(' + page_category2 + '\)';
-	        // }
-	    }
-		else if(ato_MMP){  //console.log('mmp');
-			if (digitalData.product && digitalData.product.productInfo) {
-				var info = digitalData.product.productInfo, isLoggedIn = (digitalData.shopper && digitalData.shopper.authenticatedState && digitalData.shopper.authenticatedState === 'Authenticated' ? 1 : 0);
-				product_id = (info.productID ? info.productID.toString() : window.location.pathname.split('/')[window.location.pathname.split('/').length-1]);
-				product_name = (info.productName ? info.productName.replace('<sup>®</sup>', '') : null);
-				on_sale = (info.saleType && info.saleType === 'Regular' ? 'N' : 'Y');
-				brand_name = (info.brandName ? info.brandName.replace('<sup>®</sup>', '') : null);
-				if (info.fitRecommendation && info.fitRecommendation.trueFitEligible) {
-					fit_value = "TF";
-					var trueFitRecommendation = info.fitRecommendation.trueFitRecommendation;
-					if (!isLoggedIn) fit_value += "_U";
-					else if (trueFitRecommendation && isLoggedIn) fit_value += "_RR";
-					else if (!trueFitRecommendation && isLoggedIn) fit_value += "_NR";
-				}
-				rack = (info.saleType && info.saleType === 'Rack' ? 'Y' : 'N');
-				available = (info.isAvailable ? 'Y' : 'N');
-				experiment = { 
-					experimentId : digitalData.elwin.elwinId,
-					experimentData : digitalData.elwin.elwinData
-				};
-				percentage_off = (window.digitalData.product.productInfo.percentageOff !== null ? window.digitalData.product.productInfo.percentageOff.replace('%', '') : '0');
-				price_match = (window.digitalData.product.productInfo.banners && window.digitalData.product.productInfo.banners[0] === 'PriceMatch' ? 'Y' : 'N');
-				preorder = (window.digitalData.product.productInfo.banners && window.digitalData.product.productInfo.banners[0] === 'PreOrder' ? 'Y' : 'N');
-			}
-			sp_uid = (digitalData.shopper && digitalData.shopper.shopperId ? digitalData.shopper.shopperId : '');
-			page_id = (function() {
-				if (digitalData.product && digitalData.product.productInfo) return 'PRODUCT: ' + brand_name + ' ' + product_name + (digitalData.product.productInfo.styleNumber ? ' (' + digitalData.product.productInfo.styleNumber + ')' : 'PRODUCT: ' + document.title.replace(' | Nordstrom', ''));
-				else if (digitalData.outfit) return 'OUTFIT: ' + digitalData.outfit.styleName + ' (OT' + digitalData.outfit.outfitID + ')';
-				else return document.title.replace(' | Nordstrom', '');
-			})();
-			page_category = (function() {
-				if (digitalData.product && digitalData.product.category && digitalData.product.category.parentCategory) return digitalData.product.category.parentCategory;
-				else if (digitalData.outfit && digitalData.outfit.parentCategory) return digitalData.outfit.parentCategory;
-				else if (digitalData.page.category) return digitalData.page.category.category;
-				else return null;
-			})();
-			page_template = 'MMP';
-			style_number = (digitalData.product && digitalData.product.productInfo && digitalData.product.productInfo.styleNumber ? digitalData.product.productInfo.styleNumber : null);
-			is_recognized = (digitalData.shopper && digitalData.shopper.authenticatedState && digitalData.shopper.authenticatedState !== 'Anonymous' ? 'Y' : 'N');
-			search_term = (digitalData.page.pageInfo && digitalData.page.pageInfo.onsiteSearchTerm ? digitalData.page.pageInfo.onsiteSearchTerm : bt_parameter('keyword'));
-			search_results_count = (digitalData.page.pageInfo && digitalData.page.pageInfo.onsiteSearchResults ? digitalData.page.pageInfo.onsiteSearchResults : null);
-			if (search_term && search_results_count) page_id = 'RESULTS: ' + search_term;
-	        authenticated_state = (digitalData && digitalData.shopper && digitalData.shopper.authenticatedState ? digitalData.shopper.authenticatedState : null);
-		}
-		else if(ato_WCM){//console.log('wcm');
-			sp_uid = (nord.config.settings.shopper && nord.config.settings.shopper.id ? nord.config.settings.shopper.id : '');
-			page_id = (nord.config.settings.analytics && nord.config.settings.analytics.pageId ? nord.config.settings.analytics.pageId : document.title.replace(' | Nordstrom', ''));
-			page_category = (nord.config.settings.analytics && nord.config.settings.analytics.categoryPath ? nord.config.settings.analytics.categoryPath : null);
-			page_template = 'WCM';
-			is_recognized = (nord.config.settings.shopper && nord.config.settings.shopper.firstName && nord.config.settings.shopper.firstName !== '' ? 'Y' : 'N');
-		}
-		else if(ato_legacy){//console.log('legacy');
-			sp_uid = (PageParameters.shopperId ? PageParameters.shopperId : null);
-			page_id = (function() {
-				if (/ShoppingBag/.test(window.location.pathname)) {
-					var bag = document.querySelectorAll('#ctl00_mainContentPlaceHolder_shoppingBagList_orderItemUpdatePanel .itemrowItemNum');
-					 //get all the items in save for later
-					var sfl = document.querySelectorAll('#ctl00_mainContentPlaceHolder_saveForLaterList_orderItemUpdatePanel .itemrowItemNum');
-					var bag_empty = (bag.length > 0 ? '' : 'EMPTY_');
-					var sfl_empty = (sfl.length > 0 ? '' : 'EMPTY');
-					return '/CHECKOUT/SHOPPINGBAG - ' + bag_empty + 'SFL' + sfl_empty;
-				}
-				else if (/OrderConfirmation/.test(window.location.pathname)) return '/CHECKOUT/ORDER RECEIPT';
-				else return (PageParameters.pageId ? PageParameters.pageId : document.title.replace(' | Nordstrom', ''));
-			})();
-			page_category = (PageParameters.categoryString ? PageParameters.categoryString : PageParameters.ioCoremetricsPageId ? PageParameters.ioCoremetricsPageId : PageParameters.PageType ? PageParameters.PageType : null);
-			page_template = (PageParameters.templateName ? PageParameters.templateName : 'Legacy');
-			is_recognized = (PageParameters.shopper && PageParameters.shopper.firstName && PageParameters.shopper.firstName !== '' ? 'Y' : 'N');
-			search_term = (bt_parameter('keyword') !== '' ? bt_parameter('keyword') : null);
-			search_results_count = (document.querySelector('div.product-results-count span.count') ? parseInt(document.querySelector('div.product-results-count span.count').innerHTML, 10) : null);
-		}
+	    if (ato_MCP) get_MCP();
+		else if(ato_MMP) get_MMP();
+		else if(ato_WCM) get_WCM();
+		else if(ato_legacy) get_legacy();
 		else {
 			sp_uid = (['shop.nordstrom.com', 'secure.nordstrom.com'].indexOf(window.location.hostname) > -1 ? bt_cookie('nordstrom').replace(/^shopperid\=/, '').replace(/\&.*$/, '') : bt_cookie('nordstromdev').replace(/^shopperid\=/, '').replace(/\&.*$/, ''));
 			if (document.location.pathname === '/os') {
@@ -219,25 +61,6 @@ export default function AllNordstrom_pageView() {
 	}
 
 	function loadSP() {
-		// sp.js
-		(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
-		p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments);
-		};p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-		n.src=w;g.parentNode.insertBefore(n,g);}}(window,document,"script","https://images.nordstromdata.com/js/sp/2.6.1/sp.js","snowplow"));
-
-		snowplow("newTracker", 'nord' + (prod ? '_prod' : '_dev'), env_vars.collector, 
-			{
-				appId: env_vars.appId,
-				cookieDomain: ".nordstrom.com",
-				cookieName: "_sp_",
-				pageUnloadTimer: 0,
-				useCookies: true,
-				bufferSize: 5,
-				encodeBase64: false,
-				forceSecureTracker: true
-			}
-		);
-
 		if ('snowplow' in window) {
 			if (sp_uid) snowplow('setUserId', sp_uid);
 			snowplow('enableLinkClickTracking', null, null, false);
@@ -332,22 +155,6 @@ export default function AllNordstrom_pageView() {
 			}
 		}
 	}
-
-	function mustExecute(func, numTrys, callback) {
-	  return function () {
-	    try {
-	      func();
-	    } catch (e) {
-	      if (numTrys === 0) {
-	        // getPage();
-	        if (callback) callback();
-	        return;
-	      }
-	      setTimeout(mustExecute(func, numTrys - 1, callback), 250);
-	    }
-	  };
-	}
-	// mustExecute(function(){}, 10)();
 
 	function MMPloaded() {
 		mustExecute(function() {
