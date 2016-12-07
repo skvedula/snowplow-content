@@ -1,3 +1,3 @@
 import eGiftCardPlastic from '../src/page_views/cm/eGiftCardPlastic';
 
-eGiftCardPlastic();
+document.addEventListener('cmloaded', eGiftCardPlastic, false);

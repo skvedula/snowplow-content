@@ -7,7 +7,7 @@ var owner;
 
 if (document.querySelector('input[name="ctl00$mainContentPlaceHolder$wishListOwner"]')) owner = document.querySelector('input[name="ctl00$mainContentPlaceHolder$wishListOwner"]').value;
 
-WishList(owner);
+document.addEventListener('cmloaded', function() { WishList(owner); }, false);
 
 function WishList_Tags() {
 	try {

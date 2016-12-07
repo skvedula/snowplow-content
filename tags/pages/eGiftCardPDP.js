@@ -10,7 +10,7 @@ import eGiftCardPDP_value from '../src/elements/eGiftCardPDP_value';
 
 import eGiftCardPDP from '../src/page_views/cm/eGiftCardPDP';
 
-eGiftCardPDP();
+document.addEventListener('cmloaded', eGiftCardPDP, false);
 
 document.querySelector('#cart-content > div > div.cart-item-actions > ul > li:nth-child(1) > a').addEventListener('click', eGiftCardCheckout_edit);
 

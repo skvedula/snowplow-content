@@ -1,21 +1,28 @@
 export function cmInit() {
-    var s = document.createElement("script");
+
+	var fireCM = function() {
+	    if (typeof cmSetClientID == 'function') {
+			if (typeof(cmSetupOther) == 'function') { cmSetupOther({"cm_TrackImpressions":""}); }
+			else var cm_TrackImpressions ="";
+
+			if(/^m/.test(window.location.hostname)) {	// mobile web
+				if (/dev/.test(window.location.hostname) || /mstage1/.test(window.location.hostname)) cmSetClientID('60408482;81690000|81690004',false,'testdata.coremetrics.com','nordstrom.com');
+				else cmSetClientID('90033273',false,'1901.nordstrom.com','nordstrom.com');
+			}
+			else {	// full site
+				if (/dev/.test(window.location.hostname) || /staging-shop/.test(window.location.hostname)) cmSetClientID('60408482;81690000|81690001',false,'testdata.coremetrics.com','nordstrom.com');
+				else cmSetClientID('90033273',false,'1901.nordstrom.com','nordstrom.com');
+			}
+			var event = new Event('cmloaded');
+			document.dispatchEvent(event);
+	    }
+	    else setTimeout(fireCM, 50);
+	};
+
+	var s = document.createElement("script");
     s.src = "//libs.coremetrics.com/eluminate.js";
-    document.body.appendChild(s);
-
-	if (typeof(cmSetupOther) == 'function') {
-        cmSetupOther({
-            "cm_TrackImpressions": ""
-        });
-    } else var cm_TrackImpressions = "";
-
-    if (/^m/.test(window.location.hostname)) { //mobile web
-        if (/dev/.test(window.location.hostname) || /mstage1/.test(window.location.hostname)) cmSetClientID('60408482;81690000|81690004', false, 'testdata.coremetrics.com', 'nordstrom.com');
-        else cmSetClientID('90033273', false, '1901.nordstrom.com', 'nordstrom.com');
-    } else { // full site
-        if (/staging/.test(window.location.hostname) || /dev/.test(window.location.hostname) || /staging-shop/.test(window.location.hostname)) cmSetClientID('60408482;81690000|81690001', false, 'testdata.coremetrics.com', 'nordstrom.com');
-        else cmSetClientID('90033273', false, '1901.nordstrom.com', 'nordstrom.com');
-    }
+    s.onload = fireCM();
+    document.head.appendChild(s);
 }
 
 export function spInit() {

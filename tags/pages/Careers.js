@@ -7,7 +7,7 @@ import Careers_searchJobs from '../src/elements/Careers_searchJobs';
 
 import Careers from '../src/page_views/cm/Careers';
 
-Careers();
+document.addEventListener('cmloaded', Careers, false);
 
 function Careers_Tags() {
 	try {

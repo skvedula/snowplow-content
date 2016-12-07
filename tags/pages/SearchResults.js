@@ -4,7 +4,7 @@ import SearchResults_sort from '../src/elements/SearchResults_sort';
 
 import Search from '../src/page_views/cm/Search';
 
-Search();
+document.addEventListener('cmloaded', Search, false);
 
 function SearchResults_Tags() {
 	try {

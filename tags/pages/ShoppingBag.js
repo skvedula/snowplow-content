@@ -9,7 +9,7 @@ import ShoppingBag_StoreMode_shoppingBagClicks from '../src/elements/ShoppingBag
 
 import ShoppingBag from '../src/page_views/cm/ShoppingBag';
 
-ShoppingBag();
+document.addEventListener('cmloaded', ShoppingBag, false);
 
 function ShoppingBag_Tags() {
 	try {

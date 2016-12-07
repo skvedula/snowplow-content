@@ -11,7 +11,9 @@ export default function AllNordstrom_pageView() {
 		MMP, 
 		WCM, 
 		Legacy, 
+
 		sp_uid, 
+		
 		mkt_params = parse_mkt_params(), 
 		contexts = [], 
 		page = {}, 

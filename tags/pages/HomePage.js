@@ -1,3 +1,3 @@
 import HomePage from '../src/page_views/cm/HomePage';
 
-HomePage();
+document.addEventListener('cmloaded', HomePage, false);

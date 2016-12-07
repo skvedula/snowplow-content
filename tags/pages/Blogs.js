@@ -1,3 +1,3 @@
 import Blogs from '../src/page_views/cm/Blogs';
 
-Blogs(window.location.pathname);
+document.addEventListener('cmloaded', function() { Blogs(window.location.pathname); }, false);

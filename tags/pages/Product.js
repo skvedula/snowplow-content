@@ -2,7 +2,7 @@ import Product from '../src/page_views/cm/Product';
 
 // import SearchResults_selectItemFilter from '../src/elements/SearchResults_selectItemFilter';
 
-Product();
+document.addEventListener('cmloaded', Product, false);
 
 function Product_Tags() {
 	try {

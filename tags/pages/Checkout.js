@@ -24,7 +24,7 @@ import Checkout_loyaltyClicksAndErrors from '../src/elements/Checkout_loyaltyCli
 
 import Checkout from '../src/page_views/cm/Checkout';
 
-Checkout();
+document.addEventListener('cmloaded', Checkout, false);
 
 function Checkout_Tags() {
 	try {

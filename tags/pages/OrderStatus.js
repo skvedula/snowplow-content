@@ -1,3 +1,3 @@
 import OrderStatus from '../src/page_views/cm/OrderStatus';
 
-OrderStatus();
+document.addEventListener('cmloaded', OrderStatus, false);

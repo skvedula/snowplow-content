@@ -58,7 +58,7 @@ if(window.digitalData && digitalData.page && digitalData.page.category && digita
 					    attrArray[37] = digitalData.page.pageInfo.onsiteSearchTerm;
 					    attrArray = attrArray.join('-_-');
 	                    Results_pagination(payload.newPage, 'Results Pagination', attrArray);
-	                    Results_pagination_page(window.PageParameters.pageId.replace(/\d+/, $(this).data('page')), window.PageParameters.keyword, (window.digitalData && digitalData.page && digitalData.page.pageInfo && digitalData.page.pageInfo.onsiteSearchResults ? digitalData.page.pageInfo.onsiteSearchResults : null), attrArray);
+	                    Results_pagination_page(window.location.pathname , window.PageParameters.keyword, (window.digitalData && digitalData.page && digitalData.page.pageInfo && digitalData.page.pageInfo.onsiteSearchResults ? digitalData.page.pageInfo.onsiteSearchResults : null), attrArray);
 	                }
 	                if (payload.action === window.nord.core.actions.ChangeSort) {
 	                    Results_sort(""+payload.newSort, 'Results Sort', '-_--_--_--_--_--_--_--_--_-' + digitalData.page.category.category);

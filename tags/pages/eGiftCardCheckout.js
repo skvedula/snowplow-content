@@ -4,7 +4,7 @@ import eGiftCardCheckout_remove from '../src/elements/eGiftCardCheckout_remove';
 
 import eGiftCardCheckout from '../src/page_views/cm/eGiftCardCheckout';
 
-eGiftCardCheckout();
+document.addEventListener('cmloaded', eGiftCardCheckout, false);
 
 document.querySelector('#cart-content > div > div.cart-item-actions > ul > li:nth-child(1) > a').addEventListener('click', eGiftCardCheckout_edit);
 

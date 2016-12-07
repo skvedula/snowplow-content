@@ -10,7 +10,7 @@ import BeautyBoard_productClick from '../src/elements/BeautyBoard_productClick';
 
 import BeautyBoard from '../src/page_views/cm/BeautyBoard';
 
-BeautyBoard();
+document.addEventListener('cmloaded', BeautyBoard, false);
 
 function BeautyBoard_Tags() {
 	try {

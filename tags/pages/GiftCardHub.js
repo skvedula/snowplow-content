@@ -5,7 +5,7 @@ import GiftCardHub_eGiftCardLink from "../src/elements/GiftCardHub_eGiftCardLink
 
 import GiftCardHub from '../src/page_views/cm/GiftCardHub';
 
-GiftCardHub();
+document.addEventListener('cmloaded', GiftCardHub, false);
 
 (function() {
     var seenError = false;

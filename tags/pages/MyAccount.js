@@ -14,7 +14,7 @@ import MyAccount_Rewards_bonusPointsEventsDates from '../src/elements/MyAccount_
 
 import MyAccount from '../src/page_views/cm/MyAccount';
 
-MyAccount();
+document.addEventListener('cmloaded', MyAccount, false);
 
 function MyAccount_Tags() {
 	setTimeout(function() {
