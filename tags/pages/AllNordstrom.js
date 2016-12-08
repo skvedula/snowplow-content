@@ -1,4 +1,4 @@
-import { cmInit, spInit } from '../libs/init';
+import { spInit } from '../libs/init';
 
 import spCreateElementTag from '../libs/spCreateElementTag';
 import spLogError from '../libs/spLogError';
@@ -11,5 +11,3 @@ window.spLogError = spLogError;
 
 spInit();
 AllNordstrom_pageView();
-
-cmInit();

@@ -3,10 +3,6 @@ import GiftCardHub_giftCardLink from "../src/elements/GiftCardHub_giftCardLink";
 import GiftCardHub_checkBalance from "../src/elements/GiftCardHub_checkBalance";
 import GiftCardHub_eGiftCardLink from "../src/elements/GiftCardHub_eGiftCardLink";
 
-import GiftCardHub from '../src/page_views/cm/GiftCardHub';
-
-document.addEventListener('cmloaded', GiftCardHub, false);
-
 (function() {
     var seenError = false;
     var checkError = function(selector) {

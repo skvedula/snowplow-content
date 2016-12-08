@@ -1,13 +1,9 @@
 import WishList_addAddress from '../src/conversions/WishList_addAddress';
 import WishList_learnMore from '../src/elements/WishList_learnMore';
 
-import WishList from '../src/page_views/cm/WishList';
-
 var owner;
 
 if (document.querySelector('input[name="ctl00$mainContentPlaceHolder$wishListOwner"]')) owner = document.querySelector('input[name="ctl00$mainContentPlaceHolder$wishListOwner"]').value;
-
-document.addEventListener('cmloaded', function() { WishList(owner); }, false);
 
 function WishList_Tags() {
 	try {

@@ -8,10 +8,6 @@ import Cart_beautyBoardAddToBag from '../src/elements/Cart_beautyBoardAddToBag';
 import Cart_beautyBoardAddAllToBag from '../src/elements/Cart_beautyBoardAddAllToBag';
 import BeautyBoard_productClick from '../src/elements/BeautyBoard_productClick';
 
-import BeautyBoard from '../src/page_views/cm/BeautyBoard';
-
-document.addEventListener('cmloaded', BeautyBoard, false);
-
 function BeautyBoard_Tags() {
 	try {
 		document.querySelector('a:contains("Add Back")').addEventListener('click', function() {

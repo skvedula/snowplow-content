@@ -12,10 +12,6 @@ import MyAccount_Rewards_manageCard from '../src/elements/MyAccount_Rewards_mana
 import MyAccount_Rewards_bonusPointsEventsDates from '../src/elements/MyAccount_Rewards_bonusPointsEventsDates';
 // import MyAccount_Rewards_notesBenefits from '../src/elements/MyAccount_Rewards_notesBenefits';
 
-import MyAccount from '../src/page_views/cm/MyAccount';
-
-document.addEventListener('cmloaded', MyAccount, false);
-
 function MyAccount_Tags() {
 	setTimeout(function() {
 		try {

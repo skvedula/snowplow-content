@@ -22,10 +22,6 @@ import Checkout_selectMultiship from '../src/elements/Checkout_selectMultiship';
 import Checkout_miscElements from '../src/elements/Checkout_miscElements';
 import Checkout_loyaltyClicksAndErrors from '../src/elements/Checkout_loyaltyClicksAndErrors';
 
-import Checkout from '../src/page_views/cm/Checkout';
-
-document.addEventListener('cmloaded', Checkout, false);
-
 function Checkout_Tags() {
 	try {
 	    document.querySelector('#payment > form > div.payment-method.nord-note.ng-scope > div.payment-information.subsection.ng-scope > input').addEventListener('click', function() { 
