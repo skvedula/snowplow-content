@@ -38,6 +38,7 @@ AS (
        is_recognized,
        tag_id,
        style_number,
+       vendor_order_id,
 ROW_NUMBER() OVER (PARTITION BY T1.root_id ORDER BY T1.derived_tstamp) as event_number
  FROM clk_strm_sp.order_items T1,
  clk_strm_sp.tmp_order_items_ids T2
@@ -74,7 +75,8 @@ BEGIN;
        color,
        is_recognized,
        tag_id,
-       style_number
+       style_number,
+       vendor_order_id
 FROM clk_strm_sp.tmp_order_items WHERE event_number = 1
 );
 
