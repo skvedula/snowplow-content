@@ -1,4 +1,4 @@
-export default function spCreateElementTag(element_id, category, attrs) {
+export default function spCreateElementTag(element_id, category, attrs, pts) { 	// spCreateConversionEventTag(element_id, type, category, pts, attrs)
 	try {
 		var schema = 'iglu:com.nordstrom/element_attrs/jsonschema/1-0-0',
 		split, 
@@ -14,6 +14,7 @@ export default function spCreateElementTag(element_id, category, attrs) {
 				data = {
 					category: category || null,
 					action: element_id || null,
+					value: (pts ? parseInt(pts, 10) : null),
 					wish_list: split[0] || null,
 					video_name: split[1] || null,
 

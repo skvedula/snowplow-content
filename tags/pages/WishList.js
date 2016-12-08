@@ -16,3 +16,4 @@ function WishList_Tags() {
 	}
 	catch(e) { console.log(e); }
 }
+WishList_Tags();
