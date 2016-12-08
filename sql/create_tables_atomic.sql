@@ -463,6 +463,7 @@ CREATE TABLE atomic.com_nordstrom_order_item_attrs_1 (
 	is_recognized		varchar(1)	  encode lzo,
 	tag_id 				varchar(10)   encode lzo,
 	style_number		varchar(10)   encode lzo,
+	vendor_order_id		varchar(255)  encode lzo,
 	FOREIGN KEY(root_id) REFERENCES atomic.events(event_id)
 )
 DISTSTYLE KEY
