@@ -1,4 +1,4 @@
-import eGiftCardCategory_eGiftCardLink from '../src/elements/eGiftCardCategory_eGiftCardLink';
+import GiftCardCategory_GiftCardLink from '../src/elements/GiftCardCategory_GiftCardLink';
 
 setTimeout(function() {
     if (window.location.pathname === '/nordstrom-gift-cards' || window.location.pathname === '/NordstromGiftCards.aspx') {
@@ -11,7 +11,7 @@ setTimeout(function() {
 //        console.log('on nordstrom e gift card page');
         if (document.cookie.indexOf('gclink') !== -1) {
 //            console.log('has cookie');
-            eGiftCardCategory_eGiftCardLink();
+            GiftCardCategory_GiftCardLink();
 //            console.log('created tag');
             document.cookie = encodeURIComponent('gclink') + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=nordstrom.com";
 //            console.log('set cookie');

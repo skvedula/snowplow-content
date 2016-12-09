@@ -11,7 +11,7 @@
 
     $(document).on('mouseup', 'span.image-container > img', function() {
         var attrArray = [];
-        attrArray["17"] = 'eGiftCard';
-        window.clickstream.fire('element', ['cm','sp'], 'Alt color ' + $(this).attr('data-pk'), 'eGiftCard', 'eGiftCard', null, null, 17);
+        attrArray["17"] = 'GiftCard';
+        window.clickstream.fire('element', ['cm','sp'], 'Alt color ' + $(this).attr('data-pk'), 'GiftCard', 'GiftCard', null, null, 17);
     });
 })();
