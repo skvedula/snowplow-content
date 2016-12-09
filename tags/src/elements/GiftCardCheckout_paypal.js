@@ -1,4 +1,4 @@
-export default function eGiftCardCheckout_paypal() {
+export default function GiftCardCheckout_paypal() {
 	cmCreateElementTag('Checkout Paypal', 'Gift Card');
 	spCreateElementTag('Checkout Paypal', 'Gift Card');
 }

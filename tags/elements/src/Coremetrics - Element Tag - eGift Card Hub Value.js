@@ -10,6 +10,6 @@
     };
 
     $(document).on('mouseup', '#pre-select > li > a', function() {
-        window.clickstream.fire('element', ['cm','sp'], 'Alt size ' + $(this).attr('data-value'), 'eGiftCard', 'eGiftCard', null, null, 17);
+        window.clickstream.fire('element', ['cm','sp'], 'Alt size ' + $(this).attr('data-value'), 'GiftCard', 'GiftCard', null, null, 17);
     });
 })();
