@@ -1,12 +1,13 @@
 export default function storeOpeningsLinkClick() {
-	if ((window.location.pathname === '/c/stores' || window.location.pathname === '/ssr' || window.location.pathname === '/esr') && require.defined('nord/feature/util/cookie') && require('nord/feature/util/cookie').load('btNewStoresMap') == undefined) {
-	    document.addEventListener('click', '.new-store-link a', function() {
-	        require('nord/feature/util/cookie').save('btNewStoresMap', '1', { domain: '.nordstrom.com', path: '/' });
+	if ((window.location.pathname === '/c/stores' || window.location.pathname === '/ssr' || window.location.pathname === '/esr') && window.docCookies && window.docCookies.getItem('btNewStoresMap') == null) {
+	    //Link under map a[title="See New Store Openings"]
+	    document.addEventListener('click', 'a[title="See New Store Openings"]', function() {
+	        window.docCookies.setItem('btNewStoresMap', '1', 2592e3, '/', '.nordstrom.com' );
 	    });
 	}
-	else if (window.location.pathname === '/ourstores/openings/openings.asp' && document.cookie.indexOf('btNewStoresMap') !== -1) {
+	else if (window.location.pathname === '/c/future-store-openings' && document.cookie.indexOf('btNewStoresMap') !== -1) {
 	    cmCreateElementTag('NewStoreOpeningsMap', 'STORES & EVENTS');
 	    spCreateElementTag('NewStoreOpeningsMap', 'STORES & EVENTS');
-	    document.cookie = encodeURIComponent('btNewStoresMap') + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + "; domain=.nordstrom.com" + "; path=/";
+	    window.docCookies.setItem('btNewStoresMap', '1', 2592e3, '/', '.nordstrom.com' );
 	}
 }

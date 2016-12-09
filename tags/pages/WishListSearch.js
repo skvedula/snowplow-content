@@ -5,23 +5,41 @@ import WishListSearch from '../src/page_views/cm/WishListSearch';
 document.addEventListener('cmloaded', WishListSearch, false);
 
 function WishListSearch_Tags() {
-	try {
-		document.querySelector('#ctl00_mainContentPlaceHolder_submitSearchByInfoButton,#ctl00_mainContentPlaceHolder_submitSearchByEmailButton').addEventListener('click', function() {
-			wishListSearch();
-
-			setTimeout(function() {
-		        var searchResult = document.querySelector('#ctl00_mainContentPlaceHolder_ResourceLabel1 > span').textContent;
-		        var listFound = document.querySelector('#ctl00_mainContentPlaceHolder_wishListSearchResultList_repeater_ctl00_wlListsFound').textContent;    
-		        if (searchResult.indexOf('No Wish Lists') > -1 ) {
-		            wishListNoneFound();
-		        }        
-		        if (listFound.indexOf('Lists Found') > -1 ) {
-		            wishListFound();
-		        }
-		    } ,3000);
-		});
-	} catch(e) {
-		spLogError(e);
-	}
+    try {
+        document.querySelector('#ctl00_mainContentPlaceHolder_submitSearchByInfoButton,#ctl00_mainContentPlaceHolder_submitSearchByEmailButton').addEventListener('click', function() {
+            WishList_search();
+			checkSearchResults();
+        });
+    } catch (e) {
+        spLogError(e);
+    }
 }
 WishListSearch_Tags();
+
+function checkSearchResults() {
+        var ListsFound = document.querySelector('#ctl00_mainContentPlaceHolder_wishListSearchResultList_repeater_ctl00_wlListsFound'),
+        	noResultsFound = document.querySelector('#ctl00_mainContentPlaceHolder_ResourceLabel1 > span');	
+		
+		var listFound,
+    		searchResult;
+    	
+    	var firstName1 = document.querySelector('#ctl00_mainContentPlaceHolder_lblSearchCriteria').textContent.split(' ')[1];
+    	var firstName2 = document.querySelector('#ctl00_mainContentPlaceHolder_searchForm_searchFormFirstName').value;
+    	var lastName1 = document.querySelector('#ctl00_mainContentPlaceHolder_lblSearchCriteria').textContent.split(', ')[0];
+    	var lastName2 = document.querySelector('#ctl00_mainContentPlaceHolder_searchForm_searchFormLastName').value;
+
+    if (ListsFound !== null && lastName1 == lastName2 && firstName1 == firstName2 ) {
+        listFound = document.querySelector('#ctl00_mainContentPlaceHolder_wishListSearchResultList_repeater_ctl00_wlListsFound').textContent;
+        if (listFound.indexOf('Lists Found') > -1) {
+            WishList_found();
+        }
+    } else if (noResultsFound !== null && lastName1 == lastName2 && firstName1 == firstName2 ) {
+    	console.log(document.querySelector('#ctl00_mainContentPlaceHolder_ResourceLabel1 > span'));
+        searchResult = document.querySelector('#ctl00_mainContentPlaceHolder_ResourceLabel1 > span').textContent;
+        if (searchResult.indexOf('No Wish Lists') > -1) {
+            WishList_noneFound();
+        }
+    } else {
+        setTimeout(checkSearchResults, 100);
+    }
+}

@@ -2,7 +2,7 @@ import WeddingStylist_bookAnAppointment from '../src/elements/WeddingStylist_boo
 
 function WeddingLocation_Tags() {
 	try {
-		document.querySelector('a[title="BOOK AN APPOINTMENT"]').addEventListener('click', function() {
+		document.querySelector('a[title="Book an Appointment"]').addEventListener('click', function() {
 			WeddingStylist_bookAnAppointment();
 		});
 	} catch(e) {
