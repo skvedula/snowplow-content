@@ -10,4 +10,4 @@ export default function storeOpeningsFooterClick() {
 	    spCreateElementTag('NewStoreOpenings', 'STORES & EVENTS');
 	    window.docCookies.setItem('btNewStoresFt', '1', 2592e3, '/', '.nordstrom.com' );
 	}
-}
+} 

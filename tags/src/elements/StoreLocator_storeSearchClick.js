@@ -34,4 +34,4 @@ export default function StoreLocator_storeSearchClick() {
 	    spCreateElementTag('Search: ' + docCookies.getItem('btStoreSearch'), 'STORES & EVENTS');
 	    docCookies.removeItem('btStoreSearch', '/', '.nordstrom.com');
 	}
-}
+} 

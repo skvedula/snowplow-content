@@ -9,4 +9,4 @@ function StoreOpenings_Tags() {
 		spLogError(e);
 	}
 }
-StoreOpenings_Tags();
+StoreOpenings_Tags(); 

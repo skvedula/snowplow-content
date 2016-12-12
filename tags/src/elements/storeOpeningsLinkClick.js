@@ -10,4 +10,4 @@ export default function storeOpeningsLinkClick() {
 	    spCreateElementTag('NewStoreOpeningsMap', 'STORES & EVENTS');
 	    window.docCookies.setItem('btNewStoresMap', '1', 2592e3, '/', '.nordstrom.com' );
 	}
-}
+} 
