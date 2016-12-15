@@ -8,7 +8,6 @@
     "AllNonsecure": "browserify -t [ babelify --presets [ es2015 ] ] pages/AllNonsecure.js | uglifyjs -o dist/AllNonsecure.js",
     "ApplyNBuyLanding": "browserify -t [ babelify --presets [ es2015 ] ] pages/ApplyNBuyLanding.js | uglifyjs -o dist/ApplyNBuyLanding.js",
     "BeautyBoard": "browserify -t [ babelify --presets [ es2015 ] ] pages/BeautyBoard.js | uglifyjs -o dist/BeautyBoard.js",
-    "BeautyFoundation": "browserify -t [ babelify --presets [ es2015 ] ] pages/BeautyFoundation.js | uglifyjs -o dist/BeautyFoundation.js",
     "BeautyStylist": "browserify -t [ babelify --presets [ es2015 ] ] pages/BeautyStylist.js | uglifyjs -o dist/BeautyStylist.js",
     "Blogs": "browserify -t [ babelify --presets [ es2015 ] ] pages/Blogs.js | uglifyjs -o dist/Blogs.js",
     "BloomReach": "browserify -t [ babelify --presets [ es2015 ] ] pages/BloomReach.js | uglifyjs -o dist/BloomReach.js",
