@@ -6,9 +6,8 @@ function Chat_Tags() {
 		document.addEventListener('agentID', function(e) {
 			Chat_accepted(e);
 		});
-
-		document.addEventListener("click", "button[id*='ChatDisconnect']", function(e) {
-			Chat_ended(e);
+		document.addEventListener('click', function(e) {
+			if (e.target.textContent === 'End Chat') Chat_ended();
 		});
 	} catch(e) {
 		spLogError(e);

@@ -1,5 +1,4 @@
-export default function Results_pagination(id, keyword, count, attrs) {console.log('paginate');
-    cmCreatePageviewTag(id, '1.7', keyword, count, null, attrs);
+export default function Results_pagination_page(id, keyword, count, attrs) {
 	snowplow('trackPageView', id, [{
 		schema: 'iglu:com.nordstrom/page_view_attrs/jsonschema/1-0-0',
 		data: {

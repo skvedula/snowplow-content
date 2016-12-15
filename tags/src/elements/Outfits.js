@@ -34,7 +34,7 @@ export default function Outfits(payload) {
 						case 'Size':
 							element_id = 'Alt Size';
 							break;
-						case 'Alt Color':
+						case 'Color':
 							element_id = 'Alt Color';
 							break;
 						case 'Width':

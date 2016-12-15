@@ -8,7 +8,7 @@ import StoreMode_changeStore from "../src/elements/StoreMode_changeStore";
 import Results_interactiveHeader from "../src/elements/Results_interactiveHeader";
 import Results_filter from "../src/elements/Results_filter";
 import Results_pagination from "../src/elements/Results_pagination";
-import { Results_pagination as Results_pagination_page } from "../src/page_views/Results_pagination";
+import Results_pagination_page from "../src/page_views/Results_pagination_page";
 import Results_sort from "../src/elements/Results_sort";
 import Results_videoPresented from "../src/elements/Results_videoPresented";
 import Results_wcmVideoClick from "../src/link_clicks/Results_wcmVideoClick";
@@ -58,7 +58,7 @@ if(window.digitalData && digitalData.page && digitalData.page.category && digita
 					    attrArray[37] = digitalData.page.pageInfo.onsiteSearchTerm;
 					    attrArray = attrArray.join('-_-');
 	                    Results_pagination(payload.newPage, 'Results Pagination', attrArray);
-	                    Results_pagination_page(window.location.pathname , window.PageParameters.keyword, (window.digitalData && digitalData.page && digitalData.page.pageInfo && digitalData.page.pageInfo.onsiteSearchResults ? digitalData.page.pageInfo.onsiteSearchResults : null), attrArray);
+	                    Results_pagination_page(window.location.pathname, bt_parameter('keyword'), (window.digitalData && digitalData.page && digitalData.page.pageInfo && digitalData.page.pageInfo.onsiteSearchResults ? digitalData.page.pageInfo.onsiteSearchResults : null), attrArray);
 	                }
 	                if (payload.action === window.nord.core.actions.ChangeSort) {
 	                    Results_sort(""+payload.newSort, 'Results Sort', '-_--_--_--_--_--_--_--_--_-' + digitalData.page.category.category);

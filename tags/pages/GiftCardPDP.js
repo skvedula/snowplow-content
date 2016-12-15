@@ -17,9 +17,11 @@ document.querySelector('#order-add-another').addEventListener('click', GiftCardP
 document.querySelector('#order-check-out').addEventListener('click', GiftCardPDP_checkOut);
 document.querySelector('#cart-check-out').addEventListener('click', GiftCardPDP_checkOut);
 
-document.querySelector('span.image-container > img').addEventListener('click', function() {
-	var color = this.getAttribute('data-pk');
-	GiftCardPDP_color(color);
+[].forEach.call(document.querySelectorAll('span.image-container > img'), function(el) {
+    el.addEventListener('click', function() {
+    	var color = this.getAttribute('data-pk');
+    	GiftCardPDP_color(color);
+    });
 });
 
 document.querySelector('#delivery_date_email_picker').addEventListener('change', function() {
@@ -30,14 +32,18 @@ document.querySelector('#delivery_date_email_picker').addEventListener('change',
     GiftCardPDP_date(day, month, year);
 });
 
-document.querySelector('#fp-nav > li > a').addEventListener('click', function() {
-	var category = this.textContent;
-	GiftCardPDP_designCategory(category);
+[].forEach.call(document.querySelectorAll('#fp-nav > li > a'), function(el) {
+    el.addEventListener('click', function() {
+    	var category = this.textContent;
+    	GiftCardPDP_designCategory(category);
+    });
 });
 
-document.querySelector('#pre-select > li > a').addEventListener('click', function() {
-	var value = this.getAttribute('data-value');
-	GiftCardPDP_value(value);
+[].forEach.call(document.querySelectorAll('#pre-select > li > a'), function(el) {
+    el.addEventListener('click', function() {
+    	var value = this.getAttribute('data-value');
+    	GiftCardPDP_value(value);
+    });
 });
 
 setTimeout(function() {
