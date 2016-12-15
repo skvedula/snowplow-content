@@ -35,9 +35,9 @@ export default function Search() {
         isStoreMode = (document.cookie).split("storemode=id=")[1].split('&')[0];
     }
 
-    guidIndex = document.cookie.indexOf('ExperimentId=');
+    var guidIndex = document.cookie.indexOf('ExperimentId=') || null;
     attrArray[29] = isStoreMode;
-    attrArray[31] = guidIndex != -1 ? document.cookie.slice(guidIndex+13, guidIndex+49) : '';
+    attrArray[31] = (guidIndex ? document.cookie.slice(guidIndex+13, guidIndex+49) : '');
     attrArray[32] = elwin;
     attrArray[35] = modernPage(); 
     attrArray[36] = window.digitalData.page.category.pageType.toLowerCase();

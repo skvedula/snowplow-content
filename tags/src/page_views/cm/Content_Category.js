@@ -43,11 +43,11 @@ export default function Content_Category() {
         search_results_count = (digitalData && digitalData.page && digitalData.page.pageInfo && digitalData.page.pageInfo.onsiteSearchResults ? digitalData.page.pageInfo.onsiteSearchResults : null);
         elwin = (digitalData.elwin && digitalData.elwin.Experiments ? JSON.stringify(digitalData.elwin.Experiments) : null);
         if((document.cookie).split("storemode=id=").length > 1) isStoreMode = (document.cookie).split("storemode=id=")[1].split('&')[0];
-        guidIndex = document.cookie.indexOf('ExperimentId=');
+        var guidIndex = document.cookie.indexOf('ExperimentId=') || null;
 
         attrArray[21] = authenticated_state;
         attrArray[28] = isStoreMode;
-        attrArray[30] = guidIndex != -1 ? document.cookie.slice(guidIndex+13, guidIndex+49) : '';
+        attrArray[30] = (guidIndex ? document.cookie.slice(guidIndex+13, guidIndex+49) : '');
         attrArray[31] = elwin || null;
         attrArray[35] = window.digitalData.page.category.pageType.toLowerCase();
         attrArray[41] = tag_id;
