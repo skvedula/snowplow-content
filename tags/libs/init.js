@@ -26,7 +26,7 @@ export function cmInit() {
 }
 
 export function spInit() {
-	var prod = (['shop.nordstrom.com', 'secure.nordstrom.com', 'm.shop.nordstrom.com', 'm.secure.nordstrom.com', 'about.nordstrom.com', 'restaurants.nordstrom.com'].indexOf(window.location.hostname) > -1 ? 1 : 0),
+	var prod = (['shop.nordstrom.com', 'secure.nordstrom.com', 'm.shop.nordstrom.com', 'm.secure.nordstrom.com', 'about.nordstrom.com', 'restaurants.nordstrom.com','shop.giftcard.nordstrom.com'].indexOf(window.location.hostname) > -1 ? 1 : 0),
 		mobile = (/^m/.test(window.location.hostname) ? 1 : 0),
 		env_vars = {
 			collector: (prod ? 'p.nordstromdata.com' : 't.nordstromdata.com'),
@@ -37,7 +37,7 @@ export function spInit() {
 	(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 		p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments);
 		};p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-		n.src=w;g.parentNode.insertBefore(n,g);}}(window,document,"script","https://images.nordstromdata.com/js/sp/2.6.1/sp.js","snowplow"));
+		n.src=w;g.parentNode.insertBefore(n,g);}}(window,document,"script","https://images.nordstromdata.com/js/sp/2.6.2/sp.js","snowplow"));
 
 	snowplow("newTracker", 'nord' + (prod ? '_prod' : '_dev'), env_vars.collector, 
 		{
