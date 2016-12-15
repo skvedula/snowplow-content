@@ -52,6 +52,7 @@ export default function AllNordstrom_pageView() {
 		else {
 			sp_uid = (['shop.nordstrom.com', 'secure.nordstrom.com'].indexOf(window.location.hostname) > -1 ? bt_cookie('nordstrom').replace(/^shopperid\=/, '').replace(/\&.*$/, '') : bt_cookie('nordstromdev').replace(/^shopperid\=/, '').replace(/\&.*$/, ''));
 			if (document.location.pathname === '/os') {
+				snowplow('setCustomUrl', window.location.href.replace(/#+/g, '#'));
 				page_id = 'Fast and Easy';
 				page_category = 'Fast and Easy';
 				page_template = 'Fast and Easy';
