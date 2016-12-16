@@ -1,8 +1,8 @@
 import CreditCardOffer_creditApplication from '../src/conversions/CreditCardOffer_creditApplication';
 import CreditCardConfirmation_offerCredit from '../src/conversions/CreditCardConfirmation_offerCredit';
-import CreditCardConfirmation_creditCustomerDeclinesNordstromRetail from '../src/conversions/CreditCardConfirmation_creditCustomerDeclinesNordstromRetail';
-import CreditCardConfirmation_creditCustomerDeclinesBoth from '../src/conversions/CreditCardConfirmation_creditCustomerDeclinesBoth';
-import CreditCardConfirmation_creditHardDeclineApplyDebit from '../src/conversions/CreditCardConfirmation_creditHardDeclineApplyDebit';
+import CreditCardConfirmation_creditCustomerDeclinesNordstromRetail from '../src/elements/CreditCardConfirmation_creditCustomerDeclinesNordstromRetail';
+import CreditCardConfirmation_creditCustomerDeclinesBoth from '../src/elements/CreditCardConfirmation_creditCustomerDeclinesBoth';
+import CreditCardConfirmation_creditHardDeclineApplyDebit from '../src/elements/CreditCardConfirmation_creditHardDeclineApplyDebit';
 import { CreditCardOffer_setVisa, CreditCardOffer_setRetail } from '../src/misc/CreditCardOffer_setCreditType';
 
 document.querySelector('#AcceptVisaButton').addEventListener('click', CreditCardOffer_setVisa);

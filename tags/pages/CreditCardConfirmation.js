@@ -1,12 +1,12 @@
-import CreditCardConfirmation_acceptCredit2 from '../src/conversions/CreditCardConfirmation_acceptCredit2';
-import CreditCardConfirmation_creditVisaApproved from '../src/conversions/CreditCardConfirmation_creditVisaApproved';
-import CreditCardConfirmation_creditHardDeclineBackToShopping from '../src/conversions/CreditCardConfirmation_creditHardDeclineBackToShopping';
-import CreditCardConfirmation_creditSoftDeclineCallNordstromBank from '../src/conversions/CreditCardConfirmation_creditSoftDeclineCallNordstromBank';
-import CreditCardConfirmation_debitHardDeclineBackToShopping from '../src/conversions/CreditCardConfirmation_debitHardDeclineBackToShopping';
-import CreditCardConfirmation_waitForCard from '../src/conversions/CreditCardConfirmation_waitForCard';
-import CreditCardConfirmation_retailApproved from '../src/conversions/CreditCardConfirmation_retailApproved';
+import CreditCardConfirmation_acceptCredit from '../src/conversions/CreditCardConfirmation_acceptCredit';
+import CreditCardConfirmation_creditVisaApproved from '../src/elements/CreditCardConfirmation_creditVisaApproved';
+import CreditCardConfirmation_creditHardDeclineBackToShopping from '../src/elements/CreditCardConfirmation_creditHardDeclineBackToShopping';
+import CreditCardConfirmation_creditSoftDeclineCallNordstromBank from '../src/elements/CreditCardConfirmation_creditSoftDeclineCallNordstromBank';
+import CreditCardConfirmation_debitHardDeclineBackToShopping from '../src/elements/CreditCardConfirmation_debitHardDeclineBackToShopping';
+import CreditCardConfirmation_waitForCard from '../src/elements/CreditCardConfirmation_waitForCard';
+import CreditCardConfirmation_retailApproved from '../src/elements/CreditCardConfirmation_retailApproved';
 
-ApplyNBuy_acceptCredit();
+CreditCardConfirmation_acceptCredit();
 CreditCardConfirmation_creditHardDeclineBackToShopping();
 CreditCardConfirmation_debitHardDeclineBackToShopping();
 

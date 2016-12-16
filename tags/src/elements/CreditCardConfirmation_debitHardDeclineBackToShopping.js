@@ -10,3 +10,4 @@ export default function CreditCardConfirmation_debitHardDeclineBackToShopping() 
             window.setTimeout(debitHardDeclineBackToShopping, 500);
         }
     })();
+}
