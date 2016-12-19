@@ -4,6 +4,7 @@ export default function Content_Category() {
 	        page_template,
 	        page_id,
 	        page_category = null,
+            page_category2,
 	        page_type,
 	        keyword = bt_parameter('keyword'),
 	        search_results_count = null,

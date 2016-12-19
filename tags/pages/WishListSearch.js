@@ -1,9 +1,5 @@
 import { WishList_search, WishList_found, WishList_noneFound } from '../src/elements/WishList_search';
 
-import WishListSearch from '../src/page_views/cm/WishListSearch';
-
-document.addEventListener('cmloaded', WishListSearch, false);
-
 function WishListSearch_Tags() {
     try {
         document.querySelector('#ctl00_mainContentPlaceHolder_submitSearchByInfoButton,#ctl00_mainContentPlaceHolder_submitSearchByEmailButton').addEventListener('click', function() {

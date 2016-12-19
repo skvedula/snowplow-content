@@ -9,8 +9,6 @@
     "ApplyNBuyLanding": "browserify -t [ babelify --presets [ es2015 ] ] pages/ApplyNBuyLanding.js | uglifyjs -o dist/ApplyNBuyLanding.js",
     "BeautyBoard": "browserify -t [ babelify --presets [ es2015 ] ] pages/BeautyBoard.js | uglifyjs -o dist/BeautyBoard.js",
     "BeautyStylist": "browserify -t [ babelify --presets [ es2015 ] ] pages/BeautyStylist.js | uglifyjs -o dist/BeautyStylist.js",
-    "Blogs": "browserify -t [ babelify --presets [ es2015 ] ] pages/Blogs.js | uglifyjs -o dist/Blogs.js",
-    "BloomReach": "browserify -t [ babelify --presets [ es2015 ] ] pages/BloomReach.js | uglifyjs -o dist/BloomReach.js",
     "Careers": "browserify -t [ babelify --presets [ es2015 ] ] pages/Careers.js | uglifyjs -o dist/Careers.js",
     "ChatEntry": "browserify -t [ babelify --presets [ es2015 ] ] pages/ChatEntry.js | uglifyjs -o dist/ChatEntry.js",
     "ChatWindow": "browserify -t [ babelify --presets [ es2015 ] ] pages/ChatWindow.js | uglifyjs -o dist/ChatWindow.js",
