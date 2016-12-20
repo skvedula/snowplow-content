@@ -43,7 +43,7 @@ export default function get_MMP() {
 			search_term = (digitalData.page.pageInfo && digitalData.page.pageInfo.onsiteSearchTerm ? digitalData.page.pageInfo.onsiteSearchTerm : bt_parameter('keyword'));
 			search_results_count = (digitalData.page.pageInfo && digitalData.page.pageInfo.onsiteSearchResults ? digitalData.page.pageInfo.onsiteSearchResults : null);
 			if (search_term && search_results_count) page_id = 'RESULTS: ' + search_term;
-		    authenticated_state = (digitalData && digitalData.shopper && digitalData.shopper.authenticatedState ? digitalData.shopper.authenticatedState : null);
+		    authenticated_state = (digitalData && digitalData.shopper && digitalData.shopper.authenticatedState && digitalData.shopper.authenticatedState.toLowerCase() === 'authenticated' ? 'Y' : 'N');
 		})();
 	}
 	else return false;

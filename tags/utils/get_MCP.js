@@ -9,7 +9,7 @@ export default function get_MCP() {
 				if (window.digitalData.page && digitalData.page.category && digitalData.page.category.pageType && digitalData.page.category.pageType === 'mcp-BoutiqueCustom') return 'BRAND BOUTIQUE SPLASH: Brands > ' + window.location.pathname.replace('\/c\/', '').replace(/-/g, ' ') + ' > \(' + page_category2 + '\)';
 				else return document.title.replace(' | Nordstrom', '');
 			})(page_category2);
-			authenticated_state = (digitalData && digitalData.shopper && digitalData.shopper.authenticatedState ? digitalData.shopper.authenticatedState : null);
+		    authenticated_state = (digitalData && digitalData.shopper && digitalData.shopper.authenticatedState && digitalData.shopper.authenticatedState.toLowerCase() === 'authenticated' ? 'Y' : 'N');
 			page_template = 'MCP';
 			is_recognized = (authenticated_state !== 'anonymous' ? 'Y' : 'N');
 
