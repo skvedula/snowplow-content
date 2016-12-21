@@ -1,28 +1,41 @@
-export default function Cart_beautyBoardAddToBag(e) {
-	var pr = e.target.parentNode.querySelector('.product-item').getAttribute('data-style-number');
-    $(document).on('update.miniBag.tto', function(event, json) {
-        if ('Items' in json && json.Items.length > 0) {
-            var item = json.Items[0];
-            cmAddShop(["pr",pr,"pm",item.StyleName,"qt",1,"bp",item.UnitPrice,"cg",(typeof item.SiteLocationId != 'undefined' && item.SiteLocationId != '' ? item.SiteLocationId : 'BEAUTY BOARD'),"ha1",null,"at","5","tid","4","pc","N","sx1",null,"cmAttributes",null]);
-            cmDisplayShops();
+export default function Cart_beautyBoardAddToBag(data, tag_id) {
+	try {
+		for (i=0;i<data.length;i++) {
+			var item = data[i], product_price, product_name;
+			var style = item.StyleNumber;
 
-            snowplow(
-	            'trackAddToCart',
-	            pr, //SKU
-	            item.StyleName, //Name
-	            (typeof item.SiteLocationId != 'undefined' && item.SiteLocationId != '' ? item.SiteLocationId : 'BEAUTY BOARD'), //Category
-	            item.UnitPrice, //Unit price
-	            1, //Quantity
-	            null, //Currency
-	            [{
-	                schema: 'iglu:com.nordstrom/add_item_attrs/jsonschema/1-0-0',
-	                data: {
-	                    document_url: document_url,
-	                    style_number: pr,
-	                    tag_id: tag_id
-	                }
-	            }]
-	        );
-        }
-    });
+			[].forEach.call(document.querySelectorAll('.board-item'), function(el) {
+				if (el.querySelectorAll('div.product-price span').length && el.id.substring(0, el.id.indexOf('-')) === item.StyleNumber) {
+
+					[].forEach.call(el.querySelectorAll('div.product-price span'), function(el2) {
+						if (el2.textContent) product_price = parseFloat(el2.textContent.replace(/[$,]/g, ''));
+					});
+					var product_name = el.querySelector('a.product-href').textContent;
+
+					cmCreateShopAction5Tag(style, product_name, '1', product_price, (item.SiteLocationId ? item.SiteLocationId : 'BEAUTY BOARD'));
+
+					snowplow(
+			            'trackAddToCart',
+			            item.SkuId, //SKU
+			            product_name, //Name
+			            (item.SiteLocationId ? item.SiteLocationId : 'BEAUTY BOARD'), //Category
+			            product_price, //Unit price
+			            item.NewQuantity, //Quantity
+			            null, //Currency
+			            [{
+			                schema: 'iglu:com.nordstrom/add_item_attrs/jsonschema/1-0-0',
+			                data: {
+			                    document_url: window.location.href,
+			                    style_number: style,
+			                    tag_id: tag_id
+			                }
+			            }]
+			        );
+
+			        cmDisplayShops();
+				}
+			});
+		}
+	}
+	catch(e) { console.log(e); }
 }

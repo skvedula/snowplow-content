@@ -1,1 +1,0 @@
-window.clickstream.fire('element', ['cm','sp'], 'International Shipping Click', 'FAST AND EASY CHECKOUT');

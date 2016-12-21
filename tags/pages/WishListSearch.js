@@ -2,9 +2,11 @@ import { WishList_search, WishList_found, WishList_noneFound } from '../src/elem
 
 function WishListSearch_Tags() {
     try {
-        document.querySelector('#ctl00_mainContentPlaceHolder_submitSearchByInfoButton,#ctl00_mainContentPlaceHolder_submitSearchByEmailButton').addEventListener('click', function() {
-            WishList_search();
-			checkSearchResults();
+        [].forEach.call(document.querySelectorAll('#ctl00_mainContentPlaceHolder_submitSearchByInfoButton,#ctl00_mainContentPlaceHolder_submitSearchByEmailButton'), function(el) {
+            el.addEventListener('click', function() {
+                WishList_search();
+                checkSearchResults();
+            });
         });
     } catch (e) {
         spLogError(e);

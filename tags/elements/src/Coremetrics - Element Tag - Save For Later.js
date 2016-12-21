@@ -1,1 +1,0 @@
-window.clickstream.fire('element', ['cm','sp'], 'Save For Later','Shopping Bag');

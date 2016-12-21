@@ -1,1 +1,0 @@
- window.clickstream.fire('element', ['cm','sp'], window.PageParameters.categoryName,'BOOK AN APPOINTMENT');
