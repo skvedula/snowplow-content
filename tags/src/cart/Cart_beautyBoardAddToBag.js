@@ -12,7 +12,7 @@ export default function Cart_beautyBoardAddToBag(data, tag_id) {
 					});
 					var product_name = el.querySelector('a.product-href').textContent;
 
-					cmCreateShopAction5Tag(style, product_name, '1', product_price, (item.SiteLocationId ? item.SiteLocationId : 'BEAUTY BOARD'));
+					cmCreateShopAction5Tag(style, product_name, '2', product_price, (item.SiteLocationId ? item.SiteLocationId : 'BEAUTY BOARD'));
 
 					snowplow(
 			            'trackAddToCart',
