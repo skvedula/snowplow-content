@@ -4,7 +4,7 @@
 	"description": "Schema for custom element and engagement attributes",
 	"self": {
 		"vendor": "com.nordstrom",
-		"name": "elements_attrs",
+		"name": "element_attrs",
 		"format": "jsonschema",
 		"version": "1-0-0"
 	},
