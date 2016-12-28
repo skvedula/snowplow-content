@@ -22,7 +22,7 @@
 		}
 
 		, "value": {
-			"type": ["float", "integer", "string", "null"]
+			"type": ["number", "integer", "string", "null"]
 		}
 
 		, "label": {
@@ -118,7 +118,7 @@
 		}
 
 		, "note_value": {
-			"type": ["float", "null"]
+			"type": ["number", "null"]
 		}
 
 		, "note_expire_date": {
@@ -126,7 +126,7 @@
 		}
 
 		, "applied_notes_total": {
-			"type": ["float", "null"]
+			"type": ["number", "null"]
 		}
 
 		, "available_notes_total": {
@@ -134,11 +134,11 @@
 		}
 
 		, "gift_card_total": {
-			"type": ["float", "null"]
+			"type": ["number", "null"]
 		}
 
 		, "gift_card_value": {
-			"type": ["float", "null"]
+			"type": ["number", "null"]
 		}
 
 		, "page_id": {
