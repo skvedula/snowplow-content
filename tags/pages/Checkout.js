@@ -24,6 +24,7 @@ import Checkout_loyaltyClicksAndErrors from '../src/elements/Checkout_loyaltyCli
 
 function Checkout_Tags() {
 	try {
+		var itemStyleNumber = '';
 		Checkout_personalBonusPoint();
 		document.addEventListener('click', function(e) {
 			if (e.target.getAttribute('data-ng-model')) {
@@ -32,8 +33,8 @@ function Checkout_Tags() {
 				if (e.target.getAttribute('data-ng-model') === "giftOption") Checkout_selectGiftOption();
 
 				if (e.target.getAttribute('data-ng-model') === "currentlySelectedItemAddressEntries[$index]") {
-					var itemStyleNumber = $(e.target).parents('.bag-item').find('.item-details .item-number').next('.ng-binding').text().replace(/[#,\s]/g, '');
-	    			Checkout_multishipItemEditAddress(itemStyleNumber);
+					itemStyleNumber = $(e.target).parents('.bag-item').find('.item-details .item-number').next('.ng-binding').text().replace(/[#,\s]/g, '');
+	    			Checkout_multishipItemSelectOrAddNewAddress(itemStyleNumber);
 				}
 
 				if (/subscribeForEmailUpdates/.test(e.target.getAttribute('data-ng-model')) && !e.target.checked) Checkout_emailOptOut();
@@ -54,9 +55,17 @@ function Checkout_Tags() {
 
 				if (e.target.getAttribute('data-ng-click') === 'toShippMethodInfoState($event)') Checkout_shipMethodSave();
 
-				if (e.target.getAttribute('data-ng-click') === 'saveNewEmail($event)' && e.target.getAttribute('client-validation') === 'onSubmit, saveYourInfo') Checkout_saveYourInfo();
+				if (e.target.getAttribute('client-validation') === 'onSubmit, saveYourInfo') Checkout_saveYourInfo();
 
 				if (e.target.getAttribute('data-ng-click') === 'removeAppliedNote(systematicNordNote, $event)') Checkout_undoNoteClick(e.target);
+
+				if (e.target.getAttribute('data-ng-click') === 'onItemLevelShipMethodChange(shipMethod)') {
+					// Checkout_undoNoteClick(e.target);
+					var shipMethod = e.target.getAttribute('value');
+		    		Checkout_multishipItemShipMethodSelect(shipMethod);
+				}
+
+				if (/giftMessage/.test(e.target.getAttribute('data-ng-click')) && e.target.parentElement.className === 'actions' && e.target.getAttribute('value') === 'Save') Checkout_giftOptionSave();
 			}
 
 			else if (e.target.getAttribute('data-ng-show')) {
@@ -66,17 +75,10 @@ function Checkout_Tags() {
 			if (/saveSelectedItemLevelShipAddr/.test(e.target.getAttribute('data-ng-click'))) Checkout_multishipItemAddressSave();
 
 			if (e.target.id === 'selectItemLevelSavedAddress' && /edit/.test(e.target.classList) && /button/.test(e.target.classList)) {
-				var itemStyleNumber = $(this).parents('.bag-item').find('.item-details .item-number').next('.ng-binding').text().replace(/[#,\s]/g, '');
+				itemStyleNumber = $(this).parents('.bag-item').find('.item-details .item-number').next('.ng-binding').text().replace(/[#,\s]/g, '');
 				// var itemStyleNumber = this.textContent.replace(/[#,\s{1,}]/g, '');
 		    	Checkout_multishipItemEditAddress(itemStyleNumber);
 			}
-
-			if (e.target.id === 'shipping-method-modal' && e.target.nodeName === 'input' && e.target.getAttribute('type') === 'radio') {
-		    	var shipMethod = this.textContent;
-		    	Checkout_multishipItemShipMethodSelect(shipMethod);
-			}
-
-			if (/js-save-gift/.test(e.target.classList)) Checkout_giftOptionSave();
 		});
 
 		// document.querySelector('[data-ng-model="addressTypes[\'shippingAddr\'].isSameAsBilling"]').addEventListener('click', Checkout_uncheckAddressSameAsShipping, false);
