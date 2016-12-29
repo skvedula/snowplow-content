@@ -12,24 +12,23 @@ CreditCardApplication_start();
 CreditCardApplication_setCreditLocalStorage();
 NordstromCard_applyButton();
 
-document.querySelector('#apply-buy-app-header > nav > section > h3 > a').addEventListener('click', CreditCardApplication_accordionBenefits);
-
-document.querySelector('#-contact-form-save').addEventListener('click', function() {
-	setTimeout(function() {
-        if (document.querySelector('#-contact-info-pane .error-pane.active')) {
-            CreditCardApplication_saveContactFormError();
-        }
-        else CreditCardApplication_saveContactFormSuccess();
-    }, 500);
-});
-
-document.querySelector('#-secure-info-form-save').addEventListener('click', function() {
-	setTimeout(function() {
-        if (document.querySelector('#-secure-info-pane .error-pane.active')) {
-            CreditCardApplication_savePersonalInfoError();
-        }
-        else CreditCardApplication_savePersonalInfoSuccess();
-    }, 500);
-});
-
-document.querySelector('#CancelButton').addEventListener('click', CreditCardApplication_termsCancel);
+if(location.hostname.indexOf('m.secure') > -1) {
+    document.querySelector('#apply-buy-app-header > nav > section > h3 > a').addEventListener('click', CreditCardApplication_accordionBenefits);
+    document.querySelector('#-contact-form-save').addEventListener('click', function() {
+    	setTimeout(function() {
+            if (document.querySelector('#-contact-info-pane .error-pane.active')) {
+                CreditCardApplication_saveContactFormError();
+            }
+            else CreditCardApplication_saveContactFormSuccess();
+        }, 500);
+    });
+    document.querySelector('#-secure-info-form-save').addEventListener('click', function() {
+    	setTimeout(function() {
+            if (document.querySelector('#-secure-info-pane .error-pane.active')) {
+                CreditCardApplication_savePersonalInfoError();
+            }
+            else CreditCardApplication_savePersonalInfoSuccess();
+        }, 500);
+    });
+    document.querySelector('#CancelButton').addEventListener('click', CreditCardApplication_termsCancel);
+}
