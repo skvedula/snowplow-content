@@ -76,62 +76,11 @@ function Checkout_Tags() {
 
 			if (e.target.id === 'selectItemLevelSavedAddress' && /edit/.test(e.target.classList) && /button/.test(e.target.classList)) {
 				itemStyleNumber = $(this).parents('.bag-item').find('.item-details .item-number').next('.ng-binding').text().replace(/[#,\s]/g, '');
-				// var itemStyleNumber = this.textContent.replace(/[#,\s{1,}]/g, '');
 		    	Checkout_multishipItemEditAddress(itemStyleNumber);
 			}
 		});
 
-		// document.querySelector('[data-ng-model="addressTypes[\'shippingAddr\'].isSameAsBilling"]').addEventListener('click', Checkout_uncheckAddressSameAsShipping, false);
-
-	    // document.querySelector('input[data-ng-click*="applyManualNordstromNote"').addEventListener('click', Checkout_applyManualNoteSave, false);
-
-	    // document.querySelector('input[data-ng-click*="applySystematicNordstromNote"').addEventListener('click', Checkout_applySystemNoteSave, false);
-
-	    // document.querySelector('[data-ng-click*="showNordNoteFields"]').addEventListener('click', Checkout_applyManualNoteClick, false);
-
 	    Checkout_availableNote();
-
-	    // document.querySelector('[data-ng-click="payPalExpressCheckout($event)"]').addEventListener('click', Checkout_checkOutWithPayPal, false);
-
-	    // document.querySelector('section#payment a.edit.button').addEventListener('click', Checkout_editPayment, false);
-
-	    // document.querySelector('input[data-ng-model="giftOption"]').addEventListener('click', Checkout_selectGiftOption, false);
-
-	    // document.querySelector('a#addItemLevelNewAddress[data-ng-show="!hasSavedAddress"]').addEventListener('click', Checkout_multishipAddNewAddress, false);
-
-	    // document.querySelector('#shipping-address-modal a.save.button').addEventListener('click', Checkout_multishipItemAddressSave, false);
-
-	  //   document.querySelector('#selectItemLevelSavedAddress.edit.button').addEventListener('click', function() {
-			// var itemStyleNumber = $(this).parents('.bag-item').find('.item-details .item-number').next('.ng-binding').text().replace(/[#,\s{1,}]/g, '');
-			// // var itemStyleNumber = this.textContent.replace(/[#,\s{1,}]/g, '');
-	  //   	Checkout_multishipItemEditAddress(itemStyleNumber);
-	  //   });
-
-	  //   document.querySelector('[data-ng-model="currentlySelectedItemAddressEntries[$index]"]').addEventListener('click', function() {
-			// var itemStyleNumber = this.parents('.bag-item').find('.item-details .item-number').next('.ng-binding').text().replace(/[#,\s{1,}]/g, '');
-	  //   	Checkout_multishipItemEditAddress(itemStyleNumber);
-	  //   });
-
-	    // document.querySelector('#shipping-method-modal input[type=radio]').addEventListener('click', function() {
-	    // 	var shipMethod = this.textContent;
-	    // 	Checkout_multishipItemShipMethodSelect(shipMethod);
-	    // });
-
-	    // document.querySelector('[data-ng-click="toShippMethodInfoState($event)"]').addEventListener('click', Checkout_shipMethodSave, false);
-
-		// document.querySelector('input[data-ng-model*="subscribeForEmailUpdates"]:not(:checked)').addEventListener('click', Checkout_emailOptOut, false);
-
-		// document.querySelector('[data-ng-show^="availableGiftOption"] .radioActions input[type=button].save:lt(3)').addEventListener('click', Checkout_giftOptionSave, false);
-
-
-
-		// document.querySelector('[client-validation="onSubmit, saveYourInfo"], [data-ng-click="saveNewEmail($event)"]').addEventListener('click', Checkout_saveYourInfo, false);
-
-		// document.querySelector('#payment > form > div.payment-method.nord-note.ng-scope > div.applied-nord-notes.ng-scope > ul > li > span.buttons > a').addEventListener('click', Checkout_undoNoteClick, false);
-
-		// document.querySelector('[data-ng-model="multipleAddrMode"], input[name=multiple-address]').addEventListener('click', function() {
-		// 	Checkout_selectMultiship(this.getAttribute('data-ng-value'));
-		// });
 
 		Checkout_miscElements();
 
