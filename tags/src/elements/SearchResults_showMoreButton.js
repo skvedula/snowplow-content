@@ -3,7 +3,7 @@
  * More button on search and browse pages.
  */
 const ShowMoreButton = () => {
-    nord.core.register(p => {
+    nord.core.dispatcher.register(p => {
         if (p.action !== 'LoadMoreProducts') {
             return;
         }
