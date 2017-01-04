@@ -10,6 +10,7 @@ INSERT INTO public.order_items (
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
        convert_timezone('US/Pacific', derived_tstamp),
+       convert_timezone('US/Pacific', etl_tstamp),
        outfit_id,
        gift_services,
        saved_for_later,
@@ -25,7 +26,6 @@ INSERT INTO public.order_items (
        base_copy_split,
        true_fit,
        same_day_delivery,
-       sku,
        size,
        width,
        color,
@@ -34,7 +34,6 @@ INSERT INTO public.order_items (
 FROM atomic.com_nordstrom_order_item_attrs_0    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
-      AND T1.root_tstamp = T2.collector_tstamp
 
 );
 
@@ -43,6 +42,7 @@ INSERT INTO public.order_items (
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
        convert_timezone('US/Pacific', derived_tstamp),
+       convert_timezone('US/Pacific', etl_tstamp),
        outfit_id,
        gift_services,
        saved_for_later,
@@ -58,15 +58,15 @@ INSERT INTO public.order_items (
        base_copy_split,
        true_fit,
        same_day_delivery,
-       sku,
        size,
        width,
        color,
        is_recognized,
-       tag_id
+       tag_id,
+       style_number,
+       vendor_order_id
 FROM atomic.com_nordstrom_order_item_attrs_1    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
-      AND T1.root_tstamp = T2.collector_tstamp
 
 );

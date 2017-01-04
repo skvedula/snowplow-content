@@ -1,8 +1,8 @@
 :targets:
-  - :name:     snowplow-  # Insert your own name to identify the database
+  - :name:     snowplow-dev  # Insert your own name to identify the database
     :type:     redshift
     :host:     a0007-cxar-ato-clickstream-jwn.c9gybgr1jgvx.us-west-2.redshift.amazonaws.com  # Insert Redshfit host
-    :database:   # Insert database name
+    :database: snowplowdev  # Insert database name
     :port:     5439  # Insert database port
     :username:  # Insert username with relevant credentials to run the below queries
     :password:  # Insert user password
@@ -35,6 +35,10 @@
     :queries:
       - :name: marketing
         :file: ./atomic/copy-events/marketing.sql
+      - :name: site-promos
+        :file: ./atomic/copy-events/site-promos.sql
+      - :name: real-estate
+        :file: ./atomic/copy-events/real-estate.sql
       - :name: elwin-exposures
         :file: ./atomic/copy-events/elwin-exposures.sql
   - :name: copy-snowplow-child-tables
@@ -49,7 +53,3 @@
         :file: ./atomic/copy-events/search.sql
       - :name: timing
         :file: ./atomic/copy-events/timing.sql
-  - :name: update-etl-manifest
-    :queries:
-      - :name: update-etl-manifest
-        :file: ./atomic/copy-events/log-etl-manifest.sql

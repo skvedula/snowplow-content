@@ -1,0 +1,21 @@
+{
+  "jsonpaths": [
+  
+    "$.schema.vendor"
+    , "$.schema.name"
+    , "$.schema.format"
+    , "$.schema.version"
+
+    , "$.hierarchy.rootId"
+    , "$.hierarchy.rootTstamp"
+    , "$.hierarchy.refRoot"
+    , "$.hierarchy.refTree"
+    , "$.hierarchy.refParent"
+
+    , "$.data.coremetrics_id"
+    , "$.data.adobe_id"
+    , "$.data.elwin_id"
+    , "$.data.maxymiser_id"
+    , "$.data.authenticated"
+    ]
+}

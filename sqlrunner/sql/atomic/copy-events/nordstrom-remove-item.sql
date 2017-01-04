@@ -10,6 +10,7 @@ INSERT INTO public.nordstrom_remove_item (
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
        convert_timezone('US/Pacific', derived_tstamp),
+       convert_timezone('US/Pacific', etl_tstamp),
        document_url,
        style_number,
        style_id,
@@ -28,7 +29,6 @@ INSERT INTO public.nordstrom_remove_item (
 FROM atomic.com_nordstrom_remove_item_attrs_0    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
-      AND T1.root_tstamp = T2.collector_tstamp
 
 );
 
@@ -37,6 +37,7 @@ INSERT INTO public.nordstrom_remove_item (
     SELECT root_id,
        convert_timezone('US/Pacific', root_tstamp),
        convert_timezone('US/Pacific', derived_tstamp),
+       convert_timezone('US/Pacific', etl_tstamp),
        document_url,
        style_number,
        style_id,
@@ -55,6 +56,5 @@ INSERT INTO public.nordstrom_remove_item (
 FROM atomic.com_nordstrom_remove_item_attrs_1    T1,
 atomic.temp_event_ids    T2
       WHERE T1.root_id = T2.event_id
-      AND T1.root_tstamp = T2.collector_tstamp
 
 );

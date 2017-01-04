@@ -3,8 +3,8 @@
 	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
 	"description": "Schema for custom element and engagement attributes",
 	"self": {
-		"vendor": "com.nordstrom.snowplow",
-		"name": "elements",
+		"vendor": "com.nordstrom",
+		"name": "element_attrs",
 		"format": "jsonschema",
 		"version": "1-0-0"
 	},
@@ -22,7 +22,7 @@
 		}
 
 		, "value": {
-			"type": ["integer", "null"]
+			"type": ["number", "integer", "string", "null"]
 		}
 
 		, "label": {
@@ -118,15 +118,15 @@
 		}
 
 		, "note_value": {
-			"type": ["float", "null"]
+			"type": ["number", "null"]
 		}
 
 		, "note_expire_date": {
-			"type": ["date", "null"]
+			"type": ["string", "null"]
 		}
 
 		, "applied_notes_total": {
-			"type": ["float", "null"]
+			"type": ["number", "null"]
 		}
 
 		, "available_notes_total": {
@@ -134,11 +134,11 @@
 		}
 
 		, "gift_card_total": {
-			"type": ["float", "null"]
+			"type": ["number", "null"]
 		}
 
 		, "gift_card_value": {
-			"type": ["float", "null"]
+			"type": ["number", "null"]
 		}
 
 		, "page_id": {
