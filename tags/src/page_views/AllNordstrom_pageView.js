@@ -24,6 +24,7 @@ export default function AllNordstrom_pageView() {
 		page_url = window.location.href,
 		page_id = null,
 		page_category = null,
+		page_category2 = '',
 		page_template = null,
 		style_number = null,
 		is_recognized = 'N',
