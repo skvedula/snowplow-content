@@ -1,1 +1,0 @@
-   window.clickstream.fire('element', ['cm','sp'], 'Continue Shopping','Shopping Bag - Continue Shopping Button');

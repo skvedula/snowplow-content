@@ -1,1 +1,0 @@
-window.clickstream.fire('element', ['cm','sp'], 'NON-INLINE REVIEWS - PREVIEW','CUSTOMER REVIEWS');

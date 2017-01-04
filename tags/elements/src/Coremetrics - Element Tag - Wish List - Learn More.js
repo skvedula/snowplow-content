@@ -1,1 +1,0 @@
-window.clickstream.fire('element', ['cm','sp'], 'Wishlist Learn More', 'Wishlist');

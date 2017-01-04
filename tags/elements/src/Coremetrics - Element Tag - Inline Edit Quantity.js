@@ -1,1 +1,0 @@
-window.clickstream.fire('element', ['cm','sp'], 'Inline Edit Quantity', 'Shopping Bag');

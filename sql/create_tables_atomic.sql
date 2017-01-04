@@ -291,6 +291,10 @@ CREATE TABLE atomic.com_nordstrom_element_attrs_1 (
 	ref_tree        		varchar(1500) 	encode runlength not null,
 	ref_parent      		varchar(255)  	encode runlength not null,
 	-- Properties of this type
+	category 				varchar(255)	encode lzo,
+	action 					varchar(255)	encode lzo,
+	label 					varchar(255)	encode lzo,
+	value 					smallint		encode runlength,
 	wish_list 		   		varchar(1)  	encode text32k,
 	video_name 		   		varchar(255)	encode lzo,
 	video_product_name		varchar(255)	encode lzo,

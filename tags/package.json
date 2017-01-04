@@ -2,18 +2,70 @@
   "name": "SP_build",
   "version": "0.0.0",
   "description": "",
-  "author": "ATO",
-  "license": "BSD",
-  "devDependencies": {
-    "gulp": "^3.8.11"
-    , "gulp-jshint": "^1.9.2"
-    , "gulp-uglify": "^1.1.0"
-    , "gulp-util": "^3.0.7"
-    , "gulp-rename": "^1.2.2"
-    , "path": "^0.12.7"
+  "scripts": {
+    "build": "npm run allnordstrom && npm run outfits && npm run checkout",
+    "AllNordstrom": "browserify -t [ babelify --presets [ es2015 ] ] pages/AllNordstrom.js | uglifyjs -o dist/AllNordstrom.js",
+    "AllNonsecure": "browserify -t [ babelify --presets [ es2015 ] ] pages/AllNonsecure.js | uglifyjs -o dist/AllNonsecure.js",
+    "ApplyNBuyLanding": "browserify -t [ babelify --presets [ es2015 ] ] pages/ApplyNBuyLanding.js | uglifyjs -o dist/ApplyNBuyLanding.js",
+    "BeautyBoard": "browserify -t [ babelify --presets [ es2015 ] ] pages/BeautyBoard.js | uglifyjs -o dist/BeautyBoard.js",
+    "BeautyStylist": "browserify -t [ babelify --presets [ es2015 ] ] pages/BeautyStylist.js | uglifyjs -o dist/BeautyStylist.js",
+    "Careers": "browserify -t [ babelify --presets [ es2015 ] ] pages/Careers.js | uglifyjs -o dist/Careers.js",
+    "ChatEntry": "browserify -t [ babelify --presets [ es2015 ] ] pages/ChatEntry.js | uglifyjs -o dist/ChatEntry.js",
+    "ChatWindow": "browserify -t [ babelify --presets [ es2015 ] ] pages/ChatWindow.js | uglifyjs -o dist/ChatWindow.js",
+    "Checkout": "browserify -t [ babelify --presets [ es2015 ] ] pages/Checkout.js | uglifyjs -o dist/Checkout.js",
+    "Content_Category": "browserify -t [ babelify --presets [ es2015 ] ] pages/Content_Category.js | uglifyjs -o dist/Content_Category.js",
+    "CreditCardApplication": "browserify -t [ babelify --presets [ es2015 ] ] pages/CreditCardApplication.js | uglifyjs -o dist/CreditCardApplication.js",
+    "CreditCardConfirmation": "browserify -t [ babelify --presets [ es2015 ] ] pages/CreditCardConfirmation.js | uglifyjs -o dist/CreditCardConfirmation.js",
+    "CreditCardOffer": "browserify -t [ babelify --presets [ es2015 ] ] pages/CreditCardOffer.js | uglifyjs -o dist/CreditCardOffer.js",
+    "DebitCardApplication": "browserify -t [ babelify --presets [ es2015 ] ] pages/DebitCardApplication.js | uglifyjs -o dist/DebitCardApplication.js",
+    "GiftCardCategory": "browserify -t [ babelify --presets [ es2015 ] ] pages/GiftCardCategory.js | uglifyjs -o dist/GiftCardCategory.js",
+    "GiftCardCheckout": "browserify -t [ babelify --presets [ es2015 ] ] pages/GiftCardCheckout.js | uglifyjs -o dist/GiftCardCheckout.js",
+    "GiftCardLanding": "browserify -t [ babelify --presets [ es2015 ] ] pages/GiftCardLanding.js | uglifyjs -o dist/GiftCardLanding.js",
+    "GiftCardPDP": "browserify -t [ babelify --presets [ es2015 ] ] pages/GiftCardPDP.js | uglifyjs -o dist/GiftCardPDP.js",
+    "GiftCardPlastic": "browserify -t [ babelify --presets [ es2015 ] ] pages/GiftCardPlastic.js | uglifyjs -o dist/GiftCardPlastic.js",
+    "GiftCardThankYou": "browserify -t [ babelify --presets [ es2015 ] ] pages/GiftCardThankYou.js | uglifyjs -o dist/GiftCardThankYou.js",
+    "GiftCardHub": "browserify -t [ babelify --presets [ es2015 ] ] pages/GiftCardHub.js | uglifyjs -o dist/GiftCardHub.js",
+    "HomePage": "browserify -t [ babelify --presets [ es2015 ] ] pages/HomePage.js | uglifyjs -o dist/HomePage.js",
+    "InstantCreditApprovalSignIn": "browserify -t [ babelify --presets [ es2015 ] ] pages/InstantCreditApprovalSignIn.js | uglifyjs -o dist/InstantCreditApprovalSignIn.js",
+    "IntlShopping": "browserify -t [ babelify --presets [ es2015 ] ] pages/IntlShopping.js | uglifyjs -o dist/IntlShopping.js",
+    "LoyaltyAssociation": "browserify -t [ babelify --presets [ es2015 ] ] pages/LoyaltyAssociation.js | uglifyjs -o dist/LoyaltyAssociation.js",
+    "LoyaltyAssociationSuccess": "browserify -t [ babelify --presets [ es2015 ] ] pages/LoyaltyAssociationSuccess.js | uglifyjs -o dist/LoyaltyAssociationSuccess.js",
+    "LoyaltyBonusPointsEvents": "browserify -t [ babelify --presets [ es2015 ] ] pages/LoyaltyBonusPointsEvents.js | uglifyjs -o dist/LoyaltyBonusPointsEvents.js",
+    "LoyaltyENotes": "browserify -t [ babelify --presets [ es2015 ] ] pages/LoyaltyENotes.js | uglifyjs -o dist/LoyaltyENotes.js",
+    "LoyaltyEnroll": "browserify -t [ babelify --presets [ es2015 ] ] pages/LoyaltyEnroll.js | uglifyjs -o dist/LoyaltyEnroll.js",
+    "LoyaltyEnrollSuccess": "browserify -t [ babelify --presets [ es2015 ] ] pages/LoyaltyEnrollSuccess.js | uglifyjs -o dist/LoyaltyEnrollSuccess.js",
+    "LoyaltyEnrollVerification": "browserify -t [ babelify --presets [ es2015 ] ] pages/LoyaltyEnrollVerification.js | uglifyjs -o dist/LoyaltyEnrollVerification.js",
+    "LoyaltyLearn": "browserify -t [ babelify --presets [ es2015 ] ] pages/LoyaltyLearn.js | uglifyjs -o dist/LoyaltyLearn.js",
+    "MyAccount": "browserify -t [ babelify --presets [ es2015 ] ] pages/MyAccount.js | uglifyjs -o dist/MyAccount.js",
+    "MyRecommendations": "browserify -t [ babelify --presets [ es2015 ] ] pages/MyRecommendations.js | uglifyjs -o dist/MyRecommendations.js",
+    "OrderConfirmation": "browserify -t [ babelify --presets [ es2015 ] ] pages/OrderConfirmation.js | uglifyjs -o dist/OrderConfirmation.js",
+    "OrderLookup": "browserify -t [ babelify --presets [ es2015 ] ] pages/OrderLookup.js | uglifyjs -o dist/OrderLookup.js",
+    "OrderStatus": "browserify -t [ babelify --presets [ es2015 ] ] pages/OrderStatus.js | uglifyjs -o dist/OrderStatus.js",
+    "Outfits": "browserify -t [ babelify --presets [ es2015 ] ] pages/Outfits.js | uglifyjs -o dist/Outfits.js",
+    "Product": "browserify -t [ babelify --presets [ es2015 ] ] pages/Product.js | uglifyjs -o dist/Product.js",
+    "Results": "browserify -t [ babelify --presets [ es2015 ] ] pages/Results.js | uglifyjs -o dist/Results.js",
+    "ReviewSubmit": "browserify -t [ babelify --presets [ es2015 ] ] pages/ReviewSubmit.js | uglifyjs -o dist/ReviewSubmit.js",
+    "Samples": "browserify -t [ babelify --presets [ es2015 ] ] pages/Samples.js | uglifyjs -o dist/Samples.js",
+    "SearchResults": "browserify -t [ babelify --presets [ es2015 ] ] pages/SearchResults.js | uglifyjs -o dist/SearchResults.js",
+    "ShopMyStoreDirectionsModal": "browserify -t [ babelify --presets [ es2015 ] ] pages/ShopMyStoreDirectionsModal.js | uglifyjs -o dist/ShopMyStoreDirectionsModal.js",
+    "ShoppingBag": "browserify -t [ babelify --presets [ es2015 ] ] pages/ShoppingBag.js | uglifyjs -o dist/ShoppingBag.js",
+    "SignIn": "browserify -t [ babelify --presets [ es2015 ] ] pages/SignIn.js | uglifyjs -o dist/SignIn.js",
+    "StoreDetail": "browserify -t [ babelify --presets [ es2015 ] ] pages/StoreDetail.js | uglifyjs -o dist/StoreDetail.js",
+    "StoreLocator": "browserify -t [ babelify --presets [ es2015 ] ] pages/StoreLocator.js | uglifyjs -o dist/StoreLocator.js",
+    "StoreOpenings": "browserify -t [ babelify --presets [ es2015 ] ] pages/StoreOpenings.js | uglifyjs -o dist/StoreOpenings.js",
+    "SupportEmailEntry": "browserify -t [ babelify --presets [ es2015 ] ] pages/SupportEmailEntry.js | uglifyjs -o dist/SupportEmailEntry.js",
+    "WeddingLocations": "browserify -t [ babelify --presets [ es2015 ] ] pages/WeddingLocations.js | uglifyjs -o dist/WeddingLocations.js",
+    "WeddingStylist": "browserify -t [ babelify --presets [ es2015 ] ] pages/WeddingStylist.js | uglifyjs -o dist/WeddingStylist.js",
+    "WishList": "browserify -t [ babelify --presets [ es2015 ] ] pages/WishList.js | uglifyjs -o dist/WishList.js",
+    "WishListSearch": "browserify -t [ babelify --presets [ es2015 ] ] pages/WishListSearch.js | uglifyjs -o dist/WishListSearch.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "jshintConfig": {
-    "laxcomma": true
-    , "laxbreak": true
+  "author": "Nordstrom <ndirttotech@nordstrom.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.13.2",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "uglify-js": "^2.7.3"
   }
 }

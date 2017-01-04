@@ -1,1 +1,0 @@
-window.clickstream.fire('conversion', ['cm','sp'], 'Wish List Make Public','1','Wish List','[[Wish List Owner Shopper ID]]', null, null, 2);
