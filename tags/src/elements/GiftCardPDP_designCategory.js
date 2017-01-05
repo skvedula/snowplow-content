@@ -1,4 +1,4 @@
-export default function GiftCardPDP_designCategory(category) {
-	cmCreateElementTag(category, 'Gift Card');
-	spCreateElementTag(category, 'Gift Card');
+export default function GiftCardPDP_designCategory(category, type) {
+	cmCreateElementTag(category, type + 'Gift Card');
+	spCreateElementTag(category, type + 'Gift Card');
 }
