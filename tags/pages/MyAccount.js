@@ -13,101 +13,71 @@ import MyAccount_Rewards_bonusPointsEventsDates from '../src/elements/MyAccount_
 // import MyAccount_Rewards_notesBenefits from '../src/elements/MyAccount_Rewards_notesBenefits';
 
 function MyAccount_Tags() {
-	setTimeout(function() {
-		try {
-			var getLeftNav = function() {
-				var leftNav = document.querySelectorAll('#ctl00_mainContentPlaceHolder_leftMenu_updatePanelLeftMenu a[id*=ctl00_mainContentPlaceHolder_leftMenu]');
-				for (var i=0;i<leftNav.length;i++) {
-					leftNav[i].addEventListener('click', function() {
-						MyAccount_leftNav(this.textContent);
-						setTimeout(getLeftNav, 750);
+    document.addEventListener('click', function(e) {
+    	//Beauty Board
+    	if (e.target.text == 'Your Beauty Board') {
+    		MyAccount_beautyBoard();
+    	}
+        //Rewards Information
+        if (e.target.getAttribute('id') == 'ctl00_mainContentPlaceHolder_leftMenu_LinkRewardsInformation') {
+            setTimeout(function() {
+                try {
+                    //Nordstrom Rewards
+                    document.querySelector('#rewards-dashboard > div > section > p > a:nth-child(1)').addEventListener('click', function() {
+                        MyAccount_Rewards_manage();
+                    });
 
-						if (leftNav[i].getAttribute('id') === 'ctl00_mainContentPlaceHolder_leftMenu_LinkRewardsInformation') {
-							setTimeout(function() {
-								try {
-									//Non-Tender Loyalty - Manage Clicks
+                    //Live Chat
+                    document.querySelector('#rewards-dashboard > div > section > p > span.liveHelpGeneral > a').addEventListener('click', function() {
+                        MyAccount_Rewards_chat();
+                    });
 
-									//Nordstrom Rewards
-									document.querySelector('#rewards-dashboard > div > section > p > a:nth-child(1)').addEventListener('click', function() {
-										MyAccount_Rewards_manage();
-									});
+                    //Frequently Asked Questions
+                    document.querySelector('#rewards-dashboard > div > section > p > a:nth-child(4)').addEventListener('click', function() {
+                        MyAccount_Rewards_faq();
+                    });
 
-									//Live Chat
-									document.querySelector('#rewards-dashboard > div > section > p > span.liveHelpGeneral > a').addEventListener('click', function() {
-										MyAccount_Rewards_chat();
-									});
+                    //Terms & Conditions
+                    document.querySelector('#rewards-dashboard > div > section > p > a:nth-child(7)').addEventListener('click', function() {
+                        MyAccount_Rewards_TandC();
+                    });
 
-									//Frequently Asked Questions
-									document.querySelector('#rewards-dashboard > div > section > p > a:nth-child(4)').addEventListener('click', function() {
-										MyAccount_Rewards_faq();
-									});
+                    /** No Rewards **/
+                    //Join Nordsrom Rewards
+                    document.querySelector('#non-tender > section > p > a').addEventListener('click', function() {
+                        MyAccount_Rewards_join();
+                    });
 
-									//Terms & Conditions
-									document.querySelector('#rewards-dashboard > div > section > p > a:nth-child(7)').addEventListener('click', function() {
-										MyAccount_Rewards_TandC();
-									});
+                    //Payment Methods
+                    document.querySelector('#save-card > section > p > a').addEventListener('click', function() {
+                        MyAccount_Rewards_paymentMethods();
+                    });
 
-									/**
-									No Rewards
-									**/
-									//Join Nordsrom Rewards
-									document.querySelector('#non-tender > section > p > a').addEventListener('click', function() {
-										MyAccount_Rewards_join();
-									});
+                    /** Only Rewards **/
+                    //You'll Earn 2 points
+                    document.querySelector('#earn-faster > section > p:nth-child(2) > a').addEventListener('click', function() {
+                        MyAccount_Rewards_pointsAndBenefits();
+                    });
 
-									//Payment Methods
-									document.querySelector('#save-card > section > p > a').addEventListener('click', function() {
-										MyAccount_Rewards_paymentMethods();
-									});
+                    //Apply for a Nordstrom Card
+                    document.querySelector('#earn-faster > section > p.rd-applylink > a').addEventListener('click', function() {
+                        MyAccount_Rewards_apply();
+                    });
 
-									/**
-									Only Rewards
-									**/
-									//You'll Earn 2 points
-									document.querySelector('#earn-faster > section > p:nth-child(2) > a').addEventListener('click', function() {
-										MyAccount_Rewards_pointsAndBenefits();
-									});
+                    /** Nord Card & Rewards **/
+                    //Manage credit/debit
+                    document.querySelector('#rd-pay-bill > p > a').addEventListener('click', function() {
+                        MyAccount_Rewards_manageCard();
+                    });
 
-									//Apply for a Nordstrom Card
-									document.querySelector('#earn-faster > section > p.rd-applylink > a').addEventListener('click', function() {
-										MyAccount_Rewards_apply();
-									});
+                    //Get dates and more details
+                    document.querySelector('#rd-bonus-point-events > p > a').addEventListener('click', function() {
+                        MyAccount_Rewards_bonusPointsEventsDates();
+                    });
+                } catch (e) { spLogError(e); }
 
-									/**
-									Nord Card & Rewards
-									**/
-									//Manage credit/debit
-									document.querySelector('#rd-pay-bill > p > a').addEventListener('click', function() {
-										MyAccount_Rewards_manageCard();
-									});
-
-									//Get dates and more details
-									document.querySelector('#rd-bonus-point-events > p > a').addEventListener('click', function() {
-										MyAccount_Rewards_bonusPointsEventsDates();
-									});
-
-									//your notes and benefits questionmark
-									// var notesbenefits = function() {
-									// 	MyAccount_Rewards_notesBenefits();
-									// 	document.querySelector('#rd-tender > section > section.rd-benefits > h4 > img').removeEventListener('mouseover', notesbenefits, false);
-									// };
-									// document.querySelector('#rd-tender > section > section.rd-benefits > h4 > img').addEventListener('mouseover', notesbenefits, false);
-								}
-								catch(e) { spLogError(e); }
-
-							}, 2000);
-						}
-					});
-				}
-			};
-			getLeftNav();
-
-			// document.querySelector('#ctl00_mainContentPlaceHolder_leftMenu_BeautyBoardLink').addEventListener('click', function() {
-			// 	MyAccount_beautyBoard();
-			// });
-		} catch(e) {
-			spLogError(e);
-		}
-	}, 1500);
+            }, 2000);
+        }
+    });
 }
 MyAccount_Tags();
