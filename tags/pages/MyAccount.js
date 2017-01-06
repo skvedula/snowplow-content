@@ -15,69 +15,22 @@ import MyAccount_Rewards_bonusPointsEventsDates from '../src/elements/MyAccount_
 function MyAccount_Tags() {
     document.addEventListener('click', function(e) {
     	//Beauty Board
-    	if (e.target.text == 'Your Beauty Board') {
-    		MyAccount_beautyBoard();
-    	}
+    	if (e.target.text == 'Your Beauty Board') MyAccount_beautyBoard();
         //Rewards Information
-        if (e.target.getAttribute('id') == 'ctl00_mainContentPlaceHolder_leftMenu_LinkRewardsInformation') {
-            setTimeout(function() {
-                try {
-                    //Nordstrom Rewards
-                    document.querySelector('#rewards-dashboard > div > section > p > a:nth-child(1)').addEventListener('click', function() {
-                        MyAccount_Rewards_manage();
-                    });
-
-                    //Live Chat
-                    document.querySelector('#rewards-dashboard > div > section > p > span.liveHelpGeneral > a').addEventListener('click', function() {
-                        MyAccount_Rewards_chat();
-                    });
-
-                    //Frequently Asked Questions
-                    document.querySelector('#rewards-dashboard > div > section > p > a:nth-child(4)').addEventListener('click', function() {
-                        MyAccount_Rewards_faq();
-                    });
-
-                    //Terms & Conditions
-                    document.querySelector('#rewards-dashboard > div > section > p > a:nth-child(7)').addEventListener('click', function() {
-                        MyAccount_Rewards_TandC();
-                    });
-
-                    /** No Rewards **/
-                    //Join Nordsrom Rewards
-                    document.querySelector('#non-tender > section > p > a').addEventListener('click', function() {
-                        MyAccount_Rewards_join();
-                    });
-
-                    //Payment Methods
-                    document.querySelector('#save-card > section > p > a').addEventListener('click', function() {
-                        MyAccount_Rewards_paymentMethods();
-                    });
-
-                    /** Only Rewards **/
-                    //You'll Earn 2 points
-                    document.querySelector('#earn-faster > section > p:nth-child(2) > a').addEventListener('click', function() {
-                        MyAccount_Rewards_pointsAndBenefits();
-                    });
-
-                    //Apply for a Nordstrom Card
-                    document.querySelector('#earn-faster > section > p.rd-applylink > a').addEventListener('click', function() {
-                        MyAccount_Rewards_apply();
-                    });
-
-                    /** Nord Card & Rewards **/
-                    //Manage credit/debit
-                    document.querySelector('#rd-pay-bill > p > a').addEventListener('click', function() {
-                        MyAccount_Rewards_manageCard();
-                    });
-
-                    //Get dates and more details
-                    document.querySelector('#rd-bonus-point-events > p > a').addEventListener('click', function() {
-                        MyAccount_Rewards_bonusPointsEventsDates();
-                    });
-                } catch (e) { spLogError(e); }
-
-            }, 2000);
-        }
+        /* All */
+        if(e.target.text == "Nordstrom Rewards benefits") MyAccount_Rewards_manage();
+        if(e.target.text == "chat") MyAccount_Rewards_chat();
+        if(e.target.text == "Frequently Asked Questions") MyAccount_Rewards_faq();
+        if(e.target.text == "Nordstrom Rewards Terms & Conditions") MyAccount_Rewards_TandC();
+        /* No Rewards */
+        if(e.target.text == "Join Nordsrom Rewards") MyAccount_Rewards_join();
+        if(e.target.text == "Payment Methods") MyAccount_Rewards_paymentMethods();
+        /* Only Rewards */
+        if(e.target.text == "you'll earn 2 points per dollar and enjoy exclusive benefits") MyAccount_Rewards_pointsAndBenefits();
+        if(e.target.text == "Apply for a Nordstrom card") MyAccount_Rewards_apply();
+        /* Nord Card & Rewards */
+        if(e.target.text == "Manage your Nordstrom credit or debit card") MyAccount_Rewards_manageCard();
+        if(e.target.text == "Get dates and more details") MyAccount_Rewards_bonusPointsEventsDates();
     });
 }
 MyAccount_Tags();
