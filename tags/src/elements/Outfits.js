@@ -62,8 +62,8 @@ export default function Outfits(payload) {
 
 				case 'GalleryNavigate':
 				case 'SwipeGalleryAnimationComplete':
-					if (payload.type === 'Image' && payload.index) element_id = 'Image Alt {' + payload.index + '}';
-					else if (payload.type === 'Video') element_id = 'Video Alt - {360}';
+					if (payload.MediaType === 'Image' && payload.hasOwnProperty('index')) element_id = 'Image Alt {' + payload.index + '}';
+					else if (payload.MediaType === 'Video') element_id = 'Video Alt - {360}';
 					break;
 
 				case 'GalleryModalShow':
