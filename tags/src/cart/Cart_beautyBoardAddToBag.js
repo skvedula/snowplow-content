@@ -1,6 +1,6 @@
 export default function Cart_beautyBoardAddToBag(data, tag_id) {
 	try {
-		for (i=0;i<data.length;i++) {
+		for (var i=0;i<data.length;i++) {
 			var item = data[i], product_price, product_name;
 			var style = item.StyleNumber;
 
@@ -12,7 +12,7 @@ export default function Cart_beautyBoardAddToBag(data, tag_id) {
 					});
 					var product_name = el.querySelector('a.product-href').textContent;
 
-					cmCreateShopAction5Tag(style, product_name, '2', product_price, (item.SiteLocationId ? item.SiteLocationId : 'BEAUTY BOARD'));
+					cmCreateShopAction5Tag(style, product_name, '1', product_price, (item.SiteLocationId ? item.SiteLocationId : 'BEAUTY BOARD'));
 
 					snowplow(
 			            'trackAddToCart',
@@ -20,7 +20,7 @@ export default function Cart_beautyBoardAddToBag(data, tag_id) {
 			            product_name, //Name
 			            (item.SiteLocationId ? item.SiteLocationId : 'BEAUTY BOARD'), //Category
 			            product_price, //Unit price
-			            item.NewQuantity, //Quantity
+			            '1', //Quantity
 			            null, //Currency
 			            [{
 			                schema: 'iglu:com.nordstrom/add_item_attrs/jsonschema/1-0-0',
