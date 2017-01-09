@@ -8,59 +8,55 @@ import GiftCardPDP_date from '../src/elements/GiftCardPDP_date';
 import GiftCardPDP_designCategory from '../src/elements/GiftCardPDP_designCategory';
 import GiftCardPDP_value from '../src/elements/GiftCardPDP_value';
 
-document.querySelector('#cart-content > div > div.cart-item-actions > ul > li:nth-child(1) > a').addEventListener('click', GiftCardCheckout_edit);
+var type = '', color = '';
 
-document.querySelector('#cart-content > div > div.cart-item-actions > ul > li:nth-child(2) > a').addEventListener('click', GiftCardCheckout_remove);
+if (window.location.pathname === '/gift-card/buy/' || (/edit/.test(window.location.pathname) && /\gift-card\/buy\//.test(document.referrer))) type = 'e';
 
-document.querySelector('#order-add-another').addEventListener('click', GiftCardPDP_addAnother);
-
-document.querySelector('#order-check-out').addEventListener('click', GiftCardPDP_checkOut);
-document.querySelector('#cart-check-out').addEventListener('click', GiftCardPDP_checkOut);
-
-[].forEach.call(document.querySelectorAll('span.image-container > img'), function(el) {
-    el.addEventListener('click', function() {
-    	var color = this.getAttribute('data-pk');
-    	GiftCardPDP_color(color);
-    });
-});
-
-document.querySelector('#delivery_date_email_picker').addEventListener('change', function() {
-	var dateParts = this.value.split(' ');
-    var day = dateParts[0].length === 1 ? '0' + dateParts[0] : dateParts[0];
-    var month = months[dateParts[1]];
-    var year = dateParts[2];
-    GiftCardPDP_date(day, month, year);
+document.addEventListener('click', function(e) {
+    if (e.target.parentNode.className === 'image-container' && e.target.nodeName === 'IMG') {
+        color = e.target.getAttribute('data-pk');
+        GiftCardPDP_color(color, type);
+    }
+    if (e.target.className === 'cart-action-edit') GiftCardCheckout_edit();
+    if (e.target.className === 'cart-action-remove') GiftCardCheckout_remove();
+    if (e.target.id === 'order-add-another') GiftCardPDP_addAnother();
+    if (e.target.id === 'order-check-out' || e.target.id === 'cart-check-out') GiftCardPDP_checkOut();
+    /*if (e.target.nodeName === 'TD' && e.target.className === 'day') {
+        setTimeout(function() { 
+            var datepicker = document.querySelector('input#delivery_date_email_picker');
+            var months = {
+                Jan: "01",
+                Feb: "02",
+                Mar: "03",
+                Apr: "04",
+                May: "05",
+                Jun: "06",
+                Jul: "07",
+                Aug: "08",
+                Sep: "09",
+                Oct: "10",
+                Nov: "11",
+                Dec: "12"
+            };
+            var dateParts = datepicker.value.split(' ');
+            var day = dateParts[0].length === 1 ? '0' + dateParts[0] : dateParts[0];
+            var month = months[dateParts[1]];
+            var year = dateParts[2];
+            GiftCardPDP_date(day, month, year);
+        }, 100);
+    }*/
 });
 
 [].forEach.call(document.querySelectorAll('#fp-nav > li > a'), function(el) {
     el.addEventListener('click', function() {
     	var category = this.textContent;
-    	GiftCardPDP_designCategory(category);
+    	GiftCardPDP_designCategory(category, type);
     });
 });
 
 [].forEach.call(document.querySelectorAll('#pre-select > li > a'), function(el) {
     el.addEventListener('click', function() {
     	var value = this.getAttribute('data-value');
-    	GiftCardPDP_value(value);
+    	GiftCardPDP_value(value, type);
     });
 });
-
-setTimeout(function() {
-    if (window.location.pathname === '/nordstrom-gift-cards' || window.location.pathname === '/NordstromGiftCards.aspx') {
-        document.querySelector('#ctl00_mainContentPlaceHolder_NgcMainPanel > div > div.egift-cards > p:nth-child(3) > a').addEventListener('click', function() {
-            if (document.cookie.indexOf('gclink') === -1) document.cookie = encodeURIComponent('gclink') + "=; domain=nordstrom.com";
-        });
-    }
-
-    if (window.location.pathname.indexOf('/c/e-gift-cards') !== -1 || window.location.pathname.indexOf('/gift-card/buy/') !== -1) {
-//        console.log('on nordstrom e gift card page');
-        if (document.cookie.indexOf('gclink') !== -1) {
-//            console.log('has cookie');
-            GiftCardPDP_link();
-//            console.log('created tag');
-            document.cookie = encodeURIComponent('gclink') + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=nordstrom.com";
-//            console.log('set cookie');
-        }
-    }
-}, 1000);
