@@ -12,6 +12,7 @@ import Results_pagination_page from "../src/page_views/Results_pagination_page";
 import Results_sort from "../src/elements/Results_sort";
 import Results_videoPresented from "../src/elements/Results_videoPresented";
 import Results_wcmVideoClick from "../src/link_clicks/Results_wcmVideoClick";
+import Results_showMore from "../src/elements/Results_showMore";
     	
 var storeNumber = StoreMode_checkIfStoreSet();
 var attrArray = null;
@@ -50,7 +51,7 @@ if(window.digitalData && digitalData.page && digitalData.page.category && digita
 	// Results_pagination and Results_sort
 	(function() {
 	    try {
-	        if (window.digitalData.page.category.pageType.toLowerCase() === 'search' || window.digitalData.page.category.pageType.toLowerCase() === 'browse') {
+	        // if (window.digitalData.page.category.pageType.toLowerCase() === 'search' || window.digitalData.page.category.pageType.toLowerCase() === 'browse') {
 	            window.nord.core.dispatcher.register(function(payload) {
 	                if (payload.action === window.nord.core.actions.ChangePage) {
 	                    var attrArray=[];
@@ -60,11 +61,56 @@ if(window.digitalData && digitalData.page && digitalData.page.category && digita
 	                    Results_pagination(payload.newPage, 'Results Pagination', attrArray);
 	                    Results_pagination_page(window.location.pathname, bt_parameter('keyword'), (window.digitalData && digitalData.page && digitalData.page.pageInfo && digitalData.page.pageInfo.onsiteSearchResults ? digitalData.page.pageInfo.onsiteSearchResults : null), attrArray);
 	                }
+
 	                if (payload.action === window.nord.core.actions.ChangeSort) {
 	                    Results_sort(""+payload.newSort, 'Results Sort', '-_--_--_--_--_--_--_--_--_-' + digitalData.page.category.category);
 	                }
+
+	                if (payload.action === 'LoadMoreProducts') {
+	                    Results_showMore();
+	                }
+
+	                // Store Mode
+			        //Store
+			        if(payload.action === 'SelectStoreMode' && payload.payload) {
+			        	StoreMode_selectStoreMode(attrArray);
+			        }
+			        
+			        //All Items
+			        if (payload.action === 'SelectStoreMode' && !payload.payload) {
+			        	StoreMode_selectStoreModeNoPayload();
+			        }
+			        
+			        //Sort
+			        if(payload.action === 'ChangeSort') {
+			        	StoreMode_changeSort(attrArray);
+			        }
+			        
+			        //Filter
+			        if(payload.action === 'ChangeFilter') {
+			        	StoreMode_changeFilter(attrArray);
+			        }
+			        
+			        //Set Your Store
+			        if(payload.action === 'StoreLocationInterfaceOpen') {
+						if(document.querySelector('.npr-store-mode-toggle > div > a') && document.querySelector('.npr-store-mode-toggle > div > a').innerText == 'Set Your Store') {
+							StoreMode_setStore(attrArray);
+						}
+						else if (document.querySelector('.npr-store-mode-toggle > div > a') && document.querySelector('.npr-store-mode-toggle > div > a').innerText == 'Change') {
+			            	StoreMode_changeStore(attrArray);
+			            }
+			        }
+			        
+			        if(payload.action === 'StoreLocationInterfaceClose') {
+			        	StoreMode_changeStore(attrArray);
+			        }
+
+			        if (payload.action === window.nord.core.actions.ApplyInteractiveHeaderFilters) {
+			        	var type = payload.payload[0].optionId;
+			            Results_interactiveHeader(type);
+			        }
 	            });
-	        }
+	        // }
 	    }
 	    catch(e) {
 	        spLogError(e);
@@ -89,47 +135,4 @@ if(window.digitalData && digitalData.page && digitalData.page.category && digita
 	    }, false);
 	  });
 	})();
-}
-
-if (window.nord && nord.core && nord.core.dispatcher) {
-    window.nord.core.dispatcher.register(function(payload) {
-        //Store
-        if(payload.action === 'SelectStoreMode' && payload.payload) {
-        	StoreMode_selectStoreMode(attrArray);
-        }
-        
-        //All Items
-        if (payload.action === 'SelectStoreMode' && !payload.payload) {
-        	StoreMode_selectStoreModeNoPayload();
-        }
-        
-        //Sort
-        if(payload.action === 'ChangeSort') {
-        	StoreMode_changeSort(attrArray);
-        }
-        
-        //Filter
-        if(payload.action === 'ChangeFilter') {
-        	StoreMode_changeFilter(attrArray);
-        }
-        
-        //Set Your Store
-        if(payload.action === 'StoreLocationInterfaceOpen') {
-			if(document.querySelector('.npr-store-mode-toggle > div > a') && document.querySelector('.npr-store-mode-toggle > div > a').innerText == 'Set Your Store') {
-				StoreMode_setStore(attrArray);
-			}
-			else if (document.querySelector('.npr-store-mode-toggle > div > a') && document.querySelector('.npr-store-mode-toggle > div > a').innerText == 'Change') {
-            	StoreMode_changeStore(attrArray);
-            }
-        }
-        
-        if(payload.action === 'StoreLocationInterfaceClose') {
-        	StoreMode_changeStore(attrArray);
-        }
-
-        if (payload.action === window.nord.core.actions.ApplyInteractiveHeaderFilters) {
-        	var type = payload.payload[0].optionId;
-            Results_interactiveHeader(type);
-        }
-    });
 }
