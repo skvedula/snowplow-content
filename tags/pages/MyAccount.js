@@ -14,6 +14,8 @@ import MyAccount_Rewards_bonusPointsEventsDates from '../src/elements/MyAccount_
 
 function MyAccount_Tags() {
     document.addEventListener('click', function(e) {
+        //Left Nav
+        if (e.target.className === 'menu_list') MyAccount_leftNav(e.target.textContent);
     	//Beauty Board
     	if (e.target.text == 'Your Beauty Board') MyAccount_beautyBoard();
         //Rewards Information
