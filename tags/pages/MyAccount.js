@@ -25,7 +25,7 @@ function MyAccount_Tags() {
         if(e.target.text == "Frequently Asked Questions") MyAccount_Rewards_faq();
         if(e.target.text == "Nordstrom Rewards Terms & Conditions") MyAccount_Rewards_TandC();
         /* No Rewards */
-        if(e.target.text == "Join Nordsrom Rewards") MyAccount_Rewards_join();
+        if(e.target.text == "Join Nordstrom Rewards") MyAccount_Rewards_join();
         if(e.target.text == "Payment Methods") MyAccount_Rewards_paymentMethods();
         /* Only Rewards */
         if(e.target.text == "you'll earn 2 points per dollar and enjoy exclusive benefits") MyAccount_Rewards_pointsAndBenefits();
