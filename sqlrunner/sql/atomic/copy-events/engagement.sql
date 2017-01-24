@@ -1,0 +1,50 @@
+-- copy-events/engagement.sql
+
+INSERT INTO public.engagement (
+
+    SELECT root_id,
+       convert_timezone('US/Pacific', root_tstamp),
+       convert_timezone('US/Pacific', derived_tstamp),
+       convert_timezone('US/Pacific', etl_tstamp),
+       category,
+       action,
+       label,
+       value,
+       wish_list,
+       video_name,
+       video_product_name,
+       sku,
+       number_of_recs,
+       rec_strategy,
+       filter_category,
+       filter_value,
+       video_state,
+       video_timestamp,
+       video_length,
+       style_number,
+       star_rating,
+       reviews_size_select,
+       reviews_age_select,
+       reviews_sort_by,
+       results_page,
+       brand_name,
+       number_of_images,
+       number_of_videos,
+       note_value,
+       note_expire_date,
+       applied_notes_total,
+       available_notes_total,
+       gift_card_total,
+       gift_card_value,
+       page_id,
+       search_term,
+       number_of_reviews,
+       rms_sku,
+       web_style_id,
+       outfit_id,
+       store_number
+FROM atomic.com_nordstrom_element_attrs_1    T1,
+atomic.temp_event_ids    T2
+      WHERE T1.root_id = T2.event_id
+
+);

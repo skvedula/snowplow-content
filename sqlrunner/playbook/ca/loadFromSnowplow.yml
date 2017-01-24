@@ -49,3 +49,5 @@
         :file: ./ca/loadFromSnowplow/load-timing.sql
       - :name: load-elwin-exposures
         :file: ./ca/loadFromSnowplow/load-elwin-exposures.sql
+      - :name: engagement
+        :file: ./ca/loadFromSnowplow/load-engagement.sql

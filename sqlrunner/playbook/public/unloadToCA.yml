@@ -49,3 +49,5 @@
         :file: ./public/unloadToCA/unload-timing.sql
       - :name: unload-elwin-exposures
         :file: ./public/unloadToCA/unload-elwin-exposures.sql
+      - :name: engagement
+        :file: ./public/unloadToCA/unload-engagement.sql

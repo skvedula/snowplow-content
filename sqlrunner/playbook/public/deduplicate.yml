@@ -37,6 +37,8 @@
         :file: ./public/deduplicate/real-estate.sql
       - :name: elwin-exposures
         :file: ./public/deduplicate/elwin-exposures.sql
+      - :name: engagement
+        :file: ./public/deduplicate/engagement.sql
   - :name: 03-snowplow-children
     :queries:
       - :name: snowplow-add-to-cart

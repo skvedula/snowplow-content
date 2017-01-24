@@ -35,6 +35,8 @@
         :file: ./ca/deduplicate/real-estate.sql
       - :name: site-promos
         :file: ./ca/deduplicate/site-promos.sql
+      - :name: engagement
+        :file: ./ca/deduplicate/engagement.sql
   - :name: 05-snowplow-children
     :queries:
       - :name: snowplow-add-to-cart

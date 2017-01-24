@@ -41,6 +41,8 @@
         :file: ./atomic/copy-events/real-estate.sql
       - :name: elwin-exposures
         :file: ./atomic/copy-events/elwin-exposures.sql
+      - :name: engagement
+        :file: ./atomic/copy-events/engagement.sql
   - :name: copy-snowplow-child-tables
     :queries:
       - :name: snowplow-add-to-cart

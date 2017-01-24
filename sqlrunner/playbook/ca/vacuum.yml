@@ -67,3 +67,7 @@
     :queries:
       - :name: snowplow-timing
         :file: ./ca/vacuum/timing.sql
+  - :name: engagement
+    :queries:
+      - :name: engagement
+        :file: ./ca/vacuum/engagement.sql

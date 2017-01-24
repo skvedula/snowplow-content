@@ -67,3 +67,7 @@
     :queries:
       - :name: timing
         :file: ./public/vacuum/timing.sql
+  - :name: engagement
+    :queries:
+      - :name: engagement
+        :file: ./public/vacuum/engagement.sql
