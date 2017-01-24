@@ -47,6 +47,16 @@
 						experiment : experiment,
 						tag_id : tag_id
 					}
+				},
+				{
+					schema: 'iglu:com.nordstrom/uids/jsonschema/1-0-0',
+					data: {
+						'coremetrics_id': (window._$cV1 ? window._$cV1.substring(0, 23) : null),
+						'adobe_id': bt_cookie('aam_uuid') || null,
+						'elwin_id': bt_cookie('experiments').split('=')[1] || null,
+						'maxymiser_id': null,
+						'authenticated': authenticated_state
+					}
 				}
 			]
 		);
@@ -147,7 +157,11 @@
 				// 	style_number = (k.styleNumber).toString();
 				// 	percentage_off = (k.percentOff ? parseInt(k.percentOff.replace('%', ''), 10) : null);
 				// }
-				authenticated_state = (window.nord && nord.config && nord.config.settings && nord.config.settings.shopper && nord.config.settings.shopper.isLoggedIn ? 'Registered' : null);
+
+
+				if (window.digitalData && digitalData.shopper && digitalData.shopper.authenticatedState) authenticated_state = digitalData.shopper.authenticatedState;
+				else if (window.nord && nord.config && nord.config.settings && nord.config.settings.shopper && nord.config.settings.shopper.isLoggedIn) authenticated_state = 'Registered';
+
 				mmp = 'N';
 
 				if (price) {

@@ -33,6 +33,7 @@ export default function AllNordstrom_pageView() {
 		product_id = null,
 		product_name = null,
 		on_sale = null,
+		uids = null,
 		brand_name = null,
 		base_copy_split = null,
 		fit_value = null,
@@ -177,6 +178,18 @@ export default function AllNordstrom_pageView() {
 				}
 			};
 			contexts.push(page);
+
+			uids = {schema: 'iglu:com.nordstrom/uids/jsonschema/1-0-0',
+				data: {
+					'coremetrics_id': (window._$cV1 ? window._$cV1.substring(0,23) : null),
+					'adobe_id': bt_cookie('aam_uuid') || null,
+					'elwin_id': bt_cookie('experiments').split('=')[1] || null,
+					'maxymiser_id': null,
+					'authenticated': authenticated_state
+				}
+			};
+			contexts.push(uids);
+
 			if (window.digitalData && digitalData.product && digitalData.product.productInfo) {
 				product = {
 					schema: 'iglu:com.nordstrom/product_view_attrs/jsonschema/1-0-0',
@@ -291,24 +304,4 @@ export default function AllNordstrom_pageView() {
 		else throw 'no dispatcher';
 	}, 10)();*/
 
-	var get_uids = function() {
-		if (snowplow) {
-			snowplow('trackUnstructEvent', {
-				schema: 'iglu:com.nordstrom/uids/jsonschema/1-0-0',
-				data: {
-					'coremetrics_id': (window._$cV1 ? window._$cV1.substring(0,23) : null),
-					'adobe_id': bt_cookie('aam_uuid') || null,
-					'elwin_id': bt_cookie('experiments').split('=')[1] || null,
-					'maxymiser_id': null,
-					'authenticated': authenticated_state
-				}
-			});
-		}
-		else throw 'no snowplow';
-	};
-
-	mustExecute(function() {
-		if (window._$cV1 && snowplow) get_uids();
-		else throw 'no coreID6';
-	}, 10, get_uids)();
 }
