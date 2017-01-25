@@ -9,8 +9,17 @@ CREATE TABLE clk_strm_sp.tmp_order_ids_remaining
  SORTKEY (event_id)
 AS (SELECT event_id, tr_orderid
        FROM clk_strm_sp.events
-       WHERE tr_orderid IN
-       (SELECT tr_orderid FROM (SELECT tr_orderid, COUNT(*) AS count FROM clk_strm_sp.events GROUP BY 1) WHERE count > 1)
+       WHERE event_name = 'transaction'
+       AND tr_orderid <> ' ' 
+       AND tr_orderid IN
+       (SELECT tr_orderid FROM (
+       SELECT tr_orderid, 
+       COUNT(*) AS count 
+       FROM clk_strm_sp.events
+       WHERE event_name = 'transaction'
+       AND tr_orderid <> ' ' 
+       GROUP BY 1 
+       HAVING count(*) > 1))
 );
 
 -- (b) get full records and count matching rows
