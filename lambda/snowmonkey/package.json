@@ -1,0 +1,16 @@
+{
+  "name": "SP_build",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "build": "node aws_build"
+  },
+  "author": "Nordstrom <ndirttotech@nordstrom.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "ajv": "^3.5.0"
+  },
+  "dependencies": {
+    "dynamodb-doc": "^1.0.0"
+  }
+}
