@@ -1,5 +1,6 @@
 export default function Outfits_addToWishList() {
-	window.nord.core.dispatcher.register(function (payload) {
+	window.nord.core.dispatcher.register(function (payload, runAsTask) {
+		if (runAsTask) return false;
 		if (payload.action === window.nord.core.actions.ProductWishlistButtonClick){
 			var attrArray = [];
 			attrArray["1"] = payload.styleNumber;

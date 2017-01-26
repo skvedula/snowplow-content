@@ -284,8 +284,9 @@ export default function AllNordstrom_pageView() {
 
 	/*mustExecute(function() {
 		if (window.nord && window.nord.core && window.nord.core.dispatcher && window.nord.core.dispatcher.register) {
-			window.nord.core.dispatcher.register(function(d) {
+			window.nord.core.dispatcher.register(function(d, runAsTask) {
 				if (d.action === window.nord.core.actions.ShoppingBagAdded) {
+					if (runAsTask) return false;
 					window.nord.core.dispatcher.register(function(d) {
 					    if (d.action === 'AppMounted') {//console.log('appMounted');
 					        //getPage();

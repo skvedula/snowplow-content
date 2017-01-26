@@ -75,7 +75,8 @@
 
     if (window.nord && nord.core && nord.core.dispatcher) {
         window.nord.core.dispatcher.register(function(payload, runAsTask) {
-            if (payload.action === window.nord.core.actions.ShoppingBagAdded && runAsTask) {
+            if (runAsTask) return false;
+            if (payload.action === window.nord.core.actions.ShoppingBagAdded) {
                 try {
                     var j = payload.data[0],
                         k = digitalData.product.productInfo;
@@ -125,8 +126,8 @@
                     };
 
                     if (price) {
-                        if (window.sp_pv) fire_add_item();
-                        else document.addEventListener('sp_pv', fire_add_item, false);
+                        if (window.spPV) fire_add_item();
+                        else document.addEventListener('spPV', fire_add_item, false);
                     } else get_errors('price null');
                 } catch (e) {
                     get_errors(e);
