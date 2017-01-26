@@ -52,7 +52,8 @@ if(window.digitalData && digitalData.page && digitalData.page.category && digita
 	(function() {
 	    try {
 	        // if (window.digitalData.page.category.pageType.toLowerCase() === 'search' || window.digitalData.page.category.pageType.toLowerCase() === 'browse') {
-	            window.nord.core.dispatcher.register(function(payload) {
+	            window.nord.core.dispatcher.register(function(payload, runAsTask) {
+	            	if (runAsTask) return false;
 	                if (payload.action === window.nord.core.actions.ChangePage) {
 	                    var attrArray=[];
 					    attrArray[9] = digitalData.page.category.category;
@@ -105,9 +106,9 @@ if(window.digitalData && digitalData.page && digitalData.page.category && digita
 			        	StoreMode_changeStore(attrArray);
 			        }
 
-			        if (payload.action === window.nord.core.actions.ApplyInteractiveHeaderFilters) {
-			        	var type = payload.payload[0].optionId;
-			            Results_interactiveHeader(type);
+			        if (payload.action === window.nord.core.actions.ApplyInteractiveHeaderFilters && payload.payload && payload.payload[0] && payload.payload[0].optionId) {
+			        	var data = payload.payload;
+			            Results_interactiveHeader(data);
 			        }
 	            });
 	        // }
