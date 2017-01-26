@@ -63,8 +63,8 @@
     };
 
     if (window.nord && nord.core && nord.core.dispatcher) {
-        window.nord.core.dispatcher.register(function(payload) {
-            if (payload.action === window.nord.core.actions.ShoppingBagAdded) {
+        window.nord.core.dispatcher.register(function(payload, runAsTask) {
+            if (payload.action === window.nord.core.actions.ShoppingBagAdded && runAsTask) {
                 try {
                     var j = payload.data[0],
                         k = digitalData.product.productInfo;
